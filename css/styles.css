@@ -728,7 +728,14 @@ html:not(.js) .hero-clink {
   scroll-margin-top: 1.25rem;
 }
 
+.js .characters[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .characters-intro {
+  position: relative;
   padding: clamp(3.4rem, 7vw, 5.2rem) 1.25rem 0;
   text-align: center;
 }
@@ -760,7 +767,7 @@ html:not(.js) .hero-clink {
   justify-content: flex-end;
   min-height: 34rem;
   padding: 16rem 1.15rem 2.4rem;
-  overflow: hidden;
+  overflow: visible;
   text-align: center;
   background: linear-gradient(var(--cream) 0 42%, var(--band) 42% 100%);
 }
@@ -773,22 +780,48 @@ html:not(.js) .hero-clink {
   --band: #d9a441;
 }
 
-.character-can {
+.character-stage {
   position: absolute;
   z-index: 1;
   left: 50%;
   bottom: 32%;
-  width: auto;
+  width: 11.05rem;
   height: 20rem;
-  max-width: none;
   transform: translateX(-50%);
+}
+
+.character-pour .character-stage {
+  bottom: 36%;
+  width: 12.15rem;
+  height: 22rem;
+}
+
+.character-can {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  transform-origin: center center;
   filter: drop-shadow(0 18px 16px rgba(36, 22, 28, 0.2));
 }
 
-.character-pour .character-can {
-  height: 22rem;
-  bottom: 36%;
+.can-float {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  color: var(--character-ink);
+  opacity: 0;
+  pointer-events: none;
 }
+
+.can-float-1 { top: -2%; left: -24%; width: 1.7rem; --turn: -16deg; }
+.can-float-2 { top: 10%; right: -28%; width: 2.2rem; --turn: 18deg; }
+.can-float-3 { top: 46%; left: -32%; width: 1.15rem; --turn: 10deg; }
+.can-float-4 { top: 58%; right: -26%; width: 2rem; --turn: -24deg; }
+.can-float-5 { bottom: 2%; left: -10%; width: 1.35rem; --turn: 14deg; }
 
 .character h3 {
   position: relative;
@@ -861,7 +894,167 @@ html:not(.js) .hero-clink {
   top: 46%;
   left: 12%;
   width: 1.35rem;
-  transform: rotate(18deg);
+}
+
+.character-spark-sweet {
+  top: 16%;
+  right: 14%;
+  width: 1.35rem;
+}
+
+.character-spark-strong {
+  top: 20%;
+  left: 12%;
+  width: 1.45rem;
+}
+
+.character-ornament {
+  position: absolute;
+  z-index: 2;
+  height: auto;
+  color: var(--character-ink);
+  pointer-events: none;
+}
+
+.character-lime {
+  top: 7%;
+  left: 8%;
+  width: 3.4rem;
+}
+
+.character-mango {
+  top: 5%;
+  right: 7%;
+  width: 3.1rem;
+}
+
+.character-lime-intro,
+.character-mango-intro {
+  top: 42%;
+  width: clamp(52px, 6vw, 74px);
+}
+
+.character-lime-intro {
+  left: max(1rem, 6vw);
+}
+
+.character-mango-intro {
+  right: max(1rem, 6vw);
+}
+
+.characters-intro h2,
+.character h3,
+.character p,
+.character-link {
+  animation: character-rise 0.85s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  animation-play-state: paused;
+}
+
+.character-can {
+  animation: character-can-in 1s cubic-bezier(0.2, 0.72, 0.2, 1) backwards;
+  animation-play-state: paused;
+}
+
+.character-ornament,
+.character-spark {
+  animation: ornament-in 0.9s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  animation-play-state: paused;
+}
+
+.character-spark {
+  animation-name: star-pop;
+  animation-duration: 0.7s;
+}
+
+.characters-intro h2 { animation-delay: 0.04s; }
+
+.character-sweet .character-can { animation-delay: 0.12s; }
+
+.character-sweet h3,
+.character-sweet p,
+.character-sweet .character-link,
+.character-sweet .character-ornament,
+.character-sweet .character-spark { animation-delay: 0.22s; }
+
+.character-pour .character-can { animation-delay: 0.24s; }
+
+.character-pour h3,
+.character-pour p,
+.character-pour .character-link,
+.character-pour .character-spark { animation-delay: 0.34s; }
+
+.character-strong .character-can { animation-delay: 0.36s; }
+
+.character-strong h3,
+.character-strong p,
+.character-strong .character-link,
+.character-strong .character-ornament,
+.character-strong .character-spark { animation-delay: 0.46s; }
+
+.js .characters.is-in .characters-intro h2,
+.js .characters.is-in .character h3,
+.js .characters.is-in .character p,
+.js .characters.is-in .character-link,
+.js .characters.is-in .character-can,
+.js .characters.is-in .character-ornament,
+.js .characters.is-in .character-spark,
+html:not(.js) .characters-intro h2,
+html:not(.js) .character h3,
+html:not(.js) .character p,
+html:not(.js) .character-link,
+html:not(.js) .character-can,
+html:not(.js) .character-ornament,
+html:not(.js) .character-spark {
+  animation-play-state: running;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .character-can {
+    transition: transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
+  }
+
+  .can-float {
+    transform: scale(0.45) rotate(var(--turn, 0deg));
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
+  }
+
+  .character-stage:hover,
+  .character:focus-within .character-stage {
+    z-index: 4;
+  }
+
+  .character-stage:hover .character-can,
+  .character:focus-within .character-can {
+    transform: scale(1.12);
+  }
+
+  .character-stage:hover .can-float,
+  .character:focus-within .can-float {
+    opacity: 1;
+    transform: scale(1) rotate(var(--turn, 0deg));
+  }
+}
+
+@keyframes character-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes character-can-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.4rem) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .pillars {
@@ -1273,6 +1466,11 @@ html:not(.js) .hero-clink {
   .hero-mango {
     display: none;
   }
+
+  .character-lime-intro,
+  .character-mango-intro {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1289,9 +1487,30 @@ html:not(.js) .hero-clink {
   .hero-mango,
   .hero-glass-left,
   .hero-glass-right,
-  .hero-clink {
+  .hero-clink,
+  .characters-intro h2,
+  .character h3,
+  .character p,
+  .character-link,
+  .character-ornament,
+  .character-spark {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .character-can {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .character-stage:hover .character-can,
+  .character:focus-within .character-can {
+    transform: none;
+  }
+
+  .can-float {
+    transition: none;
   }
 }

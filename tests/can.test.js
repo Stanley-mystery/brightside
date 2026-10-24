@@ -29,7 +29,24 @@ test("when the can section renders, then three bands introduce the pour", () => 
   assert.equal(section.match(/src="assets\/brightside-can\.png"/g).length, 3);
   assert.match(section, /alt="Brightside Mango Margarita can"/);
   assert.equal(section.match(/class="character-link" href="#list">Try it/g).length, 3);
+  assert.match(section, /character-ornament character-lime/);
+  assert.match(section, /character-ornament character-mango/);
+  assert.match(section, /character-spark character-spark-sweet/);
+  assert.match(section, /character-spark character-spark-strong/);
   assert.doesNotMatch(section, /class="tin|pink carrier/);
+});
+
+test("when a can is hovered, then that can grows and its ornaments appear", () => {
+  const section = canSection();
+  assert.equal(section.match(/class="character-stage"/g).length, 3);
+  assert.equal(section.match(/class="can-float can-float-1"/g).length, 3);
+  assert.match(css, /@keyframes character-rise/);
+  assert.match(css, /@keyframes character-can-in/);
+  assert.match(css, /\.js \.characters\.is-in \.character-can[\s\S]*animation-play-state:\s*running/);
+  assert.match(css, /\.character-stage:hover \.character-can,\s*\.character:focus-within \.character-can\s*\{[^}]*transform:\s*scale\(1\.12\)/s);
+  assert.match(css, /\.character-stage:hover \.can-float,\s*\.character:focus-within \.can-float\s*\{[^}]*opacity:\s*1/s);
+  assert.doesNotMatch(css, /\.character:hover,\s*\.character:focus-within\s*\{[^}]*transform:\s*scale\(/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.character-stage:hover \.character-can[\s\S]*transform:\s*none/);
 });
 
 test("when the lineup is styled, then each band has its own color and the center can is larger", () => {
@@ -38,6 +55,6 @@ test("when the lineup is styled, then each band has its own color and the center
   assert.match(css, /\.character-strong\s*\{[^}]*--band:\s*#d9a441/s);
   assert.match(css, /\.characters-intro h2\s*\{[^}]*text-transform:\s*uppercase/s);
   assert.match(css, /\.character-link\s*\{[^}]*text-transform:\s*uppercase/s);
-  assert.match(css, /\.character-pour \.character-can\s*\{[^}]*height:\s*22rem/s);
+  assert.match(css, /\.character-pour \.character-stage\s*\{[^}]*height:\s*22rem/s);
   assert.match(css, /@media \(min-width:\s*960px\)[\s\S]*\.characters-row\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*1fr\)/);
 });
