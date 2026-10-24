@@ -30,6 +30,7 @@ test("when the can section renders, then three bands introduce the pour", () => 
   assert.match(section, /alt="Brightside Mango Margarita can"/);
   assert.equal(section.match(/class="character-link" href="#list">Try it/g).length, 3);
   assert.match(section, /character-ornament character-lime/);
+  assert.match(section, /character-ornament character-orange/);
   assert.match(section, /character-ornament character-mango/);
   assert.match(section, /character-spark character-spark-sweet/);
   assert.match(section, /character-spark character-spark-strong/);
@@ -48,6 +49,21 @@ test("when a can is hovered, then that can grows and its ornaments appear", () =
   assert.match(section, /href="#leaf"/);
   assert.match(section, /href="#lime"/);
   assert.match(section, /href="#spark"/);
+  const fruits = ["mango", "orange", "lemon", "cherry", "strawberry", "pineapple", "grapefruit"];
+  for (const fruit of fruits) {
+    assert.match(html, new RegExp(`id="${fruit}"`));
+  }
+  const cards = [...section.matchAll(/<article class="character character-(?:sweet|pour|strong)">[\s\S]*?<\/article>/g)].map((match) => match[0]);
+  assert.equal(cards.length, 3);
+  const hoverFruits = cards.map((card) => [...card.matchAll(/class="can-float[\s\S]*?href="#([a-z]+)"/g)].map((match) => match[1]));
+  for (const set of hoverFruits) {
+    const unique = new Set(set.filter((name) => fruits.includes(name) || name === "lime"));
+    assert.equal(unique.size >= 6, true, `hover shows a variety of fruit, got ${[...unique].join(", ")}`);
+    assert.ok(set.filter((name) => name === "leaf").length <= 1);
+  }
+  assert.notEqual(hoverFruits[0].join(","), hoverFruits[1].join(","));
+  assert.notEqual(hoverFruits[1].join(","), hoverFruits[2].join(","));
+  assert.notEqual(hoverFruits[0].join(","), hoverFruits[2].join(","));
   assert.doesNotMatch(css, /\.character:hover,\s*\.character:focus-within\s*\{[^}]*transform:\s*scale\(/);
   assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.character-stage:hover \.character-can[\s\S]*transform:\s*translateX\(-50%\)/);
 });

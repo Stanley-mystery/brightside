@@ -602,8 +602,8 @@ html:not(.js) .hero-clink {
 
 .marquee {
   overflow: hidden;
-  background: var(--ink);
-  color: var(--blush);
+  background: #000;
+  color: var(--ink);
   border-block: 1px solid transparent;
 }
 
@@ -860,6 +860,12 @@ html:not(.js) .hero-clink {
   width: 3.1rem;
 }
 
+.character-orange {
+  top: 6%;
+  left: 9%;
+  width: 3.2rem;
+}
+
 .character-lime-intro,
 .character-mango-intro {
   top: 42%;
@@ -930,6 +936,7 @@ html:not(.js) .hero-clink {
 .character-pour h3,
 .character-pour p,
 .character-pour .character-link,
+.character-pour .character-ornament,
 .character-pour .character-spark { animation-delay: 0.34s; }
 
 .character-strong h3,

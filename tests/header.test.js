@@ -31,6 +31,14 @@ test("when the header is wide, then its sides line up with the hero copy", () =>
   assert.match(css, /\.hero-panel\s*\{[^}]*var\(--hero-inset\)/s);
 });
 
+test("when the marquee renders, then its background is black and its text matches the header links", () => {
+  assert.match(css, /\.marquee\s*\{[^}]*background:\s*#000/s);
+  assert.match(css, /\.marquee\s*\{[^}]*color:\s*var\(--ink\)/s);
+  assert.match(css, /body\s*\{[^}]*color:\s*var\(--ink\)/s);
+  assert.doesNotMatch(css, /\.links a\s*\{[^}]*color:/s);
+  assert.match(css, /\.footer-marquee\s*\{[^}]*background:\s*transparent/s);
+});
+
 test("when the header logo is styled, then it stays a short lockup on small screens", () => {
   assert.match(css, /\.logo-image\s*\{[^}]*height:\s*64px/s);
   assert.match(css, /\.logo-image\s*\{[^}]*width:\s*auto/s);
