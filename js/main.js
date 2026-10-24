@@ -1,6 +1,7 @@
 import {
   FORM_MESSAGES,
   isValidEmail,
+  nextSceneOffset,
   serveFor,
   subscriptionState,
 } from "./logic.js";
@@ -145,6 +146,25 @@ function bindForm() {
   });
 }
 
+function bindScenes() {
+  const track = document.getElementById("scenes-track");
+  const next = document.querySelector(".scenes-next");
+  if (!track || !next) return;
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  next.addEventListener("click", () => {
+    const frame = track.querySelector(".scene");
+    if (!frame) return;
+    const styles = getComputedStyle(track);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
+    const step = frame.getBoundingClientRect().width + gap;
+    const max = track.scrollWidth - track.clientWidth;
+    const left = nextSceneOffset(track.scrollLeft, step, max);
+    track.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+  });
+}
+
 function bindReveal() {
   const nodes = document.querySelectorAll("[data-reveal]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -184,5 +204,6 @@ if (page) {
   bindMenu();
   bindServes();
   bindForm();
+  bindScenes();
   bindReveal();
 }
