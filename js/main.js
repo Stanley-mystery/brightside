@@ -1,16 +1,13 @@
 import {
   FORM_MESSAGES,
-  ageDecision,
   isValidEmail,
   serveFor,
   subscriptionState,
 } from "./logic.js";
 
-const AGE_KEY = "brightside-age";
 const EMAIL_KEY = "brightside-list-email";
 
 const page = document.getElementById("page");
-const gate = document.getElementById("gate");
 const nav = document.getElementById("nav");
 const links = document.getElementById("links");
 const menuButton = document.getElementById("menu-button");
@@ -45,20 +42,6 @@ function removeStore(storage, key) {
   } catch {
     // Storage can be blocked. The screen still updates.
   }
-}
-
-function openSite() {
-  writeStore(sessionStorage, AGE_KEY, "ok");
-  document.documentElement.classList.remove("is-refused");
-  document.documentElement.classList.add("is-allowed");
-  page.removeAttribute("inert");
-  document.getElementById("main").focus();
-}
-
-function refuseSite() {
-  writeStore(sessionStorage, AGE_KEY, "no");
-  document.documentElement.classList.add("is-refused");
-  document.getElementById("gate-back").focus();
 }
 
 function closeMenu() {
@@ -108,27 +91,6 @@ function showFormSuccess(savedOnDevice) {
     ? FORM_MESSAGES.saved
     : "You're in for this visit. This browser wouldn't store the email.";
   emailInput.setAttribute("aria-invalid", "false");
-}
-
-function bindAgeGate() {
-  document.getElementById("gate-yes").addEventListener("click", () => {
-    if (ageDecision(true) === "enter") openSite();
-  });
-  document.getElementById("gate-no").addEventListener("click", () => {
-    if (ageDecision(false) === "refuse") refuseSite();
-  });
-  document.getElementById("gate-back").addEventListener("click", () => {
-    if (ageDecision(true) === "enter") openSite();
-  });
-
-  if (document.documentElement.classList.contains("is-allowed")) {
-    page.removeAttribute("inert");
-    return;
-  }
-  const focusTarget = document.documentElement.classList.contains("is-refused")
-    ? document.getElementById("gate-back")
-    : document.getElementById("gate-yes");
-  focusTarget.focus({ preventScroll: true });
 }
 
 function bindMenu() {
@@ -201,10 +163,24 @@ function bindReveal() {
     { threshold: 0.18 }
   );
   nodes.forEach((node) => observer.observe(node));
+
+  const cards = document.querySelectorAll(".characters .character");
+  if (!cards.length) return;
+
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        cardObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.32 }
+  );
+  cards.forEach((card) => cardObserver.observe(card));
 }
 
-if (gate && page) {
-  bindAgeGate();
+if (page) {
   bindMenu();
   bindServes();
   bindForm();

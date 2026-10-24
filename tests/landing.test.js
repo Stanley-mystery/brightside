@@ -1,25 +1,20 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import {
   FORM_MESSAGES,
-  ageDecision,
   isValidEmail,
   serveFor,
   subscriptionState,
 } from "../js/logic.js";
 
-test("when a visitor confirms they are 21 or over, then the gate opens", () => {
-  assert.equal(ageDecision(true), "enter");
-});
+const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 
-test("when a visitor says they are under 21, then the gate stays shut", () => {
-  assert.equal(ageDecision(false), "refuse");
-});
-
-test("when the age answer is anything other than a clear yes, then the gate stays shut", () => {
-  assert.equal(ageDecision("yes"), "refuse");
-  assert.equal(ageDecision(21), "refuse");
-  assert.equal(ageDecision(undefined), "refuse");
+test("when the page is first visited, then the age prompt is not shown", () => {
+  assert.doesNotMatch(html, /Are you 21 or over\?/);
+  assert.doesNotMatch(html, /id="gate"/);
+  assert.doesNotMatch(html, /setAttribute\("inert"/);
+  assert.match(html, /<html lang="en" class="is-allowed">/);
 });
 
 test("when the email is a normal address, then it is accepted", () => {

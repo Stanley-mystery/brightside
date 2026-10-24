@@ -180,84 +180,6 @@ a {
   transform: translateY(-2px);
 }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--ink);
-}
-
-.gate {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  display: grid;
-  place-items: center;
-  padding: 1.5rem;
-  text-align: center;
-  background:
-    radial-gradient(circle at 50% 28%, var(--blush) 0, transparent 34%),
-    var(--cream);
-}
-
-html.is-allowed .gate {
-  display: none;
-}
-
-.gate-card {
-  width: min(100%, 32rem);
-}
-
-.gate-mark {
-  width: 108px;
-  height: 60px;
-  color: var(--pink);
-}
-
-.gate-brand {
-  margin: 0.2rem 0 1rem;
-  color: var(--pink);
-  font-family: var(--script);
-  font-size: clamp(3.4rem, 10vw, 5rem);
-  line-height: 0.9;
-}
-
-.gate h2 {
-  max-width: none;
-  margin-inline: auto;
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
-}
-
-.gate-copy {
-  margin: 1rem auto 0;
-  max-width: 28rem;
-  color: var(--ink-soft);
-}
-
-.gate-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1.6rem;
-}
-
-.gate-note {
-  margin-top: 1.2rem;
-  color: var(--ink-soft);
-  font-size: 0.86rem;
-}
-
-.gate-no {
-  display: none;
-}
-
-html.is-refused .gate-ask {
-  display: none;
-}
-
-html.is-refused .gate-no {
-  display: block;
-}
-
 .nav {
   position: relative;
   z-index: 40;
@@ -784,26 +706,22 @@ html:not(.js) .hero-clink {
   position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 32%;
-  width: 11.05rem;
-  height: 20rem;
+  bottom: 13rem;
+  width: 20rem;
+  height: 24.5rem;
   transform: translateX(-50%);
 }
 
-.character-pour .character-stage {
-  bottom: 36%;
-  width: 12.15rem;
-  height: 22rem;
-}
-
 .character-can {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  display: block;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  bottom: 1.6rem;
+  width: 11.05rem;
+  height: 20rem;
   max-width: none;
   object-fit: contain;
+  transform: translateX(-50%);
   transform-origin: center center;
   filter: drop-shadow(0 18px 16px rgba(36, 22, 28, 0.2));
 }
@@ -817,11 +735,25 @@ html:not(.js) .hero-clink {
   pointer-events: none;
 }
 
-.can-float-1 { top: -2%; left: -24%; width: 1.7rem; --turn: -16deg; }
-.can-float-2 { top: 10%; right: -28%; width: 2.2rem; --turn: 18deg; }
-.can-float-3 { top: 46%; left: -32%; width: 1.15rem; --turn: 10deg; }
-.can-float-4 { top: 58%; right: -26%; width: 2rem; --turn: -24deg; }
-.can-float-5 { bottom: 2%; left: -10%; width: 1.35rem; --turn: 14deg; }
+.can-float-1 { top: 8%; left: 14%; width: 2.85rem; --turn: -48deg; --dx: 0.9rem; --dy: 1.4rem; }
+.can-float-2 { top: 0; left: 40%; width: 1.45rem; --turn: 16deg; --dx: 0; --dy: 1.4rem; }
+.can-float-3 { top: 11%; right: 8%; width: 2.45rem; --turn: 42deg; --dx: -1.2rem; --dy: 1rem; }
+.can-float-4 { top: 42%; right: 4%; width: 1.9rem; --turn: -22deg; --dx: -1.1rem; --dy: 0.15rem; }
+.can-float-5 { top: 36%; left: 8%; width: 2.35rem; --turn: 64deg; --dx: 1.3rem; --dy: 0.1rem; }
+.can-float-6 { bottom: 12%; right: 5%; width: 2.45rem; --turn: 18deg; --dx: -0.8rem; --dy: -1.1rem; }
+.can-float-7 { top: 16%; left: 32%; width: 0.8rem; --turn: 8deg; --dx: 0.2rem; --dy: 0.6rem; }
+.can-float-8 { top: 30%; right: 20%; width: 0.46rem; --turn: 0deg; --dx: -0.3rem; --dy: 0.4rem; }
+.can-float-9 { bottom: 16%; left: 12%; width: 2.65rem; --turn: -18deg; --dx: 0.6rem; --dy: -1.2rem; }
+.can-float-10 { top: 58%; right: 14%; width: 1.55rem; --turn: -36deg; --dx: -0.6rem; --dy: -0.3rem; }
+
+.character-pour .can-float-1 { --turn: -22deg; }
+.character-pour .can-float-3 { --turn: 54deg; }
+.character-pour .can-float-5 { --turn: 30deg; }
+.character-pour .can-float-9 { --turn: 10deg; }
+.character-strong .can-float-1 { --turn: -60deg; }
+.character-strong .can-float-4 { --turn: 14deg; }
+.character-strong .can-float-6 { --turn: -24deg; }
+.character-strong .can-float-10 { --turn: 18deg; }
 
 .character h3 {
   position: relative;
@@ -879,33 +811,33 @@ html:not(.js) .hero-clink {
 }
 
 .character-spark-a {
-  top: 18%;
-  left: 16%;
-  width: 2.4rem;
-}
-
-.character-spark-b {
-  top: 28%;
-  right: 14%;
+  top: 5%;
+  left: 18%;
   width: 1.15rem;
 }
 
+.character-spark-b {
+  top: 8%;
+  right: 16%;
+  width: 0.7rem;
+}
+
 .character-spark-c {
-  top: 46%;
-  left: 12%;
-  width: 1.35rem;
+  top: 3%;
+  left: 46%;
+  width: 0.85rem;
 }
 
 .character-spark-sweet {
-  top: 16%;
-  right: 14%;
-  width: 1.35rem;
+  top: 9%;
+  right: 16%;
+  width: 1rem;
 }
 
 .character-spark-strong {
-  top: 20%;
-  left: 12%;
-  width: 1.45rem;
+  top: 11%;
+  left: 14%;
+  width: 1rem;
 }
 
 .character-ornament {
@@ -955,6 +887,27 @@ html:not(.js) .hero-clink {
   animation-play-state: paused;
 }
 
+.character-sweet .character-can {
+  animation-name: character-can-left;
+  animation-duration: 0.95s;
+  animation-timing-function: cubic-bezier(0.16, 0.84, 0.28, 1);
+  animation-delay: 0.14s;
+}
+
+.character-pour .character-can {
+  animation-name: character-can-drop;
+  animation-duration: 1.15s;
+  animation-timing-function: cubic-bezier(0.18, 0.7, 0.28, 1);
+  animation-delay: 0.02s;
+}
+
+.character-strong .character-can {
+  animation-name: character-can-right;
+  animation-duration: 0.95s;
+  animation-timing-function: cubic-bezier(0.16, 0.84, 0.28, 1);
+  animation-delay: 0.14s;
+}
+
 .character-ornament,
 .character-spark {
   animation: ornament-in 0.9s cubic-bezier(0.2, 0.72, 0.2, 1) both;
@@ -968,22 +921,16 @@ html:not(.js) .hero-clink {
 
 .characters-intro h2 { animation-delay: 0.04s; }
 
-.character-sweet .character-can { animation-delay: 0.12s; }
-
 .character-sweet h3,
 .character-sweet p,
 .character-sweet .character-link,
 .character-sweet .character-ornament,
 .character-sweet .character-spark { animation-delay: 0.22s; }
 
-.character-pour .character-can { animation-delay: 0.24s; }
-
 .character-pour h3,
 .character-pour p,
 .character-pour .character-link,
 .character-pour .character-spark { animation-delay: 0.34s; }
-
-.character-strong .character-can { animation-delay: 0.36s; }
 
 .character-strong h3,
 .character-strong p,
@@ -995,7 +942,7 @@ html:not(.js) .hero-clink {
 .js .characters.is-in .character h3,
 .js .characters.is-in .character p,
 .js .characters.is-in .character-link,
-.js .characters.is-in .character-can,
+.js .character.is-in .character-can,
 .js .characters.is-in .character-ornament,
 .js .characters.is-in .character-spark,
 html:not(.js) .characters-intro h2,
@@ -1014,9 +961,19 @@ html:not(.js) .character-spark {
   }
 
   .can-float {
-    transform: scale(0.45) rotate(var(--turn, 0deg));
-    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
+    transform: translate(var(--dx, 0), var(--dy, 0)) scale(0.35) rotate(var(--turn, 0deg));
+    transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.2, 0.72, 0.2, 1);
   }
+
+  .can-float-2 { transition-delay: 0.04s; }
+  .can-float-3 { transition-delay: 0.08s; }
+  .can-float-4 { transition-delay: 0.05s; }
+  .can-float-5 { transition-delay: 0.1s; }
+  .can-float-6 { transition-delay: 0.07s; }
+  .can-float-7 { transition-delay: 0.12s; }
+  .can-float-8 { transition-delay: 0.14s; }
+  .can-float-9 { transition-delay: 0.06s; }
+  .can-float-10 { transition-delay: 0.16s; }
 
   .character-stage:hover,
   .character:focus-within .character-stage {
@@ -1025,13 +982,13 @@ html:not(.js) .character-spark {
 
   .character-stage:hover .character-can,
   .character:focus-within .character-can {
-    transform: scale(1.12);
+    transform: translateX(-50%) scale(1.12);
   }
 
   .character-stage:hover .can-float,
   .character:focus-within .can-float {
     opacity: 1;
-    transform: scale(1) rotate(var(--turn, 0deg));
+    transform: translate(0, 0) scale(1) rotate(var(--turn, 0deg));
   }
 }
 
@@ -1049,11 +1006,54 @@ html:not(.js) .character-spark {
 @keyframes character-can-in {
   from {
     opacity: 0;
-    transform: translateY(1.4rem) scale(0.94);
+    transform: translateX(-50%) translateY(1.4rem) scale(0.94);
   }
   to {
     opacity: 1;
-    transform: none;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes character-can-drop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-160%);
+  }
+  16% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(12px);
+  }
+  86% {
+    transform: translateX(-50%) translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes character-can-left {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-50% - 64vw));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes character-can-right {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-50% + 64vw));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
   }
 }
 
@@ -1471,6 +1471,12 @@ html:not(.js) .character-spark {
   .character-mango-intro {
     display: none;
   }
+
+  .character-stage {
+    bottom: 10.75rem;
+    width: 18rem;
+    height: 22.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1499,15 +1505,12 @@ html:not(.js) .character-spark {
     transform: none;
   }
 
-  .character-can {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
+  .character-can,
   .character-stage:hover .character-can,
   .character:focus-within .character-can {
-    transform: none;
+    animation: none;
+    opacity: 1;
+    transform: translateX(-50%);
   }
 
   .can-float {

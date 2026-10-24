@@ -42,19 +42,39 @@ test("when a can is hovered, then that can grows and its ornaments appear", () =
   assert.equal(section.match(/class="can-float can-float-1"/g).length, 3);
   assert.match(css, /@keyframes character-rise/);
   assert.match(css, /@keyframes character-can-in/);
-  assert.match(css, /\.js \.characters\.is-in \.character-can[\s\S]*animation-play-state:\s*running/);
-  assert.match(css, /\.character-stage:hover \.character-can,\s*\.character:focus-within \.character-can\s*\{[^}]*transform:\s*scale\(1\.12\)/s);
+  assert.match(css, /\.js \.character\.is-in \.character-can[\s\S]*animation-play-state:\s*running/);
+  assert.match(css, /\.character-stage:hover \.character-can,\s*\.character:focus-within \.character-can\s*\{[^}]*transform:\s*translateX\(-50%\) scale\(1\.12\)/s);
   assert.match(css, /\.character-stage:hover \.can-float,\s*\.character:focus-within \.can-float\s*\{[^}]*opacity:\s*1/s);
+  assert.match(section, /href="#leaf"/);
+  assert.match(section, /href="#lime"/);
+  assert.match(section, /href="#spark"/);
   assert.doesNotMatch(css, /\.character:hover,\s*\.character:focus-within\s*\{[^}]*transform:\s*scale\(/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.character-stage:hover \.character-can[\s\S]*transform:\s*none/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.character-stage:hover \.character-can[\s\S]*transform:\s*translateX\(-50%\)/);
 });
 
-test("when the lineup is styled, then each band has its own color and the center can is larger", () => {
+test("when the lineup is styled, then each band has its own color and the cans match until hover", () => {
   assert.match(css, /\.character\s*\{[^}]*--band:\s*#e36b24/s);
   assert.match(css, /\.character-pour\s*\{[^}]*--band:\s*#e7a8c4/s);
   assert.match(css, /\.character-strong\s*\{[^}]*--band:\s*#d9a441/s);
   assert.match(css, /\.characters-intro h2\s*\{[^}]*text-transform:\s*uppercase/s);
   assert.match(css, /\.character-link\s*\{[^}]*text-transform:\s*uppercase/s);
-  assert.match(css, /\.character-pour \.character-stage\s*\{[^}]*height:\s*22rem/s);
+  assert.match(css, /\.character-can\s*\{[^}]*height:\s*20rem/s);
+  assert.match(css, /\.character-stage\s*\{[^}]*bottom:\s*13rem/s);
+  assert.match(css, /@media \(max-width:\s*959px\)[\s\S]*\.character-stage\s*\{[^}]*bottom:\s*10\.75rem/s);
+  assert.doesNotMatch(css, /\.character-pour \.character-can\s*\{[^}]*height:/s);
+  assert.doesNotMatch(css, /\.character-sweet \.character-can\s*\{[^}]*height:/s);
+  assert.doesNotMatch(css, /\.character-strong \.character-can\s*\{[^}]*height:/s);
   assert.match(css, /@media \(min-width:\s*960px\)[\s\S]*\.characters-row\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*1fr\)/);
+});
+
+test("when the lineup scrolls into view, then the center can drops and the side cans enter from their edges", () => {
+  assert.match(css, /\.character-pour \.character-can\s*\{[^}]*animation-name:\s*character-can-drop/s);
+  assert.match(css, /\.character-sweet \.character-can\s*\{[^}]*animation-name:\s*character-can-left/s);
+  assert.match(css, /\.character-strong \.character-can\s*\{[^}]*animation-name:\s*character-can-right/s);
+  assert.match(css, /@keyframes character-can-drop\s*\{[\s\S]*?translateY\(-160%\)/);
+  assert.match(css, /@keyframes character-can-left\s*\{[\s\S]*?translateX\(calc\(-50% - 64vw\)\)/);
+  assert.match(css, /@keyframes character-can-right\s*\{[\s\S]*?translateX\(calc\(-50% \+ 64vw\)\)/);
+  assert.match(css, /@keyframes character-can-drop\s*\{[\s\S]*?100%\s*\{[^}]*transform:\s*translateX\(-50%\)/);
+  assert.match(css, /@keyframes character-can-left\s*\{[\s\S]*?to\s*\{[^}]*transform:\s*translateX\(-50%\)/);
+  assert.match(css, /@keyframes character-can-right\s*\{[\s\S]*?to\s*\{[^}]*transform:\s*translateX\(-50%\)/);
 });

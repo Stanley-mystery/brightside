@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="is-allowed">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,14 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,520&family=Lobster&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <noscript><style>.gate { display: none; } #page { pointer-events: auto; }</style></noscript>
   <script>
     document.documentElement.classList.add("js");
-    try {
-      var age = sessionStorage.getItem("brightside-age");
-      if (age === "ok") document.documentElement.classList.add("is-allowed");
-      if (age === "no") document.documentElement.classList.add("is-refused");
-    } catch (error) {}
   </script>
 </head>
 <body>
@@ -38,41 +32,24 @@
         <path d="M96 64c7 9 16 9 23 3"/>
       </g>
     </symbol>
+    <symbol id="leaf" viewBox="0 0 64 108">
+      <path fill="currentColor" fill-rule="evenodd" d="M32 4c14 20 28 40 26 62-2 22-14 36-26 38C20 102 6 88 4 66 2 44 18 24 32 4zm.6 24c-1.6 16-3 36-1.4 50 .7 6 2.8 8 3.8 7 1.8-1.8 2.4-5.4 1.2-15-1-14-2.2-28-3.6-42z"/>
+    </symbol>
+    <symbol id="lime" viewBox="0 0 64 64">
+      <path fill="currentColor" d="M6 58A52 52 0 0 1 58 6v52H6z"/>
+    </symbol>
+    <symbol id="wedge" viewBox="0 0 64 40">
+      <path fill="currentColor" d="M4 36A28 28 0 0 1 60 36H4z"/>
+    </symbol>
+    <symbol id="spark" viewBox="0 0 36 36">
+      <path fill="currentColor" d="M18 2.2 19.6 14.2 32 18l-12.4 3.8L18 33.8 16.4 21.8 4 18l12.4-3.8z"/>
+    </symbol>
+    <symbol id="pip" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="4" fill="currentColor"/>
+    </symbol>
   </svg>
 
-  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-    <div class="gate-card">
-      <svg class="gate-mark" aria-hidden="true"><use href="#mark"/></svg>
-      <p class="gate-brand">Brightside</p>
-      <h2 id="gate-title" class="sr-only">Age check</h2>
-
-      <div class="gate-ask">
-        <h2>Are you 21 or over?</h2>
-        <p class="gate-copy">Brightside is a canned cocktail. The bright side starts at 21.</p>
-        <div class="gate-actions">
-          <button class="btn" type="button" id="gate-yes">Yes, pour me in</button>
-          <button class="btn btn-ghost" type="button" id="gate-no">Not yet</button>
-        </div>
-      </div>
-
-      <div class="gate-no">
-        <h2>This can is for grown-ups.</h2>
-        <p class="gate-copy">Come back on your 21st. We'll keep the mango cold.</p>
-        <div class="gate-actions">
-          <button class="btn" type="button" id="gate-back">I am 21</button>
-        </div>
-      </div>
-
-      <p class="gate-note">Please drink responsibly.</p>
-    </div>
-  </div>
-
   <div id="page">
-  <script>
-    if (!document.documentElement.classList.contains("is-allowed")) {
-      document.getElementById("page").setAttribute("inert", "");
-    }
-  </script>
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav" id="nav">
       <a class="logo" href="#top">
@@ -203,11 +180,16 @@
             <svg class="character-spark character-spark-sweet" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
             <div class="character-stage">
               <img class="character-can" src="assets/brightside-can.png" width="495" height="898" alt="">
-              <svg class="can-float can-float-1" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
-              <svg class="can-float can-float-2" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M4 16C12 4 28 2 44 8 34 18 20 22 4 16z"/></svg>
-              <svg class="can-float can-float-3" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"/></svg>
-              <svg class="can-float can-float-4" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M6 8c10 2 22 8 36 14-12 6-26 4-36-6 0-3 0-6 0-8z"/></svg>
-              <svg class="can-float can-float-5" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
+              <svg class="can-float can-float-1" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-2" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-3" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-4" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-5" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-6" viewBox="0 0 64 64" aria-hidden="true"><use href="#lime" width="64" height="64"/></svg>
+              <svg class="can-float can-float-7" viewBox="0 0 36 36" aria-hidden="true"><use href="#spark" width="36" height="36"/></svg>
+              <svg class="can-float can-float-8" viewBox="0 0 8 8" aria-hidden="true"><use href="#pip" width="8" height="8"/></svg>
+              <svg class="can-float can-float-9" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-10" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
             </div>
             <h3>Sweet</h3>
             <p>Ripe mango leads.</p>
@@ -216,11 +198,16 @@
           <article class="character character-pour">
             <div class="character-stage">
               <img class="character-can" src="assets/brightside-can.png" width="495" height="898" alt="Brightside Mango Margarita can">
-              <svg class="can-float can-float-1" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
-              <svg class="can-float can-float-2" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M4 16C12 4 28 2 44 8 34 18 20 22 4 16z"/></svg>
-              <svg class="can-float can-float-3" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"/></svg>
-              <svg class="can-float can-float-4" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M6 8c10 2 22 8 36 14-12 6-26 4-36-6 0-3 0-6 0-8z"/></svg>
-              <svg class="can-float can-float-5" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
+              <svg class="can-float can-float-1" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-2" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-3" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-4" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-5" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-6" viewBox="0 0 64 64" aria-hidden="true"><use href="#lime" width="64" height="64"/></svg>
+              <svg class="can-float can-float-7" viewBox="0 0 36 36" aria-hidden="true"><use href="#spark" width="36" height="36"/></svg>
+              <svg class="can-float can-float-8" viewBox="0 0 8 8" aria-hidden="true"><use href="#pip" width="8" height="8"/></svg>
+              <svg class="can-float can-float-9" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-10" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
             </div>
             <svg class="character-spark character-spark-a" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
             <svg class="character-spark character-spark-b" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"/></svg>
@@ -241,11 +228,16 @@
             <svg class="character-spark character-spark-strong" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
             <div class="character-stage">
               <img class="character-can" src="assets/brightside-can.png" width="495" height="898" alt="">
-              <svg class="can-float can-float-1" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
-              <svg class="can-float can-float-2" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M4 16C12 4 28 2 44 8 34 18 20 22 4 16z"/></svg>
-              <svg class="can-float can-float-3" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"/></svg>
-              <svg class="can-float can-float-4" viewBox="0 0 48 28" aria-hidden="true"><path fill="currentColor" d="M6 8c10 2 22 8 36 14-12 6-26 4-36-6 0-3 0-6 0-8z"/></svg>
-              <svg class="can-float can-float-5" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
+              <svg class="can-float can-float-1" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-2" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-3" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-4" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-5" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-6" viewBox="0 0 64 64" aria-hidden="true"><use href="#lime" width="64" height="64"/></svg>
+              <svg class="can-float can-float-7" viewBox="0 0 36 36" aria-hidden="true"><use href="#spark" width="36" height="36"/></svg>
+              <svg class="can-float can-float-8" viewBox="0 0 8 8" aria-hidden="true"><use href="#pip" width="8" height="8"/></svg>
+              <svg class="can-float can-float-9" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
+              <svg class="can-float can-float-10" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
             </div>
             <h3>Strong</h3>
             <p>Lime keeps it sharp.</p>

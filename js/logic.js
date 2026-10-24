@@ -1,11 +1,3 @@
-/**
- * Age gate confirmation. Brightside is a 21+ cocktail brand.
- * The gate stores a yes or no. It does not collect a birth date.
- */
-export function ageDecision(confirmedAdult) {
-  return confirmedAdult === true ? "enter" : "refuse";
-}
-
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export function isValidEmail(value) {
