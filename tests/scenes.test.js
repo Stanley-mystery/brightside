@@ -59,6 +59,8 @@ test("when the night section is styled, then the frames read as polaroids on a d
   assert.match(css, /\.scenes\s*\{[^}]*background:\s*#242424/s);
   assert.match(css, /\.scenes h2\s*\{[^}]*text-transform:\s*uppercase/s);
   assert.match(css, /\.polaroid\s*\{[^}]*background:\s*#f7f4ef/s);
+  assert.match(css, /\.polaroid img\s*\{[^}]*height:\s*auto/s);
+  assert.match(css, /\.polaroid img\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/s);
   assert.match(css, /\.polaroid figcaption\s*\{[^}]*font-family:\s*"Caveat"/s);
   assert.match(css, /\.scene-foot::after\s*\{[^}]*border-radius:\s*50%/s);
   assert.match(css, /\.scenes-next\s*\{[^}]*border-radius:\s*50%/s);
