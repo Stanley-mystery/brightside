@@ -105,6 +105,18 @@ test("when motion is reduced or scripts are off, then every card is in the page 
   assert.match(main, /if \(reduce\) return;/);
 });
 
+test("when the origin story scrolls into view, then the copy, rail, and cards rise in", () => {
+  const section = beganMarkup();
+  assert.match(section, /class="began-pin"[^>]*data-reveal/);
+  assert.match(css, /@keyframes began-rise/);
+  assert.match(css, /\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation:\s*began-rise/s);
+  assert.match(css, /\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation-play-state:\s*paused/s);
+  assert.match(css, /\.js \.began-pin\.is-in \.began-stage[\s\S]*animation-play-state:\s*running/);
+  assert.match(css, /\.js \.began-pin\[data-reveal\],\s*\.js \.founder\[data-reveal\]\s*\{[^}]*opacity:\s*1/s);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.founder-photo,\s*\.founder-copy,\s*\.founder-social,\s*\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation:\s*none/);
+  assert.match(main, /querySelectorAll\("\[data-reveal\]"\)/);
+});
+
 test("when the page loads, then scroll progress moves the dot and the cards", () => {
   assert.match(main, /function bindBegan\(/);
   assert.match(main, /bindBegan\(\)/);

@@ -1907,6 +1907,43 @@ html:not(.js) .began-dot {
   bottom: 0;
 }
 
+.js .began-pin[data-reveal],
+.js .founder[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.began-copy,
+.began-rail,
+.began-stage {
+  animation: began-rise 0.9s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  animation-play-state: paused;
+}
+
+.began-rail { animation-delay: 0.12s; }
+.began-stage { animation-delay: 0.24s; }
+
+.js .began-pin.is-in .began-copy,
+.js .began-pin.is-in .began-rail,
+.js .began-pin.is-in .began-stage,
+html:not(.js) .began-copy,
+html:not(.js) .began-rail,
+html:not(.js) .began-stage {
+  animation-play-state: running;
+}
+
+@keyframes began-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes phone-float {
   from { transform: rotate(-7deg) translateY(0); }
   to { transform: rotate(-3.5deg) translateY(-0.55rem); }
@@ -2021,6 +2058,73 @@ html:not(.js) .began-dot {
   .phone:not(.is-paused) .phone-watch span {
     animation: phone-watch var(--reel-duration) linear infinite;
   }
+}
+
+.buy-layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.buy-card {
+  padding: clamp(1.3rem, 3vw, 2rem);
+  border-radius: 28px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.buy-steps {
+  display: grid;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.buy-steps li {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.buy-steps h3 {
+  font-size: 1.55rem;
+}
+
+.buy-steps p:last-child {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+}
+
+.buy-preview {
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.35rem 0 0 auto;
+  padding: 0.75rem 0.95rem;
+  border-radius: 16px 16px 4px 16px;
+  background: #d9fdd3;
+  color: #1c1418;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.buy-whatsapp {
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 1.15rem;
+  border-color: #128c7e;
+  background: #128c7e;
+  color: #fff7f1;
+}
+
+.buy-whatsapp:hover {
+  border-color: #0d6e63;
+  background: #0d6e63;
+}
+
+.buy-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
 }
 
 .pillars {
@@ -2353,9 +2457,18 @@ html:not(.js) .began-dot {
   }
 
   .counter-grid,
-  .list-grid {
+  .list-grid,
+  .buy-layout {
     grid-template-columns: 1.05fr 0.95fr;
     gap: 4rem;
+  }
+
+  .buy-layout {
+    align-items: center;
+  }
+
+  .buy-whatsapp {
+    width: auto;
   }
 
   .pillar-grid,
