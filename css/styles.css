@@ -1699,6 +1699,214 @@ html:not(.js) .scene-ornament {
   text-align: center;
 }
 
+.began {
+  --began-paper: #f3efe6;
+  --began-ink: #1c1418;
+  --began-muted: rgba(28, 20, 24, 0.78);
+  --began-dot-color: #e34832;
+  --began-steps: 4;
+  position: relative;
+  /* One viewport of scroll per card. The pin releases when the dot finishes the line. */
+  height: calc(100svh * var(--began-steps));
+  height: calc(100dvh * var(--began-steps));
+  background: var(--began-paper);
+  color: var(--began-ink);
+}
+
+.began-pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 0.7rem;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  padding: 1.2rem 0 0 1rem;
+}
+
+.began-copy {
+  grid-column: 1 / -1;
+  max-width: 34rem;
+  padding: 0 1.2rem 0.85rem 0.15rem;
+}
+
+.began h2 {
+  max-width: 8ch;
+  color: var(--began-ink);
+  font-family: var(--sans);
+  font-size: clamp(2.7rem, 12vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.began-copy p {
+  max-width: 26rem;
+  margin-top: 0.9rem;
+  color: var(--began-muted);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.began-rail {
+  position: relative;
+  grid-row: 2;
+  min-height: 0;
+}
+
+.began-mark {
+  position: absolute;
+  top: 0.15rem;
+  left: 50%;
+  z-index: 1;
+  width: 2.35rem;
+  height: auto;
+  color: var(--began-ink);
+  transform: translateX(-58%);
+}
+
+.began-line {
+  position: absolute;
+  top: 3.4rem;
+  right: 50%;
+  bottom: 0;
+  left: auto;
+  width: 1.5px;
+  background: var(--began-ink);
+  transform: translateX(50%);
+}
+
+.began-dot {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--began-dot-color);
+  transform: translateX(-50%);
+}
+
+.began-stage {
+  grid-row: 2;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.began-track {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.began-card {
+  position: absolute;
+  top: 16%;
+  left: 0;
+  width: min(26rem, 100%);
+  margin: 0;
+  background: #fff;
+  padding: 0.62rem 0.62rem 0.95rem;
+  box-shadow: 0 18px 40px rgba(36, 22, 28, 0.12);
+  transform-origin: center center;
+}
+
+.began-card:nth-child(2) {
+  top: 84%;
+  transform: translateX(42px) rotate(8deg);
+}
+
+.began-card:nth-child(3) {
+  top: 152%;
+  transform: translateX(42px) rotate(8deg);
+}
+
+.began-card:nth-child(4) {
+  top: 220%;
+  transform: translateX(42px) rotate(8deg);
+}
+
+.began-card figure {
+  margin: 0;
+}
+
+.began-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 24%;
+  background: #efe8df;
+}
+
+.began-date {
+  margin: 0.85rem 0 0;
+  padding-inline: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.began-card h3 {
+  margin: 0.28rem 0 0;
+  padding-inline: 0.35rem;
+  color: var(--began-ink);
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 2.05rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.began-card figcaption p:last-child {
+  margin: 0.4rem 0 0.1rem;
+  padding-inline: 0.35rem;
+  color: var(--began-muted);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+html:not(.js) .began {
+  height: auto;
+}
+
+html:not(.js) .began-pin {
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+html:not(.js) .began-stage {
+  height: auto;
+  overflow: visible;
+}
+
+html:not(.js) .began-track {
+  height: auto;
+}
+
+html:not(.js) .began-card,
+html:not(.js) .began-card:nth-child(n) {
+  position: relative;
+  top: auto;
+  width: min(26rem, 100%);
+  margin-bottom: 1.4rem;
+  transform: none;
+}
+
+html:not(.js) .began-dot {
+  top: auto;
+  bottom: 0;
+}
+
 @keyframes phone-float {
   from { transform: rotate(-7deg) translateY(0); }
   to { transform: rotate(-3.5deg) translateY(-0.55rem); }
@@ -2169,6 +2377,52 @@ html:not(.js) .scene-ornament {
   .signup .btn { flex: 0 0 auto; }
 
   .list-grid { align-items: stretch; }
+
+  .began-pin {
+    grid-template-columns: minmax(0, 1.05fr) 4.75rem minmax(17rem, 0.82fr);
+    grid-template-rows: none;
+    align-items: stretch;
+    column-gap: clamp(1.25rem, 3vw, 3.5rem);
+    width: 100%;
+    padding: 0 clamp(2.5rem, 6vw, 6.5rem) 0 clamp(3.5rem, 8vw, 8rem);
+  }
+
+  .began-copy {
+    grid-column: auto;
+    align-self: center;
+    max-width: 26rem;
+    padding: 0 0.5rem 0 0;
+  }
+
+  .began h2 {
+    font-size: clamp(3.5rem, 4.8vw, 4.7rem);
+  }
+
+  .began-copy p {
+    max-width: 22.5rem;
+    margin-top: 1.15rem;
+    font-size: 1rem;
+  }
+
+  .began-rail,
+  .began-stage {
+    grid-row: auto;
+    height: auto;
+    align-self: stretch;
+  }
+
+  .began-stage {
+    height: 100%;
+  }
+
+  .began-mark {
+    top: 1.55rem;
+    width: 3.35rem;
+  }
+
+  .began-line {
+    top: 6.15rem;
+  }
 }
 
 @media (max-width: 959px) {
@@ -2257,6 +2511,65 @@ html:not(.js) .scene-ornament {
   .reel-ornament-chili {
     display: none;
   }
+
+  .began-pin {
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    column-gap: 0.55rem;
+    padding: 0.7rem 0.85rem 0 0.7rem;
+  }
+
+  .began-copy {
+    padding: 0 0.1rem 0.35rem 0;
+  }
+
+  .began h2 {
+    max-width: 9ch;
+    font-size: clamp(1.85rem, 8.4vw, 2.3rem);
+  }
+
+  .began-copy p {
+    max-width: none;
+    margin-top: 0.45rem;
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  .began-mark {
+    top: 0;
+    width: 1.5rem;
+    transform: translateX(-50%);
+  }
+
+  .began-line {
+    top: 2.05rem;
+  }
+
+  .began-card {
+    width: calc(100% - 0.65rem);
+    padding: 0.42rem 0.42rem 0.62rem;
+  }
+
+  .began-card img {
+    aspect-ratio: 16 / 10;
+    max-height: 34vh;
+    object-position: center 18%;
+  }
+
+  .began-date {
+    margin-top: 0.5rem;
+    font-size: 0.62rem;
+  }
+
+  .began-card h3 {
+    margin-top: 0.12rem;
+    font-size: 1.5rem;
+  }
+
+  .began-card figcaption p:last-child {
+    margin-top: 0.22rem;
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2332,5 +2645,34 @@ html:not(.js) .scene-ornament {
 
   .reel-hand {
     opacity: 0;
+  }
+
+  .began {
+    height: auto;
+  }
+
+  .began-pin {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .began-stage,
+  .began-track {
+    height: auto;
+    overflow: visible;
+  }
+
+  .began-card,
+  .began-card:nth-child(n) {
+    position: relative;
+    top: auto;
+    margin-bottom: 1.4rem;
+    transform: none;
+  }
+
+  .began-dot {
+    top: auto;
+    bottom: 0;
   }
 }

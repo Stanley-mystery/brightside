@@ -1,5 +1,10 @@
 import {
+  BEGAN_HERO_TOP,
   FORM_MESSAGES,
+  beganCardPose,
+  beganFrame,
+  beganPoseForViewport,
+  beganStride,
   isValidEmail,
   nextSceneOffset,
   reelAudioState,
@@ -274,6 +279,57 @@ function bindReel() {
   observer.observe(watched);
 }
 
+function bindBegan() {
+  const section = document.getElementById("began");
+  const line = section?.querySelector(".began-line");
+  const dot = section?.querySelector(".began-dot");
+  const track = document.getElementById("began-track");
+  const stage = section?.querySelector(".began-stage");
+  if (!section || !line || !dot || !track || !stage) return;
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  const cards = [...track.children];
+  const narrowQuery = window.matchMedia("(max-width: 959px)");
+  section.style.setProperty("--began-steps", String(Math.max(cards.length, 1)));
+
+  let frameId = 0;
+  const paint = () => {
+    frameId = 0;
+    const narrow = narrowQuery.matches;
+    const rect = section.getBoundingClientRect();
+    const frame = beganFrame({
+      rectTop: rect.top,
+      sectionHeight: rect.height,
+      viewportHeight: window.innerHeight,
+      lineLength: line.clientHeight,
+      dotSize: dot.offsetHeight,
+    });
+    const stride = beganStride(stage.clientHeight, narrow);
+    dot.style.top = `${frame.dot}px`;
+    cards.forEach((card, index) => {
+      const pose = beganPoseForViewport(
+        beganCardPose(frame.progress, index, cards.length, stride),
+        narrow
+      );
+      card.style.top = narrow ? "0%" : `${BEGAN_HERO_TOP * 100}%`;
+      card.style.zIndex = String(pose.z);
+      card.style.transform = `translate3d(${pose.x}px, ${pose.y}px, 0) rotate(${pose.rotate}deg)`;
+    });
+  };
+
+  const request = () => {
+    if (frameId !== 0) return;
+    frameId = window.requestAnimationFrame(paint);
+  };
+
+  paint();
+  window.addEventListener("scroll", request, { passive: true });
+  window.addEventListener("resize", request);
+  narrowQuery.addEventListener("change", request);
+}
+
 function bindReveal() {
   const nodes = document.querySelectorAll("[data-reveal]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -315,5 +371,6 @@ if (page) {
   bindForm();
   bindScenes();
   bindReel();
+  bindBegan();
   bindReveal();
 }
