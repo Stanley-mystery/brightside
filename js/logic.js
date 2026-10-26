@@ -45,6 +45,36 @@ export function nextSceneOffset(current, step, max) {
   return next > max ? 0 : next;
 }
 
+export function reelPlaybackState(playing) {
+  if (playing === true) {
+    return { pressed: true, label: "Pause the reel", visible: "Pause" };
+  }
+  return { pressed: false, label: "Play the reel", visible: "Play" };
+}
+
+export function reelShouldAutoplay(reduceMotion) {
+  return reduceMotion !== true;
+}
+
+export const REEL_HAND_DELAY_MS = 900;
+export const REEL_HAND_DURATION_MS = 1350;
+export const REEL_HAND_PRESS_AT = 0.58;
+
+export function reelTapDelayMs(reduceMotion) {
+  if (reduceMotion === true) return null;
+  const delay = REEL_HAND_DELAY_MS + REEL_HAND_PRESS_AT * REEL_HAND_DURATION_MS;
+  if (!Number.isFinite(delay) || delay < 0) return null;
+  return Math.round(delay);
+}
+
+export function reelIntroPlan(reduceMotion) {
+  const tapDelayMs = reelTapDelayMs(reduceMotion);
+  if (tapDelayMs === null) {
+    return { animate: false, play: false, tapDelayMs: null };
+  }
+  return { animate: true, play: true, tapDelayMs };
+}
+
 export function subscriptionState(value) {
   if (typeof value !== "string" || value.trim() === "") {
     return { ok: false, reason: "empty" };

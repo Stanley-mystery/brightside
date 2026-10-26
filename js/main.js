@@ -2,6 +2,8 @@ import {
   FORM_MESSAGES,
   isValidEmail,
   nextSceneOffset,
+  reelIntroPlan,
+  reelPlaybackState,
   serveFor,
   subscriptionState,
 } from "./logic.js";
@@ -165,6 +167,83 @@ function bindScenes() {
   });
 }
 
+function bindReel() {
+  const video = document.getElementById("reel-video");
+  const control = document.getElementById("reel-control");
+  const stage = document.getElementById("reel");
+  if (!video || !control || !stage) return;
+
+  const label = control.querySelector(".reel-control-label");
+  const device = video.closest(".phone");
+  const watched = stage.querySelector(".reel-stage") ?? stage;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const intro = reelIntroPlan(reduce);
+  let visitorTookOver = false;
+
+  const syncDuration = () => {
+    if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+    device?.style.setProperty("--reel-duration", `${video.duration}s`);
+  };
+  video.addEventListener("loadedmetadata", syncDuration);
+  syncDuration();
+
+  const paint = (playing) => {
+    const state = reelPlaybackState(playing);
+    control.setAttribute("aria-pressed", String(state.pressed));
+    control.setAttribute("aria-label", state.label);
+    if (label) label.textContent = state.visible;
+    device?.classList.toggle("is-paused", !playing);
+  };
+
+  const play = () => {
+    const next = video.play();
+    if (next && typeof next.then === "function") {
+      next.then(() => paint(true)).catch(() => paint(false));
+    } else {
+      paint(true);
+    }
+  };
+
+  const hold = () => {
+    video.removeAttribute("autoplay");
+    video.pause();
+    paint(false);
+  };
+
+  control.addEventListener("click", () => {
+    visitorTookOver = true;
+    if (video.paused) {
+      play();
+      return;
+    }
+    video.pause();
+    paint(false);
+  });
+
+  hold();
+  if (!intro.animate || intro.tapDelayMs === null) return;
+
+  const begin = () => {
+    stage.classList.add("is-in");
+    window.setTimeout(() => {
+      if (visitorTookOver || !video.paused) return;
+      play();
+    }, intro.tapDelayMs);
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    begin();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    begin();
+    observer.disconnect();
+  }, { threshold: 0.2 });
+  observer.observe(watched);
+}
+
 function bindReveal() {
   const nodes = document.querySelectorAll("[data-reveal]");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -205,5 +284,6 @@ if (page) {
   bindServes();
   bindForm();
   bindScenes();
+  bindReel();
   bindReveal();
 }
