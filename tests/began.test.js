@@ -8,12 +8,11 @@ import {
   BEGAN_DOT_START,
   BEGAN_HERO_TOP,
   BEGAN_STACK,
-  BEGAN_MOBILE_NUDGE,
   BEGAN_MOBILE_STRIDE,
-  BEGAN_MOBILE_TILT,
   beganCardPose,
   beganDotShift,
   beganFrame,
+  beganMobilePlacement,
   beganPoseForViewport,
   beganProgress,
   beganStride,
@@ -113,6 +112,7 @@ test("when the page loads, then scroll progress moves the dot and the cards", ()
   assert.match(main, /beganCardPose/);
   assert.match(main, /beganStride/);
   assert.match(main, /beganPoseForViewport/);
+  assert.match(main, /beganMobilePlacement/);
   assert.match(main, /max-width: 959px/);
   assert.match(main, /zIndex/);
   assert.match(main, /addEventListener\("scroll", request, \{ passive: true \}\)/);
@@ -178,28 +178,48 @@ test("when the stage has height, then each new card waits most of a screen below
   assert.equal(beganStride(800, false), 544);
 });
 
+test("when the phone stage is taller than the photo, then the stack sits in the center", () => {
+  const placed = beganMobilePlacement(500, 280);
+  assert.equal(placed.top, 0.22);
+  assert.equal(placed.stride, 329.5);
+  assert.ok(placed.top > 0);
+  const cardBottom = placed.top * 500 + 280;
+  const nextTop = placed.top * 500 + placed.stride;
+  assert.ok(nextTop > cardBottom);
+  assert.ok(nextTop < 500);
+});
+
+test("when the phone photo is missing or taller than the stage, then the stack stays at the top of that stage", () => {
+  assert.deepEqual(beganMobilePlacement(0, 280), { top: 0, stride: 0 });
+  assert.deepEqual(beganMobilePlacement(-20, 280), { top: 0, stride: 0 });
+  assert.deepEqual(beganMobilePlacement(Number.NaN, 280), { top: 0, stride: 0 });
+  assert.deepEqual(beganMobilePlacement(400, 0), { top: 0, stride: 350 });
+  assert.deepEqual(beganMobilePlacement(400, -10), { top: 0, stride: 350 });
+  assert.deepEqual(beganMobilePlacement(400, Number.NaN), { top: 0, stride: 350 });
+  assert.deepEqual(beganMobilePlacement(400, 500), { top: 0, stride: 350 });
+});
+
 test("when the screen is narrow, then the story copy and card fit the phone", () => {
   assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began h2\s*\{[^}]*font-size:\s*clamp\(1\.85rem, 8\.4vw, 2\.3rem\)/);
-  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-card\s*\{[^}]*width:\s*calc\(100% - 0\.65rem\)/);
-  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-card img\s*\{[^}]*aspect-ratio:\s*16 \/ 10/);
-  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-card img\s*\{[^}]*max-height:\s*34vh/);
-  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-mark\s*\{[^}]*transform:\s*translateX\(-50%\)/);
+  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-rail\s*\{[^}]*display:\s*none/);
+  assert.match(css, /@media \(max-width: 959px\)[\s\S]*\.began-card,\s*\.began-card:nth-child\(n\)\s*\{[^}]*width:\s*100%/);
   assert.equal(BEGAN_MOBILE_STRIDE, 0.875);
   assert.equal(beganStride(800, true), 700);
 });
 
-test("when the screen is narrow, then a waiting photo stays on the card and a stacked photo keeps its tilt", () => {
+test("when the screen is narrow, then the photo stays inside the screen", () => {
   const waiting = beganCardPose(0, 1, 4, 700);
   const fitted = beganPoseForViewport(waiting, true);
   assert.equal(fitted.y, 700);
-  assert.equal(fitted.x, BEGAN_CARD_NUDGE * BEGAN_MOBILE_NUDGE);
-  assert.equal(fitted.rotate, BEGAN_CARD_TILT * BEGAN_MOBILE_TILT);
+  assert.equal(fitted.x, 0);
+  assert.equal(fitted.rotate, 0);
   assert.equal(fitted.z, 1);
 
   const seated = beganPoseForViewport(beganCardPose(1, 1, 4, 700), true);
-  assert.equal(seated.rotate, BEGAN_STACK[1].rotate);
-  assert.equal(seated.x, BEGAN_STACK[1].x * 0.5);
+  assert.equal(seated.rotate, 0);
+  assert.equal(seated.x, 0);
   assert.equal(seated.y, BEGAN_STACK[1].y);
+  assert.equal(seated.z, 1);
   assert.deepEqual(beganPoseForViewport(waiting, false), {
     y: waiting.y,
     rotate: waiting.rotate,
@@ -209,8 +229,8 @@ test("when the screen is narrow, then a waiting photo stays on the card and a st
   assert.deepEqual(beganPoseForViewport(null, true), { y: 0, rotate: 0, x: 0, z: 0 });
   assert.deepEqual(beganPoseForViewport({ y: "no", rotate: 8, x: 10, z: 2 }, true), {
     y: 0,
-    rotate: 8,
-    x: 5,
+    rotate: 0,
+    x: 0,
     z: 2,
   });
 });

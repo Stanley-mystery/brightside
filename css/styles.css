@@ -2513,9 +2513,9 @@ html:not(.js) .began-dot {
   }
 
   .began-pin {
-    grid-template-columns: 1.65rem minmax(0, 1fr);
-    column-gap: 0.55rem;
-    padding: 0.7rem 0.85rem 0 0.7rem;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    padding: 0.7rem 1.1rem 0;
   }
 
   .began-copy {
@@ -2534,19 +2534,20 @@ html:not(.js) .began-dot {
     line-height: 1.35;
   }
 
-  .began-mark {
-    top: 0;
-    width: 1.5rem;
-    transform: translateX(-50%);
+  .began-rail {
+    display: none;
   }
 
-  .began-line {
-    top: 2.05rem;
+  .began-stage {
+    grid-column: 1;
+    grid-row: 2;
   }
 
-  .began-card {
-    width: calc(100% - 0.65rem);
-    padding: 0.42rem 0.42rem 0.62rem;
+  .began-card,
+  .began-card:nth-child(n) {
+    left: 0;
+    width: 100%;
+    transform: none;
   }
 
   .began-card img {

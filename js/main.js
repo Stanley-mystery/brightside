@@ -3,6 +3,7 @@ import {
   FORM_MESSAGES,
   beganCardPose,
   beganFrame,
+  beganMobilePlacement,
   beganPoseForViewport,
   beganStride,
   isValidEmail,
@@ -306,14 +307,19 @@ function bindBegan() {
       lineLength: line.clientHeight,
       dotSize: dot.offsetHeight,
     });
-    const stride = beganStride(stage.clientHeight, narrow);
+    const stageHeight = stage.clientHeight;
+    const placement = narrow
+      ? beganMobilePlacement(stageHeight, cards[0]?.offsetHeight || 0)
+      : null;
+    const stride = placement ? placement.stride : beganStride(stageHeight, false);
+    const heroTop = placement ? placement.top : BEGAN_HERO_TOP;
     dot.style.top = `${frame.dot}px`;
     cards.forEach((card, index) => {
       const pose = beganPoseForViewport(
         beganCardPose(frame.progress, index, cards.length, stride),
         narrow
       );
-      card.style.top = narrow ? "0%" : `${BEGAN_HERO_TOP * 100}%`;
+      card.style.top = `${heroTop * 100}%`;
       card.style.zIndex = String(pose.z);
       card.style.transform = `translate3d(${pose.x}px, ${pose.y}px, 0) rotate(${pose.rotate}deg)`;
     });
@@ -324,6 +330,11 @@ function bindBegan() {
     frameId = window.requestAnimationFrame(paint);
   };
 
+  cards.forEach((card) => {
+    card.querySelectorAll("img").forEach((img) => {
+      if (!img.complete) img.addEventListener("load", request, { once: true });
+    });
+  });
   paint();
   window.addEventListener("scroll", request, { passive: true });
   window.addEventListener("resize", request);

@@ -139,14 +139,25 @@ export function beganDotShift(progress, lineLength, dotSize, startRatio = BEGAN_
 }
 
 export const BEGAN_MOBILE_STRIDE = 0.875;
-export const BEGAN_MOBILE_NUDGE = 0.25;
-export const BEGAN_MOBILE_TILT = 0.5;
-const BEGAN_MOBILE_STACK_NUDGE = 0.5;
-const BEGAN_WAITING_Y = 24;
 
 export function beganStride(stageHeight, narrow) {
   const ratio = narrow === true ? BEGAN_MOBILE_STRIDE : BEGAN_CARD_STRIDE;
   return positiveLength(stageHeight) * ratio;
+}
+
+export function beganMobilePlacement(stageHeight, cardHeight) {
+  const stage = positiveLength(stageHeight);
+  const card = positiveLength(cardHeight);
+  if (stage === 0) return { top: 0, stride: 0 };
+  if (card === 0 || card >= stage) {
+    return { top: 0, stride: stage * BEGAN_MOBILE_STRIDE };
+  }
+  const topPx = (stage - card) / 2;
+  const peek = Math.min(72, Math.max(36, topPx * 0.55));
+  return {
+    top: topPx / stage,
+    stride: stage - peek - topPx,
+  };
 }
 
 export function beganPoseForViewport(pose, narrow) {
@@ -158,13 +169,7 @@ export function beganPoseForViewport(pose, narrow) {
   const x = Number.isFinite(pose.x) ? pose.x : 0;
   const z = Number.isFinite(pose.z) ? pose.z : 0;
   if (narrow !== true) return { y, rotate, x, z };
-  const waiting = y > BEGAN_WAITING_Y;
-  return {
-    y,
-    rotate: waiting ? rotate * BEGAN_MOBILE_TILT : rotate,
-    x: x * (waiting ? BEGAN_MOBILE_NUDGE : BEGAN_MOBILE_STACK_NUDGE),
-    z,
-  };
+  return { y, rotate: 0, x: 0, z };
 }
 
 function stackRest(index) {
