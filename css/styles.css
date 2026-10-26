@@ -2060,60 +2060,271 @@ html:not(.js) .began-stage {
   }
 }
 
+.buy {
+  --buy-tilt: -3deg;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(224, 122, 26, 0.34), transparent 36%),
+    radial-gradient(ellipse at 92% 110%, rgba(238, 41, 122, 0.42), transparent 42%),
+    #1a1014;
+  color: #fff7f1;
+}
+
+.buy-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.buy-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.buy-orb-mango {
+  top: -6rem;
+  right: -4rem;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(255, 183, 3, 0.42), rgba(255, 183, 3, 0) 68%);
+}
+
+.buy-orb-pink {
+  bottom: -8rem;
+  left: -6rem;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, rgba(199, 62, 120, 0.5), rgba(199, 62, 120, 0) 70%);
+}
+
+.buy-mark {
+  position: absolute;
+  top: 8%;
+  right: 6%;
+  width: min(9rem, 28vw);
+  color: rgba(255, 247, 241, 0.16);
+}
+
 .buy-layout {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 2rem;
+  gap: 2.4rem;
   align-items: start;
 }
 
-.buy-card {
-  padding: clamp(1.3rem, 3vw, 2rem);
-  border-radius: 28px;
-  background: var(--paper);
-  box-shadow: var(--shadow);
+.buy .eyebrow {
+  color: var(--mango-soft);
+}
+
+.buy h2 {
+  max-width: 9ch;
+  color: #fff7f1;
+  font-size: clamp(3rem, 7vw, 5.3rem);
+}
+
+.buy .lede {
+  color: rgba(255, 247, 241, 0.78);
 }
 
 .buy-steps {
+  position: relative;
   display: grid;
-  gap: 1.15rem;
-  margin: 0;
+  gap: 0.2rem;
+  margin: 2rem 0 0;
   padding: 0;
   list-style: none;
 }
 
+.buy-steps::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  bottom: 1.15rem;
+  left: 1.15rem;
+  width: 1px;
+  background: linear-gradient(#ffb703, rgba(255, 183, 3, 0.05));
+  transform-origin: top center;
+}
+
 .buy-steps li {
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+  padding: 0.7rem 0;
+}
+
+.buy .idx {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin: 0;
+  border: 1px solid rgba(255, 183, 3, 0.7);
+  border-radius: 50%;
+  background: rgba(26, 16, 20, 0.55);
+  color: var(--mango-soft);
+  box-shadow: 0 0 0 6px rgba(26, 16, 20, 0.35);
 }
 
 .buy-steps h3 {
-  font-size: 1.55rem;
+  color: #fff7f1;
+  font-size: clamp(1.45rem, 2vw, 1.8rem);
 }
 
 .buy-steps p:last-child {
-  margin-top: 0.35rem;
-  color: var(--ink-soft);
+  margin-top: 0.3rem;
+  color: rgba(255, 247, 241, 0.72);
+}
+
+.buy-stage {
+  position: relative;
+}
+
+.buy-stage::before {
+  content: "";
+  position: absolute;
+  inset: 8% -6% -8%;
+  z-index: 0;
+  border: 1px dashed rgba(255, 247, 241, 0.22);
+  border-radius: 40px;
+  transform: rotate(4deg);
+}
+
+.buy-card {
+  position: relative;
+  z-index: 1;
+  padding: clamp(0.85rem, 2vw, 1.15rem);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 28%),
+    var(--paper);
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 247, 241, 0.18);
+}
+
+.buy-phone {
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 183, 3, 0.28), transparent 34%),
+    #efe7df;
+  box-shadow: inset 0 0 0 1px rgba(36, 22, 28, 0.08);
+  transform: rotate(var(--buy-tilt));
+}
+
+.buy-phone-top {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  background: #075e54;
+  color: #fff7f1;
+}
+
+.buy-status {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #7dffb3;
+  box-shadow: 0 0 0 0 rgba(125, 255, 179, 0.7);
+}
+
+.buy-phone-top p {
+  display: grid;
+  line-height: 1.15;
+}
+
+.buy-phone-top strong {
+  font-size: 0.98rem;
+}
+
+.buy-phone-top span {
+  color: rgba(255, 247, 241, 0.72);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.buy-thread {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 0.55rem;
+  min-height: 13.5rem;
+  padding: 0.95rem 0.85rem 1.1rem;
+}
+
+.buy-bubble,
+.buy-typing {
+  width: fit-content;
+  max-width: 86%;
+  background: #fff;
+  color: #1c1418;
+}
+
+.buy-bubble {
+  padding: 0.7rem 0.85rem;
+  border-radius: 4px 16px 16px 16px;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 18px rgba(36, 22, 28, 0.06);
+}
+
+.buy-typing {
+  display: flex;
+  grid-row: 2;
+  gap: 0.28rem;
+  justify-self: start;
+  align-self: end;
+  padding: 0.72rem 0.7rem;
+  border-radius: 16px;
+}
+
+.buy-typing span {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: #8d8380;
 }
 
 .buy-preview {
   width: fit-content;
-  max-width: 100%;
-  margin: 1.35rem 0 0 auto;
+  max-width: 92%;
+  grid-row: 2;
+  justify-self: end;
+  align-self: end;
+  margin: 0;
   padding: 0.75rem 0.95rem;
   border-radius: 16px 16px 4px 16px;
   background: #d9fdd3;
   color: #1c1418;
   font-size: 0.98rem;
   line-height: 1.4;
+  box-shadow: 0 10px 22px rgba(18, 140, 126, 0.16);
 }
 
 .buy-whatsapp {
+  position: relative;
   gap: 0.6rem;
   width: 100%;
-  margin-top: 1.15rem;
+  margin-top: 0.95rem;
+  overflow: hidden;
   border-color: #128c7e;
   background: #128c7e;
   color: #fff7f1;
+}
+
+.buy-whatsapp::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 247, 241, 0.42) 50%, transparent 68%);
+  transform: translateX(-130%);
+  pointer-events: none;
 }
 
 .buy-whatsapp:hover {
@@ -2125,6 +2336,134 @@ html:not(.js) .began-stage {
   width: 1.15rem;
   height: 1.15rem;
   flex: none;
+}
+
+.buy .fine {
+  color: rgba(36, 22, 28, 0.62);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .buy-orb-mango {
+    animation: buy-drift 9s ease-in-out infinite alternate;
+  }
+
+  .buy-orb-pink {
+    animation: buy-drift 11s ease-in-out -2s infinite alternate-reverse;
+  }
+
+  .buy-mark {
+    animation: buy-drift 7.5s ease-in-out -1s infinite alternate;
+  }
+
+  .buy-status {
+    animation: buy-pulse 1.8s ease-out infinite;
+  }
+
+  .buy-typing span {
+    animation: buy-dot 1s ease-in-out infinite;
+  }
+
+  .buy-typing span:nth-child(2) { animation-delay: 0.15s; }
+  .buy-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+  .js .buy-steps::before {
+    transform: scaleY(0);
+  }
+
+  .js .buy-copy.is-in .buy-steps::before {
+    animation: buy-line 0.9s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  }
+
+  .js .buy-copy.is-in .buy-steps li {
+    animation: buy-step 0.7s cubic-bezier(0.2, 0.72, 0.2, 1) both;
+  }
+
+  .js .buy-copy.is-in .buy-steps li:nth-child(2) { animation-delay: 0.14s; }
+  .js .buy-copy.is-in .buy-steps li:nth-child(3) { animation-delay: 0.28s; }
+
+  .js .buy-phone,
+  .js .buy-bubble,
+  .js .buy-typing,
+  .js .buy-preview {
+    opacity: 0;
+  }
+
+  .js .buy-stage.is-in .buy-phone {
+    animation:
+      buy-tilt 0.95s cubic-bezier(0.16, 0.84, 0.28, 1) both,
+      buy-float 5.6s ease-in-out 0.95s infinite alternate;
+  }
+
+  .js .buy-stage.is-in .buy-bubble {
+    animation: buy-pop 0.5s cubic-bezier(0.16, 0.84, 0.28, 1) 0.4s both;
+  }
+
+  .js .buy-stage.is-in .buy-typing {
+    animation:
+      buy-pop 0.35s ease 0.85s both,
+      buy-hide 0.25s ease 1.9s forwards;
+  }
+
+  .js .buy-stage.is-in .buy-preview {
+    animation: buy-send 0.65s cubic-bezier(0.16, 0.84, 0.28, 1) 1.75s both;
+  }
+
+  .js .buy-stage.is-in .buy-whatsapp::after {
+    animation: buy-sheen 0.9s ease 2.25s both;
+  }
+}
+
+@keyframes buy-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-1.2rem, 0.9rem, 0) scale(1.06); }
+}
+
+@keyframes buy-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(125, 255, 179, 0.65); }
+  100% { box-shadow: 0 0 0 0.7rem rgba(125, 255, 179, 0); }
+}
+
+@keyframes buy-dot {
+  0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+
+@keyframes buy-line {
+  to { transform: scaleY(1); }
+}
+
+@keyframes buy-step {
+  from { opacity: 0; transform: translateY(0.85rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes buy-tilt {
+  from { opacity: 0; transform: translateY(2.8rem) rotate(8deg) scale(0.94); }
+  to { opacity: 1; transform: rotate(var(--buy-tilt)); }
+}
+
+@keyframes buy-float {
+  from { transform: rotate(var(--buy-tilt)) translateY(0); }
+  to { transform: rotate(calc(var(--buy-tilt) + 3deg)) translateY(-0.45rem); }
+}
+
+@keyframes buy-pop {
+  from { opacity: 0; transform: translateY(0.7rem) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes buy-hide {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes buy-send {
+  from { opacity: 0; transform: translate(1.1rem, 0.7rem) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes buy-sheen {
+  from { transform: translateX(-130%); }
+  to { transform: translateX(130%); }
 }
 
 .pillars {
@@ -2463,12 +2802,22 @@ html:not(.js) .began-stage {
     gap: 4rem;
   }
 
+  .buy {
+    --buy-tilt: -6deg;
+  }
+
   .buy-layout {
     align-items: center;
+    grid-template-columns: minmax(0, 0.92fr) minmax(17rem, 1.08fr);
   }
 
   .buy-whatsapp {
     width: auto;
+  }
+
+  .buy-mark {
+    top: 12%;
+    right: 42%;
   }
 
   .pillar-grid,
@@ -2647,6 +2996,23 @@ html:not(.js) .began-stage {
     line-height: 1.35;
   }
 
+  .buy h2 {
+    font-size: clamp(2.6rem, 12vw, 3.4rem);
+  }
+
+  .buy-mark,
+  .buy-stage::before {
+    display: none;
+  }
+
+  .buy-phone {
+    transform: none;
+  }
+
+  .buy-thread {
+    min-height: 11.5rem;
+  }
+
   .began-rail {
     display: none;
   }
@@ -2788,5 +3154,31 @@ html:not(.js) .began-stage {
   .began-dot {
     top: auto;
     bottom: 0;
+  }
+
+  .buy-phone,
+  .buy-preview,
+  .buy-bubble,
+  .buy-typing,
+  .buy-orb,
+  .buy-mark,
+  .buy-status,
+  .buy-steps li,
+  .buy-steps::before,
+  .buy-whatsapp::after {
+    animation: none;
+  }
+
+  .buy-phone,
+  .buy-preview,
+  .buy-bubble,
+  .buy-steps li,
+  .buy-steps::before {
+    opacity: 1;
+    transform: none;
+  }
+
+  .buy-typing {
+    display: none;
   }
 }

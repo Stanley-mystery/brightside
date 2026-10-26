@@ -531,38 +531,65 @@
       </section>
 
       <section class="section buy" id="buy" aria-labelledby="buy-title">
+        <div class="buy-field" aria-hidden="true">
+          <span class="buy-orb buy-orb-mango"></span>
+          <span class="buy-orb buy-orb-pink"></span>
+          <svg class="buy-mark" viewBox="0 0 84 100" fill="none">
+            <path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M44 24c1-8 7-13 12-15"/>
+            <path stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"/>
+            <path stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"/>
+          </svg>
+        </div>
         <div class="wrap buy-layout">
-          <div data-reveal>
+          <div class="buy-copy" data-reveal>
             <p class="eyebrow">How to buy</p>
             <h2 id="buy-title">Send a message on <em>WhatsApp.</em></h2>
             <p class="lede">Carriers move by message. Tell us the table, the count, and when you want them cold.</p>
-          </div>
-          <div class="buy-card" data-reveal>
             <ol class="buy-steps">
               <li>
                 <p class="idx">01</p>
-                <h3>Open the note</h3>
-                <p>WhatsApp already has the message. You only add the details.</p>
+                <div>
+                  <h3>Open the note</h3>
+                  <p>WhatsApp already has the message. You only add the details.</p>
+                </div>
               </li>
               <li>
                 <p class="idx">02</p>
-                <h3>Name the table</h3>
-                <p>How many carriers, and where they should land.</p>
+                <div>
+                  <h3>Name the table</h3>
+                  <p>How many carriers, and where they should land.</p>
+                </div>
               </li>
               <li>
                 <p class="idx">03</p>
-                <h3>We bring the cold</h3>
-                <p>Pink board, four cans, ready to pass.</p>
+                <div>
+                  <h3>We bring the cold</h3>
+                  <p>Pink board, four cans, ready to pass.</p>
+                </div>
               </li>
             </ol>
-            <p class="buy-preview">Hi Brightside, I'd like to buy a carrier.</p>
-            <a class="btn buy-whatsapp" href="https://wa.me/?text=Hi%20Brightside%2C%20I%27d%20like%20to%20buy%20a%20carrier." target="_blank" rel="noopener noreferrer">
-              <svg class="buy-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="currentColor" d="M12 3.1a8.4 8.4 0 0 0-7.2 12.6L3.4 21l5.4-1.4A8.4 8.4 0 1 0 12 3.1Zm4.6 11.9c-.2.5-1 1-1.4 1-.4.1-.8.2-2.6-.6-2.2-.9-3.6-3.2-3.7-3.3-.1-.2-1-1.4-1-2.7s.7-1.9.9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.8.7 1.9.1.2.1.3 0 .5l-.4.5c-.1.1-.2.3-.1.5.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1.2-.2.6-.7.8-1 .2-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.5.3.1.2 0 .8-.2 1.2Z"/>
-              </svg>
-              Send a message on WhatsApp
-            </a>
-            <p class="fine">21+ only. Opens WhatsApp with that note ready to send.</p>
+          </div>
+          <div class="buy-stage" data-reveal>
+            <div class="buy-card">
+              <div class="buy-phone">
+                <div class="buy-phone-top">
+                  <span class="buy-status" aria-hidden="true"></span>
+                  <p><strong>Brightside</strong><span>online</span></p>
+                </div>
+                <div class="buy-thread">
+                  <p class="buy-bubble">How many carriers for the table?</p>
+                  <p class="buy-typing" aria-hidden="true"><span></span><span></span><span></span></p>
+                  <p class="buy-preview">Hi Brightside, I'd like to buy a carrier.</p>
+                </div>
+              </div>
+              <a class="btn buy-whatsapp" href="https://wa.me/?text=Hi%20Brightside%2C%20I%27d%20like%20to%20buy%20a%20carrier." target="_blank" rel="noopener noreferrer">
+                <svg class="buy-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M12 3.1a8.4 8.4 0 0 0-7.2 12.6L3.4 21l5.4-1.4A8.4 8.4 0 1 0 12 3.1Zm4.6 11.9c-.2.5-1 1-1.4 1-.4.1-.8.2-2.6-.6-2.2-.9-3.6-3.2-3.7-3.3-.1-.2-1-1.4-1-2.7s.7-1.9.9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.8.7 1.9.1.2.1.3 0 .5l-.4.5c-.1.1-.2.3-.1.5.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1.2-.2.6-.7.8-1 .2-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.5.3.1.2 0 .8-.2 1.2Z"/>
+                </svg>
+                Send a message on WhatsApp
+              </a>
+              <p class="fine">21+ only. Opens WhatsApp with that note ready to send.</p>
+            </div>
           </div>
         </div>
       </section>
