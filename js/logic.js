@@ -75,6 +75,24 @@ export function reelIntroPlan(reduceMotion) {
   return { animate: true, play: true, tapDelayMs };
 }
 
+export function reelAudioState() {
+  return { muted: false, volume: 1 };
+}
+
+export function reelScrollCue(inView, reduceMotion) {
+  if (reduceMotion === true) {
+    return { hand: null, play: false, pause: false, tapDelayMs: null };
+  }
+  const tapDelayMs = reelTapDelayMs(false);
+  if (tapDelayMs === null) {
+    return { hand: null, play: false, pause: false, tapDelayMs: null };
+  }
+  if (inView === true) {
+    return { hand: "play", play: true, pause: false, tapDelayMs };
+  }
+  return { hand: "pause", play: false, pause: true, tapDelayMs };
+}
+
 export function subscriptionState(value) {
   if (typeof value !== "string" || value.trim() === "") {
     return { ok: false, reason: "empty" };

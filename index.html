@@ -408,7 +408,7 @@
               <path fill="#2f7d46" d="M22 16c-1-9-8-13-14-9 6 1 10 7 9 13 2-1 4-3 5-4z"/>
             </svg>
           </div>
-          <div class="phone">
+          <div class="phone is-paused">
               <span class="phone-side phone-side-left" aria-hidden="true"></span>
               <span class="phone-side phone-side-right" aria-hidden="true"></span>
               <div class="phone-bezel">
@@ -420,8 +420,6 @@
                   <video
                     class="reel-video"
                     id="reel-video"
-                    autoplay
-                  
                     loop
                     playsinline
                     poster="assets/margarita-serve.jpg"
@@ -433,10 +431,10 @@
                     <source src="assets/margarita-serve.mp4" type="video/mp4">
                   </video>
                   <div class="phone-watch" aria-hidden="true"><span></span></div>
-                  <button class="reel-control" id="reel-control" type="button" aria-controls="reel-video" aria-pressed="true" aria-label="Pause the reel">
+                  <button class="reel-control" id="reel-control" type="button" aria-controls="reel-video" aria-pressed="false" aria-label="Play the reel">
                     <svg class="reel-icon reel-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.2v14H7zm6.8 0H17v14h-3.2z"/></svg>
                     <svg class="reel-icon reel-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.2v13.6L19 12z"/></svg>
-                    <span class="reel-control-label">Pause</span>
+                    <span class="reel-control-label">Play</span>
                   </button>
                 </div>
               </div>

@@ -2,8 +2,10 @@ import {
   FORM_MESSAGES,
   isValidEmail,
   nextSceneOffset,
+  reelAudioState,
   reelIntroPlan,
   reelPlaybackState,
+  reelScrollCue,
   serveFor,
   subscriptionState,
 } from "./logic.js";
@@ -175,10 +177,12 @@ function bindReel() {
 
   const label = control.querySelector(".reel-control-label");
   const device = video.closest(".phone");
+  const hand = stage.querySelector(".reel-hand");
   const watched = stage.querySelector(".reel-stage") ?? stage;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const intro = reelIntroPlan(reduce);
-  let visitorTookOver = false;
+  let tapTimer = 0;
+  let hasEntered = false;
 
   const syncDuration = () => {
     if (!Number.isFinite(video.duration) || video.duration <= 0) return;
@@ -195,7 +199,14 @@ function bindReel() {
     device?.classList.toggle("is-paused", !playing);
   };
 
+  const enableSound = () => {
+    const sound = reelAudioState();
+    video.muted = sound.muted;
+    video.volume = sound.volume;
+  };
+
   const play = () => {
+    enableSound();
     const next = video.play();
     if (next && typeof next.then === "function") {
       next.then(() => paint(true)).catch(() => paint(false));
@@ -204,43 +215,62 @@ function bindReel() {
     }
   };
 
-  const hold = () => {
-    video.removeAttribute("autoplay");
+  const pause = () => {
     video.pause();
     paint(false);
   };
 
+  const hold = () => {
+    video.removeAttribute("autoplay");
+    video.removeAttribute("muted");
+    enableSound();
+    pause();
+  };
+
+  const showHand = (cue) => {
+    if (!hand || !cue.hand) return;
+    hand.classList.remove("is-hand-play", "is-hand-pause");
+    control.classList.remove("is-tapped");
+    void hand.offsetWidth;
+    hand.classList.add(cue.hand === "pause" ? "is-hand-pause" : "is-hand-play");
+    control.classList.add("is-tapped");
+  };
+
   control.addEventListener("click", () => {
-    visitorTookOver = true;
-    if (video.paused) {
-      play();
-      return;
-    }
-    video.pause();
-    paint(false);
+    window.clearTimeout(tapTimer);
+    if (video.paused) play();
+    else pause();
   });
 
   hold();
   if (!intro.animate || intro.tapDelayMs === null) return;
 
-  const begin = () => {
-    stage.classList.add("is-in");
-    window.setTimeout(() => {
-      if (visitorTookOver || !video.paused) return;
-      play();
-    }, intro.tapDelayMs);
+  const cueHand = (inView) => {
+    const cue = reelScrollCue(inView, reduce);
+    window.clearTimeout(tapTimer);
+    if (!cue.hand) return;
+    if (inView) stage.classList.add("is-in");
+    showHand(cue);
+    tapTimer = window.setTimeout(() => {
+      if (cue.play) play();
+      else if (cue.pause) pause();
+    }, cue.tapDelayMs);
+  };
+
+  const onVisibility = (inView) => {
+    if (inView) hasEntered = true;
+    else if (!hasEntered) return;
+    cueHand(inView);
   };
 
   if (!("IntersectionObserver" in window)) {
-    begin();
+    onVisibility(true);
     return;
   }
 
   const observer = new IntersectionObserver((entries) => {
-    if (!entries.some((entry) => entry.isIntersecting)) return;
-    begin();
-    observer.disconnect();
-  }, { threshold: 0.2 });
+    onVisibility(entries.some((entry) => entry.isIntersecting));
+  }, { threshold: 0.35 });
   observer.observe(watched);
 }
 

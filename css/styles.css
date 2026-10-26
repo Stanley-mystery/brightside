@@ -1801,11 +1801,12 @@ html:not(.js) .scene-ornament {
     animation: reel-ornament-float 4.8s ease-in-out infinite alternate;
   }
 
-  .js .reel.is-in .reel-hand {
+  .js .reel-hand.is-hand-play,
+  .js .reel-hand.is-hand-pause {
     animation: reel-hand-in var(--reel-hand-duration) cubic-bezier(0.22, 0.72, 0.2, 1) var(--reel-hand-delay) both;
   }
 
-  .js .reel.is-in .reel-control {
+  .js .reel-control.is-tapped {
     animation: reel-tap 0.55s ease 1.68s 1;
   }
 

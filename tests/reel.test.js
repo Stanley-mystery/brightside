@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { existsSync, readFileSync } from "node:fs";
 import {
+  reelAudioState,
   reelIntroPlan,
   reelPlaybackState,
+  reelScrollCue,
   reelShouldAutoplay,
   reelTapDelayMs,
 } from "../js/logic.js";
@@ -33,15 +35,16 @@ test("when the places banner ends, then the reel is the next section", () => {
 test("when the reel renders, then the try-it clip plays inside a phone", () => {
   const section = reelMarkup();
   assert.match(section, /aria-labelledby="reel-title"/);
-  assert.match(section, /id="reel-title">Hit play\.<br><em>The night answers\.<\/em>/);
-  assert.ok(section.indexOf("reel-title") < section.indexOf('class="phone"'), "title sits above the phone");
-  assert.ok(section.indexOf('class="phone"') < section.indexOf('class="btn reel-cta"'), "Try Brightside sits after the phone");
+  assert.match(section, /id="reel-title">Enjoy<br><em>The Brightside\.<\/em>/);
+  assert.ok(section.indexOf('id="reel-title"') < section.indexOf('class="phone is-paused"'), "title sits above the phone");
+  assert.ok(section.indexOf('class="phone is-paused"') < section.indexOf('class="btn reel-cta"'), "Try Brightside sits after the phone");
   assert.match(section, /class="btn reel-cta" href="#list"[^>]*>Try Brightside/);
-  assert.match(section, /class="phone"/);
+  assert.match(section, /class="phone is-paused"/);
   assert.match(section, /class="phone-bezel"/);
   assert.match(section, /class="phone-island"/);
-  assert.match(section, /id="reel-video"[^>]*autoplay/);
-  assert.match(section, /muted/);
+  const videoTag = section.slice(section.indexOf("<video"), section.indexOf("</video>"));
+  assert.doesNotMatch(videoTag, /\bautoplay\b/);
+  assert.doesNotMatch(videoTag, /\bmuted\b/);
   assert.match(section, /loop/);
   assert.match(section, /playsinline/);
   assert.match(section, /width="828"/);
@@ -50,7 +53,8 @@ test("when the reel renders, then the try-it clip plays inside a phone", () => {
   assert.match(section, /src="assets\/margarita-serve\.mp4"/);
   assert.match(section, /id="reel-caption">Friends try Brightside straight from the can\./);
   assert.match(section, /id="reel-control"[^>]*aria-controls="reel-video"/);
-  assert.match(section, /aria-label="Pause the reel"/);
+  assert.match(section, /aria-label="Play the reel"/);
+  assert.match(section, /class="phone is-paused"/);
   assert.doesNotMatch(section, /Passed across/);
 
   const video = readFileSync(new URL("../assets/margarita-serve.mp4", import.meta.url));
@@ -87,7 +91,8 @@ test("when the reel scrolls into view, then the phone, hand, and side ornaments 
   assert.match(css, /@keyframes reel-ornament-in/);
   assert.match(css, /@keyframes reel-ornament-float/);
   assert.match(css, /\.js \.reel\.is-in \.phone/);
-  assert.match(css, /\.js \.reel\.is-in \.reel-hand/);
+  assert.match(css, /\.js \.reel-hand\.is-hand-play/);
+  assert.match(css, /\.js \.reel-hand\.is-hand-pause/);
   assert.match(css, /\.reel-control\s*\{[^}]*bottom:\s*0\.85rem/s);
   assert.match(css, /\.reel-cta\s*\{[^}]*margin:\s*1\.75rem auto 0/s);
   assert.match(css, /\.js \.reel\.is-in \.reel-ornament/);
@@ -97,7 +102,10 @@ test("when the reel scrolls into view, then the phone, hand, and side ornaments 
   assert.match(main, /reelIntroPlan/);
   assert.match(main, /classList\.add\("is-in"\)/);
   assert.match(main, /tapDelayMs/);
-  assert.match(main, /visitorTookOver/);
+  assert.match(main, /reelScrollCue/);
+  assert.match(main, /is-hand-play/);
+  assert.match(main, /is-hand-pause/);
+  assert.match(main, /clearTimeout\(tapTimer\)/);
 });
 
 test("when the reel is playing, then the control offers pause", () => {
@@ -133,9 +141,36 @@ test("when motion is allowed, then playback waits for the hand to press play", (
   assert.deepEqual(reelIntroPlan("reduce"), { animate: true, play: true, tapDelayMs: 1683 });
 });
 
+test("when the hand meets the reel, then the clip plays with sound and pauses off screen", () => {
+  assert.deepEqual(reelAudioState(), { muted: false, volume: 1 });
+  assert.deepEqual(reelScrollCue(true, false), {
+    hand: "play",
+    play: true,
+    pause: false,
+    tapDelayMs: 1683,
+  });
+  assert.deepEqual(reelScrollCue(false, false), {
+    hand: "pause",
+    play: false,
+    pause: true,
+    tapDelayMs: 1683,
+  });
+  assert.deepEqual(reelScrollCue(true, true), {
+    hand: null,
+    play: false,
+    pause: false,
+    tapDelayMs: null,
+  });
+  assert.deepEqual(reelScrollCue("nearby", false).hand, "pause");
+  assert.match(main, /reelAudioState/);
+  assert.match(main, /video\.muted = sound\.muted/);
+  assert.match(main, /video\.volume = sound\.volume/);
+});
+
 test("when the page loads, then the reel control is wired to the playback state", () => {
   assert.match(main, /reelPlaybackState/);
   assert.match(main, /reelIntroPlan/);
+  assert.match(main, /reelScrollCue/);
   assert.match(main, /function bindReel\(/);
   assert.match(main, /bindReel\(\)/);
   assert.match(main, /control\.addEventListener\("click"/);
