@@ -1324,6 +1324,87 @@ html:not(.js) .scene-ornament {
   to { opacity: 1; }
 }
 
+.places {
+  --places-cream: #f4efe6;
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: clamp(18.5rem, 42vw, 31rem);
+  overflow: hidden;
+  background: #1a1210;
+  color: var(--places-cream);
+}
+
+.places-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+}
+
+.places::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 11, 9, 0.74) 0%,
+    rgba(20, 11, 9, 0.5) 26%,
+    rgba(20, 11, 9, 0.14) 50%,
+    rgba(20, 11, 9, 0) 68%
+  );
+  pointer-events: none;
+}
+
+.places-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  padding: clamp(2.2rem, 5vw, 3.4rem) 1.25rem clamp(2.2rem, 5vw, 3.4rem) clamp(1.25rem, 18vw, 18rem);
+}
+
+.places h2 {
+  max-width: none;
+  color: var(--places-cream);
+  font-family: var(--sans);
+  font-size: clamp(1.7rem, 4.8vw, 4.15rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.places h2 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.places-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: clamp(1.05rem, 2vw, 1.45rem);
+  padding: 0.5rem 0.65rem;
+  background: var(--places-cream);
+  color: #1c140f;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.places-cta:hover {
+  background: #fffdf8;
+}
+
+.places-cta:focus-visible {
+  outline: 2px solid var(--places-cream);
+  outline-offset: 4px;
+}
+
 .pillars {
   background: var(--blush);
 }
