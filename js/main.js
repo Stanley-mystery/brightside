@@ -59,7 +59,6 @@ function closeMenu() {
   nav.classList.remove("is-open");
   menuButton.setAttribute("aria-expanded", "false");
   menuButton.setAttribute("aria-label", "Open menu");
-  menuButton.textContent = "Menu";
   document.body.classList.remove("nav-lock");
 }
 
@@ -67,7 +66,6 @@ function openMenu() {
   nav.classList.add("is-open");
   menuButton.setAttribute("aria-expanded", "true");
   menuButton.setAttribute("aria-label", "Close menu");
-  menuButton.textContent = "Close";
   document.body.classList.add("nav-lock");
 }
 
