@@ -2806,7 +2806,7 @@ html:not(.js) .back-to-top {
 @media (max-width: 959px) {
   .logo-image { height: 58px; }
 
-  .nav {
+  .nav.is-scrolled {
     position: fixed;
     top: 0;
     left: 0;
@@ -2814,7 +2814,7 @@ html:not(.js) .back-to-top {
     background: var(--cream);
   }
 
-  main {
+  body.nav-fixed main {
     padding-top: var(--nav-height);
   }
 

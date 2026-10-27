@@ -121,6 +121,21 @@ function bindMenu() {
   });
 }
 
+function bindScrollNav() {
+  const hero = document.getElementById("top");
+  if (!hero) return;
+
+  const updatePosition = () => {
+    const fixed = window.innerWidth < 960 && hero.getBoundingClientRect().bottom <= 0;
+    nav.classList.toggle("is-scrolled", fixed);
+    document.body.classList.toggle("nav-fixed", fixed);
+  };
+
+  updatePosition();
+  window.addEventListener("scroll", updatePosition, { passive: true });
+  window.addEventListener("resize", updatePosition);
+}
+
 function bindBackToTop() {
   const backToTop = document.getElementById("back-to-top");
   if (!backToTop) return;
@@ -395,6 +410,7 @@ function bindReveal() {
 
 if (page) {
   bindMenu();
+  bindScrollNav();
   bindBackToTop();
   bindServes();
   bindForm();
