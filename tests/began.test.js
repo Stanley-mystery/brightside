@@ -33,9 +33,9 @@ function beganMarkup() {
 test("when the reel ends, then how it began is the next section", () => {
   const reelStart = html.indexOf('<section class="reel" id="reel"');
   const beganStart = html.indexOf('<section class="began" id="began"');
-  const storyAt = html.indexOf('id="story"');
+  const buyAt = html.indexOf('id="buy"');
   assert.ok(reelStart > 0 && beganStart > reelStart, "the origin story follows the reel");
-  assert.ok(storyAt > beganStart, "sweet and strong stays after the origin story");
+  assert.ok(buyAt > beganStart, "how to buy stays after the origin story");
 
   const between = html.slice(html.indexOf("</section>", reelStart) + "</section>".length, beganStart);
   assert.doesNotMatch(between, /<section/);
@@ -112,8 +112,8 @@ test("when the origin story scrolls into view, then the copy, rail, and cards ri
   assert.match(css, /\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation:\s*began-rise/s);
   assert.match(css, /\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation-play-state:\s*paused/s);
   assert.match(css, /\.js \.began-pin\.is-in \.began-stage[\s\S]*animation-play-state:\s*running/);
-  assert.match(css, /\.js \.began-pin\[data-reveal\],\s*\.js \.founder\[data-reveal\]\s*\{[^}]*opacity:\s*1/s);
-  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.founder-photo,\s*\.founder-copy,\s*\.founder-social,\s*\.began-copy,\s*\.began-rail,\s*\.began-stage\s*\{[^}]*animation:\s*none/);
+  assert.match(css, /\.js \.began-pin\[data-reveal\]\s*\{[^}]*opacity:\s*1/s);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.began-copy,\s*\.began-rail,\s*\.began-stage,\s*\.buy-photo img,\s*\.buy-social-link\s*\{[^}]*animation:\s*none/);
   assert.match(main, /querySelectorAll\("\[data-reveal\]"\)/);
 });
 

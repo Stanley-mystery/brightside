@@ -1907,8 +1907,7 @@ html:not(.js) .began-dot {
   bottom: 0;
 }
 
-.js .began-pin[data-reveal],
-.js .founder[data-reveal] {
+.js .began-pin[data-reveal] {
   opacity: 1;
   transform: none;
   transition: none;
@@ -2061,409 +2060,188 @@ html:not(.js) .began-stage {
 }
 
 .buy {
-  --buy-tilt: -3deg;
-  position: relative;
-  isolation: isolate;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 8% 0%, rgba(224, 122, 26, 0.34), transparent 36%),
-    radial-gradient(ellipse at 92% 110%, rgba(238, 41, 122, 0.42), transparent 42%),
-    #1a1014;
-  color: #fff7f1;
-}
-
-.buy-field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.buy-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(2px);
-}
-
-.buy-orb-mango {
-  top: -6rem;
-  right: -4rem;
-  width: 22rem;
-  height: 22rem;
-  background: radial-gradient(circle, rgba(255, 183, 3, 0.42), rgba(255, 183, 3, 0) 68%);
-}
-
-.buy-orb-pink {
-  bottom: -8rem;
-  left: -6rem;
-  width: 26rem;
-  height: 26rem;
-  background: radial-gradient(circle, rgba(199, 62, 120, 0.5), rgba(199, 62, 120, 0) 70%);
-}
-
-.buy-mark {
-  position: absolute;
-  top: 8%;
-  right: 6%;
-  width: min(9rem, 28vw);
-  color: rgba(255, 247, 241, 0.16);
+    linear-gradient(180deg, rgba(247, 213, 227, 0.62), transparent 42%),
+    var(--cream);
 }
 
 .buy-layout {
-  position: relative;
-  z-index: 1;
   display: grid;
-  gap: 2.4rem;
-  align-items: start;
+  gap: 2rem;
+  align-items: center;
 }
 
-.buy .eyebrow {
-  color: var(--mango-soft);
+.buy-copy {
+  position: relative;
+  display: grid;
+  gap: 0.95rem;
+  padding: clamp(0.6rem, 2vw, 1.2rem) 0;
+}
+
+.buy-copy::before {
+  content: "";
+  position: absolute;
+  left: -0.8rem;
+  top: -0.8rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid rgba(36, 22, 28, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.buy-photo {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--blush-deep);
+  box-shadow: var(--shadow);
+}
+
+.buy-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 247, 241, 0.28);
+  pointer-events: none;
+}
+
+.buy-photo img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  object-position: 46% 50%;
 }
 
 .buy h2 {
   max-width: 9ch;
-  color: #fff7f1;
-  font-size: clamp(3rem, 7vw, 5.3rem);
 }
 
-.buy .lede {
-  color: rgba(255, 247, 241, 0.78);
+.buy-message {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-style: italic;
+  font-weight: 520;
+  line-height: 1.3;
 }
 
-.buy-steps {
-  position: relative;
-  display: grid;
-  gap: 0.2rem;
-  margin: 2rem 0 0;
-  padding: 0;
-  list-style: none;
+.buy-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.2rem;
 }
 
-.buy-steps::before {
-  content: "";
-  position: absolute;
-  top: 1.15rem;
-  bottom: 1.15rem;
-  left: 1.15rem;
-  width: 1px;
-  background: linear-gradient(#ffb703, rgba(255, 183, 3, 0.05));
-  transform-origin: top center;
+.buy-badges span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(36, 22, 28, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--ink);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.buy-steps li {
-  display: grid;
-  grid-template-columns: 2.5rem minmax(0, 1fr);
-  gap: 0.9rem;
-  align-items: start;
-  padding: 0.7rem 0;
+.buy-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.2rem;
 }
 
-.buy .idx {
+.buy-social-link {
   display: grid;
   place-items: center;
-  width: 2.35rem;
-  height: 2.35rem;
-  margin: 0;
-  border: 1px solid rgba(255, 183, 3, 0.7);
+  width: 3.4rem;
+  height: 3.4rem;
   border-radius: 50%;
-  background: rgba(26, 16, 20, 0.55);
-  color: var(--mango-soft);
-  box-shadow: 0 0 0 6px rgba(26, 16, 20, 0.35);
-}
-
-.buy-steps h3 {
   color: #fff7f1;
-  font-size: clamp(1.45rem, 2vw, 1.8rem);
+  text-decoration: none;
+  box-shadow: 0 12px 22px rgba(36, 22, 28, 0.16);
 }
 
-.buy-steps p:last-child {
-  margin-top: 0.3rem;
-  color: rgba(255, 247, 241, 0.72);
+.buy-social-link svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  transition: transform 0.22s ease;
 }
 
-.buy-stage {
-  position: relative;
+.buy-social-tiktok {
+  background: #111014;
 }
 
-.buy-stage::before {
-  content: "";
-  position: absolute;
-  inset: 8% -6% -8%;
-  z-index: 0;
-  border: 1px dashed rgba(255, 247, 241, 0.22);
-  border-radius: 40px;
-  transform: rotate(4deg);
+.buy-social-whatsapp {
+  background: #25d366;
 }
 
-.buy-card {
-  position: relative;
-  z-index: 1;
-  padding: clamp(0.85rem, 2vw, 1.15rem);
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 28%),
-    var(--paper);
-  box-shadow:
-    0 28px 60px rgba(0, 0, 0, 0.34),
-    0 0 0 1px rgba(255, 247, 241, 0.18);
+.buy-social-instagram {
+  background: radial-gradient(circle at 30% 110%, #fccc63, transparent 42%),
+    radial-gradient(circle at 20% 20%, #833ab4, transparent 55%),
+    linear-gradient(135deg, #fd1d1d, #c13584 55%, #833ab4);
 }
 
-.buy-phone {
-  overflow: hidden;
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 18% 0%, rgba(255, 183, 3, 0.28), transparent 34%),
-    #efe7df;
-  box-shadow: inset 0 0 0 1px rgba(36, 22, 28, 0.08);
-  transform: rotate(var(--buy-tilt));
-}
-
-.buy-phone-top {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.75rem 0.9rem;
-  background: #075e54;
-  color: #fff7f1;
-}
-
-.buy-status {
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  background: #7dffb3;
-  box-shadow: 0 0 0 0 rgba(125, 255, 179, 0.7);
-}
-
-.buy-phone-top p {
-  display: grid;
-  line-height: 1.15;
-}
-
-.buy-phone-top strong {
-  font-size: 0.98rem;
-}
-
-.buy-phone-top span {
-  color: rgba(255, 247, 241, 0.72);
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.buy-thread {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 0.55rem;
-  min-height: 13.5rem;
-  padding: 0.95rem 0.85rem 1.1rem;
-}
-
-.buy-bubble,
-.buy-typing {
-  width: fit-content;
-  max-width: 86%;
-  background: #fff;
-  color: #1c1418;
-}
-
-.buy-bubble {
-  padding: 0.7rem 0.85rem;
-  border-radius: 4px 16px 16px 16px;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 18px rgba(36, 22, 28, 0.06);
-}
-
-.buy-typing {
-  display: flex;
-  grid-row: 2;
-  gap: 0.28rem;
-  justify-self: start;
-  align-self: end;
-  padding: 0.72rem 0.7rem;
-  border-radius: 16px;
-}
-
-.buy-typing span {
-  width: 0.38rem;
-  height: 0.38rem;
-  border-radius: 50%;
-  background: #8d8380;
-}
-
-.buy-preview {
-  width: fit-content;
-  max-width: 92%;
-  grid-row: 2;
-  justify-self: end;
-  align-self: end;
-  margin: 0;
-  padding: 0.75rem 0.95rem;
-  border-radius: 16px 16px 4px 16px;
-  background: #d9fdd3;
-  color: #1c1418;
-  font-size: 0.98rem;
-  line-height: 1.4;
-  box-shadow: 0 10px 22px rgba(18, 140, 126, 0.16);
-}
-
-.buy-whatsapp {
-  position: relative;
-  gap: 0.6rem;
-  width: 100%;
-  margin-top: 0.95rem;
-  overflow: hidden;
-  border-color: #128c7e;
-  background: #128c7e;
-  color: #fff7f1;
-}
-
-.buy-whatsapp::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 32%, rgba(255, 247, 241, 0.42) 50%, transparent 68%);
-  transform: translateX(-130%);
-  pointer-events: none;
-}
-
-.buy-whatsapp:hover {
-  border-color: #0d6e63;
-  background: #0d6e63;
-}
-
-.buy-icon {
-  width: 1.15rem;
-  height: 1.15rem;
-  flex: none;
+.buy-social-link:hover svg,
+.buy-social-link:focus-visible svg {
+  transform: scale(1.12) rotate(-8deg);
 }
 
 .buy .fine {
-  color: rgba(36, 22, 28, 0.62);
+  margin-top: 0.95rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .buy-orb-mango {
-    animation: buy-drift 9s ease-in-out infinite alternate;
+  .js .buy-photo img {
+    transform: scale(1.08);
+    transform-origin: 46% 50%;
   }
 
-  .buy-orb-pink {
-    animation: buy-drift 11s ease-in-out -2s infinite alternate-reverse;
+  .js .buy-photo.is-in img {
+    animation: buy-photo-in 1.15s cubic-bezier(0.16, 0.84, 0.28, 1) both;
   }
 
-  .buy-mark {
-    animation: buy-drift 7.5s ease-in-out -1s infinite alternate;
-  }
-
-  .buy-status {
-    animation: buy-pulse 1.8s ease-out infinite;
-  }
-
-  .buy-typing span {
-    animation: buy-dot 1s ease-in-out infinite;
-  }
-
-  .buy-typing span:nth-child(2) { animation-delay: 0.15s; }
-  .buy-typing span:nth-child(3) { animation-delay: 0.3s; }
-
-  .js .buy-steps::before {
-    transform: scaleY(0);
-  }
-
-  .js .buy-copy.is-in .buy-steps::before {
-    animation: buy-line 0.9s cubic-bezier(0.2, 0.72, 0.2, 1) both;
-  }
-
-  .js .buy-copy.is-in .buy-steps li {
-    animation: buy-step 0.7s cubic-bezier(0.2, 0.72, 0.2, 1) both;
-  }
-
-  .js .buy-copy.is-in .buy-steps li:nth-child(2) { animation-delay: 0.14s; }
-  .js .buy-copy.is-in .buy-steps li:nth-child(3) { animation-delay: 0.28s; }
-
-  .js .buy-phone,
-  .js .buy-bubble,
-  .js .buy-typing,
-  .js .buy-preview {
+  .js .buy-social-link {
     opacity: 0;
   }
 
-  .js .buy-stage.is-in .buy-phone {
+  .js .buy-copy.is-in .buy-social-link {
     animation:
-      buy-tilt 0.95s cubic-bezier(0.16, 0.84, 0.28, 1) both,
-      buy-float 5.6s ease-in-out 0.95s infinite alternate;
+      buy-social-in 0.7s cubic-bezier(0.16, 0.84, 0.28, 1) both,
+      buy-social-float 2.8s ease-in-out 0.7s infinite alternate;
   }
 
-  .js .buy-stage.is-in .buy-bubble {
-    animation: buy-pop 0.5s cubic-bezier(0.16, 0.84, 0.28, 1) 0.4s both;
+  .js .buy-copy.is-in .buy-social-link:nth-child(2) {
+    animation-delay: 0.12s, 0.82s;
   }
 
-  .js .buy-stage.is-in .buy-typing {
-    animation:
-      buy-pop 0.35s ease 0.85s both,
-      buy-hide 0.25s ease 1.9s forwards;
-  }
-
-  .js .buy-stage.is-in .buy-preview {
-    animation: buy-send 0.65s cubic-bezier(0.16, 0.84, 0.28, 1) 1.75s both;
-  }
-
-  .js .buy-stage.is-in .buy-whatsapp::after {
-    animation: buy-sheen 0.9s ease 2.25s both;
+  .js .buy-copy.is-in .buy-social-link:nth-child(3) {
+    animation-delay: 0.24s, 0.94s;
   }
 }
 
-@keyframes buy-drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(-1.2rem, 0.9rem, 0) scale(1.06); }
+@keyframes buy-photo-in {
+  from { transform: scale(1.14) translateY(1.1rem); }
+  to { transform: scale(1.08); }
 }
 
-@keyframes buy-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(125, 255, 179, 0.65); }
-  100% { box-shadow: 0 0 0 0.7rem rgba(125, 255, 179, 0); }
-}
-
-@keyframes buy-dot {
-  0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
-  40% { opacity: 1; transform: translateY(-3px); }
-}
-
-@keyframes buy-line {
-  to { transform: scaleY(1); }
-}
-
-@keyframes buy-step {
-  from { opacity: 0; transform: translateY(0.85rem); }
+@keyframes buy-social-in {
+  from { opacity: 0; transform: translateY(1.1rem) scale(0.72); }
   to { opacity: 1; transform: none; }
 }
 
-@keyframes buy-tilt {
-  from { opacity: 0; transform: translateY(2.8rem) rotate(8deg) scale(0.94); }
-  to { opacity: 1; transform: rotate(var(--buy-tilt)); }
-}
-
-@keyframes buy-float {
-  from { transform: rotate(var(--buy-tilt)) translateY(0); }
-  to { transform: rotate(calc(var(--buy-tilt) + 3deg)) translateY(-0.45rem); }
-}
-
-@keyframes buy-pop {
-  from { opacity: 0; transform: translateY(0.7rem) scale(0.96); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes buy-hide {
-  to { opacity: 0; visibility: hidden; }
-}
-
-@keyframes buy-send {
-  from { opacity: 0; transform: translate(1.1rem, 0.7rem) scale(0.92); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes buy-sheen {
-  from { transform: translateX(-130%); }
-  to { transform: translateX(130%); }
+@keyframes buy-social-float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-0.4rem); }
 }
 
 .pillars {
@@ -2693,23 +2471,16 @@ html:not(.js) .began-stage {
 }
 
 .footer {
-  background: var(--ink);
-  color: var(--cream);
-  padding-bottom: 1.5rem;
-}
-
-.footer-marquee {
-  background: transparent;
-  color: var(--blush);
-  border-bottom: 1px solid rgba(255, 247, 241, 0.08);
+  overflow: hidden;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 1.2rem;
+  background: #252729;
+  color: #f3eddd;
 }
 
 .footer-grid {
-  padding-top: 2.4rem;
-}
-
-.footer .logo {
-  color: var(--blush);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 2rem 1.4rem;
 }
 
 .footer a {
@@ -2717,13 +2488,94 @@ html:not(.js) .began-stage {
 }
 
 .footer a:hover {
-  color: var(--mango-soft);
+  color: #f3c1d4;
 }
 
-.footer-links {
+.footer-column {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  align-items: flex-start;
+  gap: 0.6rem;
+  min-width: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.footer-column h2 {
+  margin-bottom: 0.25rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.footer-column a {
+  overflow-wrap: anywhere;
+}
+
+.footer-signup {
+  grid-column: 1 / -1;
+}
+
+.footer .signup {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+.footer .signup input {
+  min-width: 0;
+  min-height: 46px;
+  border: 0;
+  border-radius: 0;
+  background: #171819;
+  color: #f3eddd;
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.footer .signup input::placeholder {
+  color: rgba(243, 237, 221, 0.78);
+}
+
+.footer .signup button {
+  flex: 0 0 auto;
+  min-height: 46px;
+  padding: 0 1rem;
+  border: 0;
+  background: #f3eddd;
+  color: #252729;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.footer .form-error {
+  color: #ffb4c7;
+  font-size: 0.82rem;
+}
+
+.footer .form-success strong {
+  color: #f3eddd;
+  font-size: 1.4rem;
+}
+
+.footer .linkish {
+  color: #f3c1d4;
+}
+
+.footer-note {
+  margin-top: 0.65rem;
+  color: rgba(243, 237, 221, 0.66);
+  font-size: 0.73rem;
+  line-height: 1.4;
 }
 
 .handle {
@@ -2734,21 +2586,19 @@ html:not(.js) .began-stage {
 }
 
 .footer-word {
-  margin: 1rem 0 0;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(247, 213, 227, 0.85);
-  font-family: var(--script);
-  font-size: clamp(4.8rem, 18vw, 12rem);
-  line-height: 0.8;
-  text-align: center;
-  letter-spacing: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: clamp(6rem, 30vw, 22rem);
+  margin: clamp(2rem, 6vw, 5rem) 0 0;
+  object-fit: contain;
 }
 
 .legal {
   width: var(--wrap);
-  margin: 0.4rem auto 0;
-  color: rgba(255, 247, 241, 0.62);
-  font-size: 0.85rem;
+  margin: 1.2rem auto 0;
+  color: rgba(243, 237, 221, 0.56);
+  font-size: 0.72rem;
 }
 
 .js [data-reveal] {
@@ -2796,34 +2646,33 @@ html:not(.js) .began-stage {
   }
 
   .counter-grid,
-  .list-grid,
-  .buy-layout {
+  .list-grid {
     grid-template-columns: 1.05fr 0.95fr;
     gap: 4rem;
   }
 
-  .buy {
-    --buy-tilt: -6deg;
-  }
-
   .buy-layout {
-    align-items: center;
-    grid-template-columns: minmax(0, 0.92fr) minmax(17rem, 1.08fr);
+    grid-template-columns: minmax(0, 1.18fr) minmax(16rem, 0.82fr);
+    gap: 4rem;
   }
 
-  .buy-whatsapp {
-    width: auto;
-  }
-
-  .buy-mark {
-    top: 12%;
-    right: 42%;
+  .buy-photo img {
+    aspect-ratio: 5 / 4;
+    min-height: 28rem;
   }
 
   .pillar-grid,
-  .blend-grid,
-  .footer-grid {
+  .blend-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 0.8fr 1.15fr 1fr 1.65fr 2.15fr;
+    gap: clamp(1.2rem, 2.5vw, 2.5rem);
+  }
+
+  .footer-signup {
+    grid-column: auto;
   }
 
   .serve-layout {
@@ -2974,10 +2823,15 @@ html:not(.js) .began-stage {
     display: none;
   }
 
+  .began {
+    height: auto;
+  }
+
   .began-pin {
     grid-template-columns: minmax(0, 1fr);
     column-gap: 0;
-    padding: 0.7rem 1.1rem 0;
+    padding: 0.7rem 1.1rem clamp(2.2rem, 8vw, 4rem);
+    height: auto;
   }
 
   .began-copy {
@@ -2996,21 +2850,33 @@ html:not(.js) .began-stage {
     line-height: 1.35;
   }
 
-  .buy h2 {
-    font-size: clamp(2.6rem, 12vw, 3.4rem);
+  .began-stage {
+    min-height: 0;
+    overflow: visible;
   }
 
-  .buy-mark,
-  .buy-stage::before {
-    display: none;
+  .began-track {
+    position: static;
+    display: grid;
+    gap: 0.9rem;
+    height: auto;
+    padding-bottom: 50px;
   }
 
-  .buy-phone {
+  .began-card,
+  .began-card:nth-child(n) {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    margin-bottom: 0.2rem;
     transform: none;
   }
 
-  .buy-thread {
-    min-height: 11.5rem;
+  .buy-photo img {
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    object-position: 42% 50%;
   }
 
   .began-rail {
@@ -3156,29 +3022,17 @@ html:not(.js) .began-stage {
     bottom: 0;
   }
 
-  .buy-phone,
-  .buy-preview,
-  .buy-bubble,
-  .buy-typing,
-  .buy-orb,
-  .buy-mark,
-  .buy-status,
-  .buy-steps li,
-  .buy-steps::before,
-  .buy-whatsapp::after {
+  .began-copy,
+  .began-rail,
+  .began-stage,
+  .buy-photo img,
+  .buy-social-link {
     animation: none;
   }
 
-  .buy-phone,
-  .buy-preview,
-  .buy-bubble,
-  .buy-steps li,
-  .buy-steps::before {
+  .buy-photo img,
+  .buy-social-link {
     opacity: 1;
     transform: none;
-  }
-
-  .buy-typing {
-    display: none;
   }
 }

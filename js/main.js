@@ -124,6 +124,8 @@ function bindMenu() {
 }
 
 function bindServes() {
+  if (!servePanel || serveButtons.length === 0) return;
+
   serveButtons.forEach((button) => {
     button.addEventListener("click", () => renderServe(button.dataset.serve));
   });
@@ -131,6 +133,8 @@ function bindServes() {
 }
 
 function bindForm() {
+  if (!form || !emailInput || !formError || !formSuccess || !resetEmail) return;
+
   const stored = readStore(localStorage, EMAIL_KEY);
   if (isValidEmail(stored)) showFormSuccess(true);
 

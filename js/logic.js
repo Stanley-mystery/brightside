@@ -150,10 +150,10 @@ export function beganMobilePlacement(stageHeight, cardHeight) {
   const card = positiveLength(cardHeight);
   if (stage === 0) return { top: 0, stride: 0 };
   if (card === 0 || card >= stage) {
-    return { top: 0, stride: stage * BEGAN_MOBILE_STRIDE };
+    return { top: 0.12, stride: stage * BEGAN_MOBILE_STRIDE };
   }
-  const topPx = (stage - card) / 2;
-  const peek = Math.min(72, Math.max(36, topPx * 0.55));
+  const topPx = Math.min(stage * 0.18, Math.max(24, (stage - card) * 0.24));
+  const peek = Math.min(40, Math.max(18, stage * 0.08));
   return {
     top: topPx / stage,
     stride: stage - peek - topPx,
