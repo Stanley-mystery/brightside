@@ -121,6 +121,21 @@ function bindMenu() {
   });
 }
 
+function bindBackToTop() {
+  const backToTop = document.getElementById("back-to-top");
+  if (!backToTop) return;
+
+  const updateVisibility = () => {
+    const visible = window.scrollY > 500;
+    backToTop.classList.toggle("is-visible", visible);
+    backToTop.setAttribute("aria-hidden", String(!visible));
+    backToTop.tabIndex = visible ? 0 : -1;
+  };
+
+  updateVisibility();
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+}
+
 function bindServes() {
   if (!servePanel || serveButtons.length === 0) return;
 
@@ -380,6 +395,7 @@ function bindReveal() {
 
 if (page) {
   bindMenu();
+  bindBackToTop();
   bindServes();
   bindForm();
   bindScenes();
