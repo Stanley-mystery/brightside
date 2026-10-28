@@ -748,6 +748,37 @@ html:not(.js) .hero-clink {
   filter: drop-shadow(0 18px 16px rgba(36, 22, 28, 0.2));
 }
 
+.can-flipper {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 1.6rem;
+  width: 11.05rem;
+  height: 20rem;
+  transform: translateX(-50%);
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.72, 0.2, 1);
+}
+
+.can-flipper.is-flipped {
+  transform: translateX(-50%) rotateY(180deg);
+}
+
+.can-flip-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 18px 16px rgba(36, 22, 28, 0.2));
+}
+
+.can-flip-back {
+  transform: rotateY(180deg);
+}
+
 .can-float {
   position: absolute;
   z-index: 2;
@@ -922,6 +953,12 @@ html:not(.js) .hero-clink {
   animation-delay: 0.14s;
 }
 
+.character-sweet .can-flipper {
+  animation: character-can-left 0.95s cubic-bezier(0.16, 0.84, 0.28, 1) 0.14s;
+  animation-play-state: paused;
+  animation-fill-mode: backwards;
+}
+
 .character-pour .character-can {
   animation-name: character-can-drop;
   animation-duration: 1.15s;
@@ -972,6 +1009,7 @@ html:not(.js) .hero-clink {
 .js .characters.is-in .character p,
 .js .characters.is-in .character-link,
 .js .character.is-in .character-can,
+.js .character-sweet.is-in .can-flipper,
 .js .characters.is-in .character-ornament,
 .js .characters.is-in .character-spark,
 html:not(.js) .characters-intro h2,
@@ -979,6 +1017,7 @@ html:not(.js) .character h3,
 html:not(.js) .character p,
 html:not(.js) .character-link,
 html:not(.js) .character-can,
+html:not(.js) .can-flipper,
 html:not(.js) .character-ornament,
 html:not(.js) .character-spark {
   animation-play-state: running;
@@ -987,6 +1026,10 @@ html:not(.js) .character-spark {
 @media (hover: hover) and (pointer: fine) {
   .character-can {
     transition: transform 0.45s cubic-bezier(0.2, 0.72, 0.2, 1);
+  }
+
+  .can-flipper {
+    transition: transform 0.8s cubic-bezier(0.2, 0.72, 0.2, 1);
   }
 
   .can-float {
@@ -1012,6 +1055,11 @@ html:not(.js) .character-spark {
   .character-stage:hover .character-can,
   .character:focus-within .character-can {
     transform: translateX(-50%) scale(1.12);
+  }
+
+  .character-stage:hover .can-flipper,
+  .character:focus-within .can-flipper {
+    scale: 1.12;
   }
 
   .character-stage:hover .can-float,
@@ -3030,6 +3078,11 @@ html:not(.js) .back-to-top {
     animation: none;
     opacity: 1;
     transform: translateX(-50%);
+  }
+
+  .can-flipper {
+    animation: none;
+    transition: none;
   }
 
   .can-float {

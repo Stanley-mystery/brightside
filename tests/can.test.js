@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/styles.css", import.meta.url), "utf8");
+const main = readFileSync(new URL("../js/main.js", import.meta.url), "utf8");
 
 function canSection() {
   const start = html.indexOf('<section class="characters" id="can"');
@@ -27,14 +28,31 @@ test("when the can section renders, then three bands introduce the pour", () => 
   assert.match(section, /Sweet and strong\./);
   assert.match(section, /Strong<\/h3>\s*<p>Lime keeps it sharp\./);
   assert.equal(section.match(/src="assets\/brightside-can\.png"/g).length, 3);
-  assert.match(section, /alt="Brightside Mango Margarita can"/);
-  assert.equal(section.match(/class="character-link" href="#list">Try it/g).length, 3);
+  assert.match(section, /alt="Brightside Mango Margarita can(?:,|")/);
+  assert.equal(section.match(/class="character-link" href="#buy">Try it/g).length, 3);
   assert.match(section, /character-ornament character-lime/);
   assert.match(section, /character-ornament character-orange/);
   assert.match(section, /character-ornament character-mango/);
   assert.match(section, /character-spark character-spark-sweet/);
   assert.match(section, /character-spark character-spark-strong/);
   assert.doesNotMatch(section, /class="tin|pink carrier/);
+});
+
+test("when the first can is viewed, then it flips to the supplied back label", () => {
+  const section = canSection();
+  assert.match(section, /id="can-flipper"/);
+  assert.match(section, /id="can-flip-button"[^>]*aria-pressed="false">View back/);
+  assert.match(section, /src="assets\/first-can-content-trim\.png"/);
+  assert.equal(existsSync(new URL("../assets/first-can-content-trim.png", import.meta.url)), true);
+  assert.match(section, /id="can-flipper-2"/);
+  assert.match(section, /id="can-flip-button-2"[^>]*aria-controls="can-flipper-2"/);
+  assert.match(section, /src="assets\/pastel-pink-tropical-can-label-trim\.png"/);
+  assert.equal(existsSync(new URL("../assets/pastel-pink-tropical-can-label-trim.png", import.meta.url)), true);
+  assert.match(css, /\.can-flipper\.is-flipped\s*\{[^}]*rotateY\(180deg\)/);
+  assert.match(css, /\.can-flip-face\s*\{[^}]*backface-visibility:\s*hidden/);
+  assert.match(main, /function bindCanFlip\(\)/);
+  assert.match(main, /canFlipper\.classList\.toggle\("is-flipped"\)/);
+  assert.match(main, /flipButton\.setAttribute\("aria-pressed", String\(flipped\)\)/);
 });
 
 test("when a can is hovered, then that can grows and its ornaments appear", () => {

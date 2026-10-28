@@ -151,6 +151,23 @@ function bindBackToTop() {
   window.addEventListener("scroll", updateVisibility, { passive: true });
 }
 
+function bindCanFlip() {
+  document.querySelectorAll(".can-flip-button").forEach((flipButton) => {
+    const canFlipper = document.getElementById(flipButton.getAttribute("aria-controls"));
+    if (!canFlipper) return;
+
+    flipButton.addEventListener("click", () => {
+      const flipped = canFlipper.classList.toggle("is-flipped");
+      flipButton.setAttribute("aria-pressed", String(flipped));
+      flipButton.textContent = flipped ? "View front" : "View back";
+      canFlipper.querySelector(".can-flip-face:not(.can-flip-back)")
+        ?.setAttribute("aria-hidden", String(flipped));
+      canFlipper.querySelector(".can-flip-back")
+        ?.setAttribute("aria-hidden", String(!flipped));
+    });
+  });
+}
+
 function bindServes() {
   if (!servePanel || serveButtons.length === 0) return;
 
@@ -412,6 +429,7 @@ if (page) {
   bindMenu();
   bindScrollNav();
   bindBackToTop();
+  bindCanFlip();
   bindServes();
   bindForm();
   bindScenes();

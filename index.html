@@ -213,7 +213,10 @@
             </svg>
             <svg class="character-spark character-spark-sweet" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
             <div class="character-stage">
-              <img class="character-can" src="assets/brightside-can.png" width="495" height="898" alt="">
+              <div class="can-flipper" id="can-flipper">
+                <img class="can-flip-face" src="assets/brightside-can.png" width="495" height="898" alt="Brightside Mango Margarita can, front label.">
+                <img class="can-flip-face can-flip-back" src="assets/first-can-content-trim.png" width="750" height="1386" alt="Back of the Brightside can showing ingredients and a fun fact." aria-hidden="true">
+              </div>
               <svg class="can-float can-float-1" viewBox="0 0 64 64" aria-hidden="true"><use href="#mango" width="64" height="64"/></svg>
               <svg class="can-float can-float-2" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
               <svg class="can-float can-float-3" viewBox="0 0 64 64" aria-hidden="true"><use href="#strawberry" width="64" height="64"/></svg>
@@ -227,6 +230,7 @@
             </div>
             <h3>Sweet</h3>
             <p>Ripe mango leads.</p>
+            <button class="character-link can-flip-button" id="can-flip-button" type="button" aria-controls="can-flipper" aria-pressed="false">View back</button>
             <a class="character-link" href="#buy">Try it</a>
           </article>
           <article class="character character-pour">
@@ -238,7 +242,10 @@
               <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M52 22c4 2.2 7 2.4 10 .5"/>
             </svg>
             <div class="character-stage">
-              <img class="character-can" src="assets/brightside-can.png" width="495" height="898" alt="Brightside Mango Margarita can">
+              <div class="can-flipper" id="can-flipper-2">
+                <img class="can-flip-face" src="assets/brightside-can.png" width="495" height="898" alt="Brightside Mango Margarita can, front label.">
+                <img class="can-flip-face can-flip-back" src="assets/pastel-pink-tropical-can-label-trim.png" width="734" height="1392" alt="Back of the Brightside can listing rum, gin, vodka, tequila, simple syrup and cola." aria-hidden="true">
+              </div>
               <svg class="can-float can-float-1" viewBox="0 0 64 64" aria-hidden="true"><use href="#lime" width="64" height="64"/></svg>
               <svg class="can-float can-float-2" viewBox="0 0 64 108" aria-hidden="true"><use href="#leaf" width="64" height="108"/></svg>
               <svg class="can-float can-float-3" viewBox="0 0 64 64" aria-hidden="true"><use href="#cherry" width="64" height="64"/></svg>
@@ -255,6 +262,7 @@
             <svg class="character-spark character-spark-c" viewBox="0 0 36 36" aria-hidden="true"><path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/></svg>
             <h3>Mango<br>Margarita</h3>
             <p>Sweet and strong.</p>
+            <button class="character-link can-flip-button" id="can-flip-button-2" type="button" aria-controls="can-flipper-2" aria-pressed="false">View back</button>
             <a class="character-link" href="#buy">Try it</a>
           </article>
           <article class="character character-strong">
@@ -463,77 +471,6 @@
           <a class="btn reel-cta" href="#buy" data-reveal>Try Brightside</a>
       </section>
 
-      <section class="began" id="began" aria-labelledby="began-title">
-        <div class="began-pin" data-reveal>
-          <div class="began-copy">
-            <h2 id="began-title">How it all<br>began</h2>
-            <p>I didn't set out to build a cocktail company. I just wanted the margarita without the wait.</p>
-            <p>After too many watery pours, a mango that wouldn't quit, and one very pink carrier—Brightside was born.</p>
-          </div>
-          <div class="began-rail" aria-hidden="true">
-            <svg class="began-mark" viewBox="0 0 86 74">
-              <g fill="currentColor">
-                <g transform="rotate(-36 24 30)">
-                  <rect x="8" y="14" width="16" height="34" rx="8"/>
-                  <rect x="6" y="10" width="20" height="8" rx="3"/>
-                </g>
-                <path d="M36 32c5 2 8 8 8 14h-3.5c0-4.5-2-9-6-11.2.2-1 .8-2 1.5-2.8z"/>
-                <path d="M46 18h32L64 42h-7L46 18z"/>
-                <rect x="58" y="42" width="5" height="14"/>
-                <rect x="48" y="55" width="24" height="4.2" rx="1"/>
-                <path d="M68 14c3-8 11-10 15-6-6 1-10 5-12 10-1-1-2-3-3-4z"/>
-              </g>
-            </svg>
-            <div class="began-line">
-              <span class="began-dot"></span>
-            </div>
-          </div>
-          <div class="began-stage">
-            <ol class="began-track" id="began-track">
-              <li class="began-card">
-                <figure>
-                  <img src="assets/hero-curls.jpg" width="720" height="900" alt="A woman with blonde curls holds a pink Brightside can beside her face." loading="lazy">
-                  <figcaption>
-                    <p class="began-date">March 2024</p>
-                    <h3>First pour</h3>
-                    <p>The mango was right. The lime was still learning its job.</p>
-                  </figcaption>
-                </figure>
-              </li>
-              <li class="began-card">
-                <figure>
-                  <img src="assets/hero-glasses.jpg" width="720" height="900" alt="A woman in glasses holds a pink Brightside can up in front of a staircase." loading="lazy">
-                  <figcaption>
-                    <p class="began-date">June 2024</p>
-                    <h3>Pink board</h3>
-                    <p>Four cans, one handle, and a board too pink to leave in the kitchen.</p>
-                  </figcaption>
-                </figure>
-              </li>
-              <li class="began-card">
-                <figure>
-                  <img src="assets/hero-braids.jpg" width="720" height="900" alt="A woman with braids holds a pink Brightside can up to take a sip." loading="lazy">
-                  <figcaption>
-                    <p class="began-date">October 2024</p>
-                    <h3>Pass it</h3>
-                    <p>Friends stopped asking for a glass. The can was already the glass.</p>
-                  </figcaption>
-                </figure>
-              </li>
-              <li class="began-card">
-                <figure>
-                  <img src="assets/hero-bun.jpg" width="720" height="900" alt="A smiling woman holds a pink Brightside can with both hands." loading="lazy">
-                  <figcaption>
-                    <p class="began-date">Right now</p>
-                    <h3>Brightside</h3>
-                    <p>Sweet, strong, and cold enough to pass down the table.</p>
-                  </figcaption>
-                </figure>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
 
       <section class="section buy" id="buy" aria-labelledby="buy-title">
         <div class="wrap buy-layout">
