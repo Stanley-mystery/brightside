@@ -75,3 +75,9 @@ test("when the slider advances, then it respects reduced-motion preferences", ()
   assert.match(main, /reduceMotion\.matches/);
   assert.match(main, /showPhoto\(activeIndex \+ \(delta < 0 \? 1 : -1\)\)/);
 });
+
+test("when the page scrolls, then its scrollbar uses the brand pink", () => {
+  assert.match(css, /html\s*\{[^}]*scrollbar-color:\s*var\(--pink\)\s+var\(--cream\)/s);
+  assert.match(css, /::-webkit-scrollbar-thumb\s*\{[^}]*background:\s*var\(--pink\)/s);
+  assert.match(css, /::-webkit-scrollbar-thumb:hover\s*\{[^}]*background:\s*var\(--pink-ink\)/s);
+});

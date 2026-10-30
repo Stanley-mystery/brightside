@@ -28,6 +28,27 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--pink) var(--cream);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 200px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--cream);
+  border-radius: 999px;
+  background: var(--pink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-ink);
 }
 
 body {
