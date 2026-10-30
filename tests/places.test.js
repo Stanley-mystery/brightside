@@ -12,14 +12,14 @@ function placesMarkup() {
   return html.slice(start, end);
 }
 
-test("when the night scenes end, then the places banner is the next section", () => {
-  const scenesAt = html.indexOf('id="scenes"');
+test("when the gallery ends, then the places banner is the next section", () => {
+  const galleryAt = html.indexOf('id="gallery"');
   const placesStart = html.indexOf('<section class="places"');
-  const storyAt = html.indexOf('id="story"');
-  assert.ok(scenesAt > 0 && placesStart > scenesAt, "places follows the scenes");
-  assert.ok(storyAt > placesStart, "sweet and strong stays after the places banner");
+  const reelAt = html.indexOf('<section class="reel"');
+  assert.ok(galleryAt > 0 && placesStart > galleryAt, "places follows the gallery");
+  assert.ok(reelAt > placesStart, "reel follows the places banner");
 
-  const between = html.slice(html.indexOf("</section>", scenesAt) + "</section>".length, placesStart);
+  const between = html.slice(html.indexOf("</section>", galleryAt) + "</section>".length, placesStart);
   assert.doesNotMatch(between, /<section/);
 });
 
@@ -29,7 +29,7 @@ test("when the places banner renders, then the headline and try link sit on the 
   assert.match(section, /<span>Not everywhere\.<\/span>/);
   assert.match(section, /<span>Just the right<\/span>/);
   assert.match(section, /<span>places\.<\/span>/);
-  assert.match(section, /class="places-cta" href="#list">Try Brightside</);
+  assert.match(section, /class="places-cta" href="#buy">Try Brightside</);
   assert.match(section, /src="assets\/night-party\.jpg"/);
   assert.equal(existsSync(new URL("../assets/night-party.jpg", import.meta.url)), true);
   assert.match(section, /alt="Friends out at night, each holding a Brightside can\."/);

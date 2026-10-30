@@ -7,7 +7,6 @@ import {
   beganPoseForViewport,
   beganStride,
   isValidEmail,
-  nextSceneOffset,
   reelAudioState,
   reelIntroPlan,
   reelPlaybackState,
@@ -136,6 +135,23 @@ function bindScrollNav() {
   window.addEventListener("resize", updatePosition);
 }
 
+function bindHeroSlideshow() {
+  const slides = [...document.querySelectorAll("[data-hero-slide]")];
+  if (slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let activeIndex = slides.findIndex((slide) => slide.classList.contains("is-active"));
+  if (activeIndex < 0) activeIndex = 0;
+
+  window.setInterval(() => {
+    if (document.hidden) return;
+    slides[activeIndex].classList.remove("is-active");
+    slides[activeIndex].setAttribute("aria-hidden", "true");
+    activeIndex = (activeIndex + 1) % slides.length;
+    slides[activeIndex].classList.add("is-active");
+    slides[activeIndex].removeAttribute("aria-hidden");
+  }, 6000);
+}
+
 function bindBackToTop() {
   const backToTop = document.getElementById("back-to-top");
   if (!backToTop) return;
@@ -188,23 +204,117 @@ function bindForm() {
   });
 }
 
-function bindScenes() {
-  const track = document.getElementById("scenes-track");
-  const next = document.querySelector(".scenes-next");
-  if (!track || !next) return;
+function bindGallery() {
+  const carousel = document.querySelector("[data-gallery-carousel]");
+  const thumbnails = [...(carousel?.querySelectorAll("[data-gallery-thumb]") ?? [])];
+  const slide = carousel?.querySelector("[data-gallery-slide]");
+  const image = carousel?.querySelector("[data-gallery-image]");
+  const caption = carousel?.querySelector("[data-gallery-caption]");
+  const counter = carousel?.querySelector("[data-gallery-counter]");
+  const current = carousel?.querySelector("[data-gallery-current]");
+  const progress = carousel?.querySelector("[data-gallery-progress]");
+  const playButton = carousel?.querySelector("[data-gallery-play]");
+  const previous = carousel?.querySelector("[data-gallery-previous]");
+  const next = carousel?.querySelector("[data-gallery-next]");
+  if (!carousel || !slide || !image || !caption || !counter || !current || !progress || !playButton || !previous || !next || !thumbnails.length) return;
 
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let activeIndex = Math.max(0, thumbnails.findIndex((thumbnail) => thumbnail.classList.contains("is-active")));
+  let intervalId = 0;
 
-  next.addEventListener("click", () => {
-    const frame = track.querySelector(".scene");
-    if (!frame) return;
-    const styles = getComputedStyle(track);
-    const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-    const step = frame.getBoundingClientRect().width + gap;
-    const max = track.scrollWidth - track.clientWidth;
-    const left = nextSceneOffset(track.scrollLeft, step, max);
-    track.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+  const showPhoto = (index) => {
+    activeIndex = (index + thumbnails.length) % thumbnails.length;
+    const thumbnail = thumbnails[activeIndex];
+    const source = thumbnail.querySelector("img");
+    if (!source) return;
+    image.classList.remove("is-changing");
+    void image.offsetWidth;
+    image.src = source.currentSrc || source.src;
+    image.alt = thumbnail.dataset.galleryAlt;
+    slide.setAttribute("aria-label", `${activeIndex + 1} of ${thumbnails.length}`);
+    caption.textContent = thumbnail.dataset.galleryCaption;
+    current.textContent = String(activeIndex + 1).padStart(2, "0");
+    progress.setAttribute("aria-valuenow", String(activeIndex + 1));
+    progress.style.setProperty("--gallery-progress", `${((activeIndex + 1) / thumbnails.length) * 100}%`);
+    thumbnails.forEach((item, itemIndex) => {
+      const selected = itemIndex === activeIndex;
+      item.classList.toggle("is-active", selected);
+      if (selected) item.setAttribute("aria-current", "true");
+      else item.removeAttribute("aria-current");
+    });
+    image.classList.add("is-changing");
+  };
+
+  const stop = () => {
+    window.clearInterval(intervalId);
+    intervalId = 0;
+    playButton.setAttribute("aria-pressed", "false");
+    playButton.setAttribute("aria-label", "Play slideshow");
+    playButton.textContent = "Play";
+  };
+
+  const start = () => {
+    if (reduceMotion.matches || intervalId) return;
+    playButton.setAttribute("aria-pressed", "true");
+    playButton.setAttribute("aria-label", "Pause slideshow");
+    playButton.textContent = "Pause";
+    intervalId = window.setInterval(() => {
+      if (!document.hidden) showPhoto(activeIndex + 1);
+    }, 5000);
+  };
+
+  thumbnails.forEach((thumbnail, index) => {
+    thumbnail.addEventListener("click", () => showPhoto(index));
   });
+  previous.addEventListener("click", () => showPhoto(activeIndex - 1));
+  next.addEventListener("click", () => showPhoto(activeIndex + 1));
+  playButton.disabled = reduceMotion.matches;
+  if (reduceMotion.matches) {
+    playButton.setAttribute("aria-label", "Slideshow disabled by reduced-motion preference");
+    playButton.title = "Slideshow disabled by reduced-motion preference";
+  }
+  playButton.addEventListener("click", () => {
+    if (intervalId) stop();
+    else start();
+  });
+  reduceMotion.addEventListener("change", () => {
+    if (reduceMotion.matches) {
+      stop();
+      playButton.disabled = true;
+      playButton.setAttribute("aria-label", "Slideshow disabled by reduced-motion preference");
+      playButton.title = "Slideshow disabled by reduced-motion preference";
+    } else {
+      playButton.disabled = false;
+      playButton.setAttribute("aria-label", "Play slideshow");
+      playButton.removeAttribute("title");
+    }
+  });
+  carousel.addEventListener("keydown", (event) => {
+    if (event.target.closest("[data-gallery-thumb]")) return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPhoto(activeIndex - 1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showPhoto(activeIndex + 1);
+    }
+  });
+
+  let touchStartX = null;
+  carousel.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0]?.clientX ?? null;
+  }, { passive: true });
+  carousel.addEventListener("touchend", (event) => {
+    const touchEndX = event.changedTouches[0]?.clientX;
+    if (touchStartX === null || touchEndX === undefined) return;
+    const delta = touchEndX - touchStartX;
+    touchStartX = null;
+    if (Math.abs(delta) < 48) return;
+    showPhoto(activeIndex + (delta < 0 ? 1 : -1));
+  }, { passive: true });
+
+  showPhoto(activeIndex);
+  start();
 }
 
 function bindReel() {
@@ -411,10 +521,11 @@ function bindReveal() {
 if (page) {
   bindMenu();
   bindScrollNav();
+  bindHeroSlideshow();
   bindBackToTop();
   bindServes();
   bindForm();
-  bindScenes();
+  bindGallery();
   bindReel();
   bindBegan();
   bindReveal();

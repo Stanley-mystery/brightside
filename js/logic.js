@@ -36,15 +36,6 @@ export function serveFor(id) {
   return SERVES[id] ?? SERVES.can;
 }
 
-export function nextSceneOffset(current, step, max) {
-  if (!Number.isFinite(current) || current < 0) return 0;
-  if (!Number.isFinite(step) || step <= 0) return 0;
-  if (!Number.isFinite(max) || max <= 0) return 0;
-  if (current >= max) return 0;
-  const next = current + step;
-  return next > max ? 0 : next;
-}
-
 export function reelPlaybackState(playing) {
   if (playing === true) {
     return { pressed: true, label: "Pause the reel", visible: "Pause" };

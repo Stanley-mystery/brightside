@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/styles.css", import.meta.url), "utf8");
@@ -13,17 +13,18 @@ function heroMarkup() {
   return html.slice(start, end);
 }
 
-test("when the hero renders, then the night-party photo is the right-hand image", () => {
+test("when the hero renders, then the right-hand image is a slideshow of Brightside can photos", () => {
   const hero = heroMarkup();
   const panelAt = hero.indexOf('class="hero-panel"');
   const photoAt = hero.indexOf('class="hero-photo"');
 
   assert.ok(panelAt >= 0, "copy panel is present");
   assert.ok(photoAt > panelAt, "photo follows the copy panel");
-  assert.match(hero, /src="assets\/night-party\.jpg"/);
-  assert.match(hero, /width="1024"/);
-  assert.match(hero, /height="756"/);
-  assert.match(hero, /holding up a pink Brightside Mango Margarita can/);
+  const sources = [...hero.matchAll(/src="(assets\/images\/brand-can\/[^"]+)"/g)].map((match) => match[1]);
+  assert.equal(sources.length, 4);
+  assert.ok(sources.every((source) => existsSync(new URL(`../${source}`, import.meta.url))));
+  assert.match(hero, /class="hero-slide is-active"[^>]+data-hero-slide/);
+  assert.match(hero, /aria-hidden="true" data-hero-slide/);
   assert.doesNotMatch(hero, /mango-margarita\.jpg|hero-stage|class="facts"|class="sticker"/);
 });
 
@@ -55,12 +56,16 @@ test("when the age check passes, then the hero lines rise in one after another",
   assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.hero-kicker[\s\S]*animation:\s*none/);
 });
 
-test("when the age check passes, then the hero photo settles in beside the copy", () => {
+test("when the age check passes, then the hero photo settles in and fades between images", () => {
   assert.match(css, /@keyframes hero-photo-in/);
-  assert.match(css, /\.hero-photo img\s*\{[^}]*animation:\s*hero-photo-in/s);
-  assert.match(css, /\.hero-photo img\s*\{[^}]*animation-play-state:\s*paused/s);
-  assert.match(css, /html\.is-allowed \.hero-photo img[\s\S]*animation-play-state:\s*running/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.hero-photo img[\s\S]*animation:\s*none/);
+  assert.match(css, /\.hero-photo\s*\{[^}]*animation:\s*hero-photo-in/s);
+  assert.match(css, /\.hero-photo img\s*\{[^}]*transition:\s*opacity 1\.2s ease/s);
+  assert.match(css, /\.hero-photo img\.is-active\s*\{[^}]*opacity:\s*1/s);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.hero-photo[\s\S]*animation:\s*none/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.hero-photo img\s*\{[^}]*transition:\s*none/s);
+  assert.match(main, /function bindHeroSlideshow\(\)/);
+  assert.match(main, /setInterval\([\s\S]*?6000\)/);
+  assert.match(main, /prefers-reduced-motion/);
 });
 
 test("when the page opens, then the cheers clink and the hero marks draw in", () => {
