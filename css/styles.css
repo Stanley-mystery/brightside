@@ -1363,10 +1363,11 @@ html:not(.js) .character-spark {
 
 .places {
   --places-cream: #f4efe6;
+  --places-coral: #ff8863;
   position: relative;
   display: grid;
   align-items: center;
-  min-height: clamp(18.5rem, 42vw, 31rem);
+  min-height: clamp(27rem, 49vw, 39rem);
   overflow: hidden;
   background: #1a1210;
   color: var(--places-cream);
@@ -1378,7 +1379,8 @@ html:not(.js) .character-spark {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
+  object-position: center 42%;
+  transform: scale(1.015);
 }
 
 .places::after {
@@ -1387,10 +1389,10 @@ html:not(.js) .character-spark {
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(20, 11, 9, 0.74) 0%,
-    rgba(20, 11, 9, 0.5) 26%,
-    rgba(20, 11, 9, 0.14) 50%,
-    rgba(20, 11, 9, 0) 68%
+    rgba(20, 11, 9, 0.84) 0%,
+    rgba(20, 11, 9, 0.63) 32%,
+    rgba(20, 11, 9, 0.16) 69%,
+    rgba(20, 11, 9, 0.04) 100%
   );
   pointer-events: none;
 }
@@ -1398,18 +1400,39 @@ html:not(.js) .character-spark {
 .places-copy {
   position: relative;
   z-index: 1;
-  max-width: 40rem;
-  padding: clamp(2.2rem, 5vw, 3.4rem) 1.25rem clamp(2.2rem, 5vw, 3.4rem) clamp(1.25rem, 18vw, 18rem);
+  max-width: 47rem;
+  padding: clamp(3rem, 7vw, 5.8rem) 1.25rem clamp(3rem, 7vw, 5.8rem) clamp(1.25rem, 15vw, 15rem);
+}
+
+.places-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.15rem;
+  color: var(--places-coral);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.places-kicker span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 0.24rem rgba(255, 136, 99, 0.17);
 }
 
 .places h2 {
   max-width: none;
   color: var(--places-cream);
   font-family: var(--sans);
-  font-size: clamp(1.7rem, 4.8vw, 4.15rem);
+  font-size: clamp(2.35rem, 5.5vw, 5rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
   text-transform: uppercase;
 }
 
@@ -1418,28 +1441,85 @@ html:not(.js) .character-spark {
   white-space: nowrap;
 }
 
+.places-last-line {
+  color: var(--places-coral);
+}
+
+.places h2 .places-last-line > span {
+  display: inline;
+}
+
+.places-note {
+  margin-top: 1.2rem;
+  color: rgba(244, 239, 230, 0.82);
+  font-size: clamp(0.9rem, 1.25vw, 1.05rem);
+  letter-spacing: 0.015em;
+}
+
 .places-cta {
   display: inline-flex;
   align-items: center;
-  margin-top: clamp(1.05rem, 2vw, 1.45rem);
-  padding: 0.5rem 0.65rem;
+  gap: 0.8rem;
+  margin-top: 1.35rem;
+  padding: 0.9rem 1rem 0.9rem 1.15rem;
+  border: 1px solid rgba(244, 239, 230, 0.6);
+  border-radius: 999px;
   background: var(--places-cream);
   color: #1c140f;
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.places-cta svg {
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .places-cta:hover {
-  background: #fffdf8;
+  transform: translateY(-2px);
+  border-color: var(--places-coral);
+  background: var(--places-coral);
 }
 
 .places-cta:focus-visible {
   outline: 2px solid var(--places-cream);
   outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .places {
+    min-height: 34rem;
+  }
+
+  .places-photo {
+    object-position: 58% center;
+  }
+
+  .places::after {
+    background: linear-gradient(
+      90deg,
+      rgba(20, 11, 9, 0.82) 0%,
+      rgba(20, 11, 9, 0.56) 65%,
+      rgba(20, 11, 9, 0.26) 100%
+    );
+  }
+
+  .places-copy {
+    padding: 3rem 1.25rem;
+  }
+
+  .places h2 {
+    font-size: clamp(1.9rem, 9vw, 3.5rem);
+  }
+
+  .places-note {
+    max-width: 17rem;
+  }
 }
 
 .reel {
