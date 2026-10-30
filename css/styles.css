@@ -698,6 +698,7 @@ html:not(.js) .hero-clink {
   --character-ink: #24161c;
   background: var(--cream);
   color: var(--character-ink);
+  overflow-x: clip;
   scroll-margin-top: 1.25rem;
 }
 
