@@ -36,7 +36,7 @@ test("when the hero renders, then the banner copy and try button are in the left
   assert.match(hero, /class="hero-line">Cheers\./);
   assert.doesNotMatch(hero, /For the ones<br>who want it all\./);
   assert.doesNotMatch(hero, /A margarita/);
-  assert.match(hero, /class="hero-cta" href="#list">Try Brightside/);
+  assert.match(hero, /class="hero-cta" href="#buy">Try Brightside/);
   assert.match(hero, /class="hero-cheers"/);
   assert.match(hero, /class="hero-ornament hero-lime"/);
   assert.match(hero, /class="hero-ornament hero-mango"/);

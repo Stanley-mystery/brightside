@@ -38,7 +38,7 @@ test("when the reel renders, then the try-it clip plays inside a phone", () => {
   assert.match(section, /id="reel-title">Enjoy<br><em>The Brightside\.<\/em>/);
   assert.ok(section.indexOf('id="reel-title"') < section.indexOf('class="phone is-paused"'), "title sits above the phone");
   assert.ok(section.indexOf('class="phone is-paused"') < section.indexOf('class="btn reel-cta"'), "Try Brightside sits after the phone");
-  assert.match(section, /class="btn reel-cta" href="#list"[^>]*>Try Brightside/);
+  assert.match(section, /class="btn reel-cta" href="#buy"[^>]*>Try Brightside/);
   assert.match(section, /class="phone is-paused"/);
   assert.match(section, /class="phone-bezel"/);
   assert.match(section, /class="phone-island"/);

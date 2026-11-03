@@ -11,6 +11,21 @@ import {
   reelIntroPlan,
   reelPlaybackState,
   reelScrollCue,
+  addCartLine,
+  BRIGHTSIDE_CART_KEY,
+  buildWhatsAppCartUrl,
+  buildWhatsAppOrderUrl,
+  WHATSAPP_CONFIRM_COPY,
+  cartGrandTotal,
+  cartItemCount,
+  cartQuantityFor,
+  clampFlavourQuantity,
+  flavourLineTotal,
+  formatNaira,
+  FLAVOUR_QTY_MAX,
+  FLAVOUR_QTY_MIN,
+  parseStoredCart,
+  setCartLineQuantity,
   serveFor,
   subscriptionState,
 } from "./logic.js";
@@ -204,9 +219,539 @@ function bindForm() {
   });
 }
 
+function createFlavourCart(allowedFlavourIds) {
+  let cart = parseStoredCart(readStore(localStorage, BRIGHTSIDE_CART_KEY)).filter((line) =>
+    allowedFlavourIds.has(line.flavourId)
+  );
+  if (cart.length) writeStore(localStorage, BRIGHTSIDE_CART_KEY, JSON.stringify(cart));
+
+  const listeners = new Set();
+  const emit = () => {
+    writeStore(localStorage, BRIGHTSIDE_CART_KEY, JSON.stringify(cart));
+    listeners.forEach((listener) => listener(cart));
+  };
+
+  return {
+    snapshot() {
+      return cart.map((line) => ({ ...line }));
+    },
+    add(line) {
+      cart = addCartLine(cart, line);
+      emit();
+    },
+    setQuantity(flavourId, quantity) {
+      cart = setCartLineQuantity(cart, flavourId, quantity);
+      emit();
+    },
+    clear() {
+      cart = [];
+      emit();
+    },
+    subscribe(listener) {
+      listeners.add(listener);
+      listener(cart);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+
+function bindOrderCart(cartStore) {
+  const float = document.querySelector("[data-order-float]");
+  const floatOpen = document.querySelector("[data-order-float-open]");
+  const floatCount = document.querySelector("[data-order-float-count]");
+  const floatMeta = document.querySelector("[data-order-float-meta]");
+  const floatTotal = document.querySelector("[data-order-float-total]");
+  const sheet = document.querySelector("[data-order-sheet]");
+  const sheetClose = document.querySelector("[data-order-sheet-close]");
+  const linesRoot = document.querySelector("[data-order-lines]");
+  const empty = document.querySelector("[data-order-empty]");
+  const grandTotal = document.querySelector("[data-order-grand-total]");
+  const checkout = document.querySelector("[data-order-checkout]");
+  const clearButton = document.querySelector("[data-order-clear]");
+  if (
+    !float ||
+    !floatOpen ||
+    !floatCount ||
+    !floatMeta ||
+    !floatTotal ||
+    !sheet ||
+    !sheetClose ||
+    !linesRoot ||
+    !empty ||
+    !grandTotal ||
+    !checkout ||
+    !clearButton
+  ) {
+    return null;
+  }
+
+  const openSheet = () => {
+    if (typeof sheet.showModal === "function") sheet.showModal();
+    floatOpen.setAttribute("aria-expanded", "true");
+  };
+
+  const closeSheet = () => {
+    if (sheet.open) sheet.close();
+    floatOpen.setAttribute("aria-expanded", "false");
+  };
+
+  const paint = (cart) => {
+    const count = cartItemCount(cart);
+    const total = cartGrandTotal(cart);
+    const hasItems = count > 0;
+
+    float.hidden = !hasItems;
+    float.classList.toggle("is-visible", hasItems);
+    floatCount.textContent = String(count);
+    floatMeta.textContent = count === 1 ? "1 can" : `${count} cans`;
+    floatTotal.textContent = formatNaira(total);
+
+    empty.hidden = hasItems;
+    linesRoot.hidden = !hasItems;
+    linesRoot.replaceChildren();
+
+    cart.forEach((line) => {
+      const item = document.createElement("li");
+      item.className = "order-sheet-line";
+      item.dataset.flavourId = line.flavourId;
+
+      const head = document.createElement("div");
+      head.className = "order-sheet-line-head";
+      const name = document.createElement("strong");
+      name.textContent = line.productName;
+      const sub = document.createElement("span");
+      sub.textContent = formatNaira(flavourLineTotal(line.unitPriceNaira, line.quantity));
+      head.append(name, sub);
+
+      const controls = document.createElement("div");
+      controls.className = "order-sheet-line-qty";
+      const decrease = document.createElement("button");
+      decrease.type = "button";
+      decrease.className = "order-sheet-qty-btn";
+      decrease.setAttribute("aria-label", `Decrease ${line.productName}`);
+      decrease.textContent = "−";
+      const qty = document.createElement("span");
+      qty.textContent = String(line.quantity);
+      const increase = document.createElement("button");
+      increase.type = "button";
+      increase.className = "order-sheet-qty-btn";
+      increase.setAttribute("aria-label", `Increase ${line.productName}`);
+      increase.textContent = "+";
+      controls.append(decrease, qty, increase);
+
+      decrease.addEventListener("click", () => {
+        cartStore.setQuantity(line.flavourId, line.quantity - 1);
+      });
+      increase.addEventListener("click", () => {
+        cartStore.setQuantity(line.flavourId, line.quantity + 1);
+      });
+
+      item.append(head, controls);
+      linesRoot.append(item);
+    });
+
+    grandTotal.textContent = formatNaira(total);
+    checkout.href = buildWhatsAppCartUrl(cart);
+    checkout.toggleAttribute("aria-disabled", !hasItems);
+    checkout.classList.toggle("is-disabled", !hasItems);
+  };
+
+  cartStore.subscribe(paint);
+
+  floatOpen.addEventListener("click", openSheet);
+  sheetClose.addEventListener("click", closeSheet);
+  sheet.addEventListener("click", (event) => {
+    if (event.target === sheet) closeSheet();
+  });
+  sheet.addEventListener("close", () => floatOpen.setAttribute("aria-expanded", "false"));
+  clearButton.addEventListener("click", () => cartStore.clear());
+
+  return { openSheet, closeSheet };
+}
+
+function bindFlavours() {
+  const carousel = document.querySelector("[data-flavours-carousel]");
+  const slides = [...(carousel?.querySelectorAll("[data-flavours-slide]") ?? [])];
+  const thumbnails = [...(carousel?.querySelectorAll("[data-flavours-thumb]") ?? [])];
+  const detail = carousel?.querySelector("[data-flavours-detail]");
+  const title = carousel?.querySelector("[data-flavours-title]");
+  const price = carousel?.querySelector("[data-flavours-price]");
+  const contains = carousel?.querySelector("[data-flavours-contains]");
+  const fact = carousel?.querySelector("[data-flavours-fact]");
+  const menuRows = [...(carousel?.querySelectorAll("[data-flavours-menu-row]") ?? [])];
+  const addButtons = [...(carousel?.querySelectorAll("[data-flavours-add]") ?? [])];
+  const inCartNote = carousel?.querySelector("[data-flavours-in-cart]");
+  const priceBreakdown = carousel?.querySelector("[data-flavours-price-breakdown]");
+  const qtyInput = carousel?.querySelector("[data-flavours-qty-input]");
+  const qtyDecrease = carousel?.querySelector("[data-flavours-qty-decrease]");
+  const qtyIncrease = carousel?.querySelector("[data-flavours-qty-increase]");
+  const current = carousel?.querySelector("[data-flavours-current]");
+  const progress = carousel?.querySelector("[data-flavours-progress]");
+  const previous = carousel?.querySelector("[data-flavours-previous]");
+  const next = carousel?.querySelector("[data-flavours-next]");
+  const lightbox = carousel?.querySelector("[data-flavours-lightbox]");
+  const lightboxImage = carousel?.querySelector("[data-flavours-lightbox-image]");
+  const lightboxCaption = carousel?.querySelector("[data-flavours-lightbox-caption]");
+  const lightboxClose = carousel?.querySelector("[data-flavours-lightbox-close]");
+  const zoomButtons = [...(carousel?.querySelectorAll("[data-flavours-zoom]") ?? [])];
+  if (
+    !carousel ||
+    !slides.length ||
+    !thumbnails.length ||
+    !detail ||
+    !title ||
+    !price ||
+    !contains ||
+    !fact ||
+    !menuRows.length ||
+    !addButtons.length ||
+    !inCartNote ||
+    !priceBreakdown ||
+    !qtyInput ||
+    !qtyDecrease ||
+    !qtyIncrease ||
+    !current ||
+    !progress ||
+    !previous ||
+    !next ||
+    !lightbox ||
+    !lightboxImage ||
+    !lightboxCaption ||
+    !lightboxClose ||
+    !zoomButtons.length
+  ) {
+    return;
+  }
+
+  const allowedFlavourIds = new Set(slides.map((slide) => slide.dataset.flavourId || "").filter(Boolean));
+  const cartStore = createFlavourCart(allowedFlavourIds);
+  const orderUi = bindOrderCart(cartStore);
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+  let intervalId = 0;
+  let lightboxOpen = false;
+  let quantity = FLAVOUR_QTY_MIN;
+
+  const paintCartHints = () => {
+    const cart = cartStore.snapshot();
+    const slide = slides[activeIndex];
+    const flavourId = slide.dataset.flavourId || "";
+    const inCart = cartQuantityFor(cart, flavourId);
+    if (inCart > 0) {
+      inCartNote.hidden = false;
+      inCartNote.textContent = `${inCart} already in your order`;
+    } else {
+      inCartNote.hidden = true;
+      inCartNote.textContent = "";
+    }
+
+    menuRows.forEach((row) => {
+      const count = cartQuantityFor(cart, row.dataset.flavourId || "");
+      const heading = row.querySelector("th");
+      row.classList.toggle("has-cart-qty", count > 0);
+      if (count > 0) heading?.setAttribute("data-cart-qty", String(count));
+      else heading?.removeAttribute("data-cart-qty");
+    });
+  };
+
+  const syncOrder = () => {
+    const slide = slides[activeIndex];
+    const unitNaira = Number(slide.dataset.unitNaira);
+    const flavourName = slide.dataset.title || "Brightside";
+    quantity = clampFlavourQuantity(quantity);
+    qtyInput.value = String(quantity);
+    qtyDecrease.disabled = quantity <= FLAVOUR_QTY_MIN;
+    qtyIncrease.disabled = quantity >= FLAVOUR_QTY_MAX;
+
+    const totalNaira = flavourLineTotal(unitNaira, quantity);
+    price.textContent = formatNaira(totalNaira);
+    priceBreakdown.textContent = `${quantity} × ${formatNaira(unitNaira)} each`;
+
+    const addLabel = quantity === 1 ? `Add ${flavourName}` : `Add ${quantity} ${flavourName}`;
+    addButtons.forEach((button) => {
+      button.textContent = quantity === 1 ? "Add to order" : `Add ${quantity} to order`;
+      button.setAttribute("aria-label", `${addLabel} to your order`);
+    });
+    paintCartHints();
+  };
+
+  const addCurrentToCart = () => {
+    const slide = slides[activeIndex];
+    cartStore.add({
+      flavourId: slide.dataset.flavourId || "",
+      productName: slide.dataset.title || "Brightside",
+      unitPriceNaira: Number(slide.dataset.unitNaira),
+      quantity,
+    });
+    quantity = FLAVOUR_QTY_MIN;
+    syncOrder();
+    orderUi?.openSheet();
+  };
+
+  cartStore.subscribe(() => syncOrder());
+
+  const setQuantity = (next) => {
+    quantity = clampFlavourQuantity(next);
+    syncOrder();
+    detail.classList.remove("is-changing");
+    void detail.offsetWidth;
+    detail.classList.add("is-changing");
+  };
+
+  const showFlavour = (index) => {
+    activeIndex = (index + slides.length) % slides.length;
+    const slide = slides[activeIndex];
+    quantity = FLAVOUR_QTY_MIN;
+
+    slides.forEach((item, itemIndex) => {
+      const selected = itemIndex === activeIndex;
+      item.classList.toggle("is-active", selected);
+      item.classList.toggle("is-entering", selected);
+      if (selected) item.removeAttribute("aria-hidden");
+      else item.setAttribute("aria-hidden", "true");
+    });
+
+    window.setTimeout(() => {
+      slide.classList.remove("is-entering");
+    }, 700);
+
+    carousel.dataset.activeFlavour = slide.dataset.flavourId || "";
+    title.textContent = slide.dataset.title || "";
+    contains.textContent = slide.dataset.contains || "";
+    fact.textContent = slide.dataset.fact || "";
+    const flavourId = slide.dataset.flavourId || "";
+    menuRows.forEach((row) => {
+      const selected = row.dataset.flavourId === flavourId;
+      row.classList.toggle("is-active", selected);
+      if (selected) row.setAttribute("aria-current", "true");
+      else row.removeAttribute("aria-current");
+    });
+    syncOrder();
+    current.textContent = String(activeIndex + 1).padStart(2, "0");
+    progress.setAttribute("aria-valuenow", String(activeIndex + 1));
+    carousel.style.setProperty("--flavours-progress", `${((activeIndex + 1) / slides.length) * 100}%`);
+
+    thumbnails.forEach((thumb, thumbIndex) => {
+      const selected = thumbIndex === activeIndex;
+      thumb.classList.toggle("is-active", selected);
+      thumb.setAttribute("aria-selected", String(selected));
+    });
+
+    detail.classList.remove("is-changing");
+    void detail.offsetWidth;
+    detail.classList.add("is-changing");
+  };
+
+  const stop = () => {
+    window.clearInterval(intervalId);
+    intervalId = 0;
+  };
+
+  const start = () => {
+    if (reduceMotion.matches || intervalId) return;
+    intervalId = window.setInterval(() => {
+      if (!document.hidden) showFlavour(activeIndex + 1);
+    }, 6500);
+  };
+
+  const showFlavourById = (flavourId) => {
+    const index = slides.findIndex((item) => item.dataset.flavourId === flavourId);
+    if (index >= 0) showFlavour(index);
+  };
+
+  thumbnails.forEach((thumbnail, index) => {
+    thumbnail.addEventListener("click", () => showFlavour(index));
+  });
+  qtyDecrease.addEventListener("click", () => setQuantity(quantity - 1));
+  qtyIncrease.addEventListener("click", () => setQuantity(quantity + 1));
+  qtyInput.addEventListener("change", () => setQuantity(Number(qtyInput.value)));
+  qtyInput.addEventListener("blur", () => setQuantity(Number(qtyInput.value)));
+  addButtons.forEach((button) => button.addEventListener("click", addCurrentToCart));
+
+  menuRows.forEach((row) => {
+    const selectRow = () => showFlavourById(row.dataset.flavourId || "");
+    row.addEventListener("click", selectRow);
+    row.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectRow();
+      }
+    });
+  });
+  previous.addEventListener("click", () => showFlavour(activeIndex - 1));
+  next.addEventListener("click", () => showFlavour(activeIndex + 1));
+
+  reduceMotion.addEventListener("change", () => {
+    if (reduceMotion.matches) stop();
+    else start();
+  });
+
+  carousel.addEventListener("keydown", (event) => {
+    if (event.target.closest("[data-flavours-thumb]")) return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showFlavour(activeIndex - 1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showFlavour(activeIndex + 1);
+    }
+  });
+
+  let touchStartX = null;
+  carousel.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0]?.clientX ?? null;
+  }, { passive: true });
+  carousel.addEventListener("touchend", (event) => {
+    const touchEndX = event.changedTouches[0]?.clientX;
+    if (touchStartX === null || touchEndX === undefined) return;
+    const delta = touchEndX - touchStartX;
+    touchStartX = null;
+    if (Math.abs(delta) < 48) return;
+    showFlavour(activeIndex + (delta < 0 ? 1 : -1));
+  }, { passive: true });
+
+  carousel.addEventListener("mouseenter", stop);
+  carousel.addEventListener("focusin", stop);
+  carousel.addEventListener("mouseleave", () => {
+    if (!reduceMotion.matches) start();
+  });
+  carousel.addEventListener("focusout", (event) => {
+    if (carousel.contains(event.relatedTarget)) return;
+    if (!lightboxOpen && !reduceMotion.matches) start();
+  });
+
+  const openLightbox = (slide) => {
+    const image = slide.querySelector("img");
+    if (!image) return;
+    const label = slide.dataset.title || "Brightside cocktail";
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = `Brightside ${label} canned cocktail label.`;
+    lightboxCaption.textContent = label;
+    lightboxOpen = true;
+    stop();
+    if (typeof lightbox.showModal === "function") lightbox.showModal();
+  };
+
+  const resumeAfterLightbox = () => {
+    if (!reduceMotion.matches && !carousel.matches(":hover") && !carousel.contains(document.activeElement)) {
+      start();
+    }
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox.open) return;
+    lightbox.close();
+  };
+
+  zoomButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const slide = button.closest("[data-flavours-slide]");
+      if (!slide?.classList.contains("is-active")) return;
+      openLightbox(slide);
+    });
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  lightbox.addEventListener("close", () => {
+    lightboxOpen = false;
+    lightboxImage.removeAttribute("src");
+    resumeAfterLightbox();
+  });
+  lightbox.addEventListener("cancel", () => {
+    lightboxOpen = false;
+  });
+
+  showFlavour(activeIndex);
+  start();
+}
+
+function bindBuyWhatsApp() {
+  const link = document.querySelector("[data-buy-whatsapp]");
+  if (!link) return;
+  link.href = buildWhatsAppOrderUrl();
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+}
+
+function bindWhatsAppHandoff() {
+  const dialog = document.querySelector("[data-whatsapp-confirm]");
+  const title = document.querySelector("#whatsapp-confirm-title");
+  const lead = document.querySelector("[data-whatsapp-confirm-lead]");
+  const goButtons = [...document.querySelectorAll("[data-whatsapp-confirm-go]")];
+  const cancelButtons = [...document.querySelectorAll("[data-whatsapp-confirm-cancel]")];
+  if (!dialog || !title || !lead || !goButtons.length || !cancelButtons.length) return;
+
+  title.textContent = WHATSAPP_CONFIRM_COPY.title;
+  lead.textContent = WHATSAPP_CONFIRM_COPY.lead;
+  goButtons.forEach((button) => {
+    button.textContent = WHATSAPP_CONFIRM_COPY.continueLabel;
+  });
+  cancelButtons.forEach((button) => {
+    if (button.classList.contains("whatsapp-confirm-stay")) {
+      button.textContent = WHATSAPP_CONFIRM_COPY.cancelLabel;
+    }
+  });
+
+  let pendingUrl = "";
+
+  const closeConfirm = () => {
+    if (dialog.open) dialog.close();
+    pendingUrl = "";
+  };
+
+  const openConfirm = (url) => {
+    if (!url) return;
+    pendingUrl = url;
+    if (typeof dialog.showModal === "function") dialog.showModal();
+  };
+
+  goButtons[0].addEventListener("click", () => {
+    const url = pendingUrl;
+    closeConfirm();
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  });
+
+  cancelButtons.forEach((button) => {
+    button.addEventListener("click", closeConfirm);
+  });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) closeConfirm();
+  });
+  dialog.addEventListener("close", () => {
+    pendingUrl = "";
+  });
+
+  const guardWhatsAppNavigation = (element, getUrl) => {
+    element.addEventListener("click", (event) => {
+      const url = getUrl(element);
+      if (!url) {
+        event.preventDefault();
+        return;
+      }
+      event.preventDefault();
+      openConfirm(url);
+    });
+  };
+
+  const checkout = document.querySelector("[data-order-checkout]");
+  if (checkout) {
+    guardWhatsAppNavigation(checkout, (element) => {
+      if (element.classList.contains("is-disabled") || element.getAttribute("aria-disabled") === "true") {
+        return "";
+      }
+      return element.href;
+    });
+  }
+}
+
 function bindGallery() {
   const carousel = document.querySelector("[data-gallery-carousel]");
-  const thumbnails = [...(carousel?.querySelectorAll("[data-gallery-thumb]") ?? [])];
+  const items = [...(carousel?.querySelectorAll("[data-gallery-item]") ?? [])];
   const slide = carousel?.querySelector("[data-gallery-slide]");
   const image = carousel?.querySelector("[data-gallery-image]");
   const caption = carousel?.querySelector("[data-gallery-caption]");
@@ -216,31 +761,31 @@ function bindGallery() {
   const playButton = carousel?.querySelector("[data-gallery-play]");
   const previous = carousel?.querySelector("[data-gallery-previous]");
   const next = carousel?.querySelector("[data-gallery-next]");
-  if (!carousel || !slide || !image || !caption || !counter || !current || !progress || !playButton || !previous || !next || !thumbnails.length) return;
+  if (!carousel || !slide || !image || !caption || !counter || !current || !progress || !playButton || !previous || !next || !items.length) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let activeIndex = Math.max(0, thumbnails.findIndex((thumbnail) => thumbnail.classList.contains("is-active")));
+  let activeIndex = Math.max(0, items.findIndex((item) => item.classList.contains("is-active")));
   let intervalId = 0;
 
   const showPhoto = (index) => {
-    activeIndex = (index + thumbnails.length) % thumbnails.length;
-    const thumbnail = thumbnails[activeIndex];
-    const source = thumbnail.querySelector("img");
+    activeIndex = (index + items.length) % items.length;
+    const item = items[activeIndex];
+    const source = item.dataset.src;
     if (!source) return;
     image.classList.remove("is-changing");
     void image.offsetWidth;
-    image.src = source.currentSrc || source.src;
-    image.alt = thumbnail.dataset.galleryAlt;
-    slide.setAttribute("aria-label", `${activeIndex + 1} of ${thumbnails.length}`);
-    caption.textContent = thumbnail.dataset.galleryCaption;
+    image.src = source;
+    image.alt = item.dataset.alt ?? "";
+    slide.setAttribute("aria-label", `${activeIndex + 1} of ${items.length}`);
+    caption.textContent = item.dataset.caption ?? "";
     current.textContent = String(activeIndex + 1).padStart(2, "0");
     progress.setAttribute("aria-valuenow", String(activeIndex + 1));
-    progress.style.setProperty("--gallery-progress", `${((activeIndex + 1) / thumbnails.length) * 100}%`);
-    thumbnails.forEach((item, itemIndex) => {
+    progress.style.setProperty("--gallery-progress", `${((activeIndex + 1) / items.length) * 100}%`);
+    items.forEach((dot, itemIndex) => {
       const selected = itemIndex === activeIndex;
-      item.classList.toggle("is-active", selected);
-      if (selected) item.setAttribute("aria-current", "true");
-      else item.removeAttribute("aria-current");
+      dot.classList.toggle("is-active", selected);
+      if (selected) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
     });
     image.classList.add("is-changing");
   };
@@ -263,8 +808,8 @@ function bindGallery() {
     }, 5000);
   };
 
-  thumbnails.forEach((thumbnail, index) => {
-    thumbnail.addEventListener("click", () => showPhoto(index));
+  items.forEach((item, index) => {
+    item.addEventListener("click", () => showPhoto(index));
   });
   previous.addEventListener("click", () => showPhoto(activeIndex - 1));
   next.addEventListener("click", () => showPhoto(activeIndex + 1));
@@ -290,7 +835,6 @@ function bindGallery() {
     }
   });
   carousel.addEventListener("keydown", (event) => {
-    if (event.target.closest("[data-gallery-thumb]")) return;
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       showPhoto(activeIndex - 1);
@@ -501,21 +1045,6 @@ function bindReveal() {
     { threshold: 0.18 }
   );
   nodes.forEach((node) => observer.observe(node));
-
-  const cards = document.querySelectorAll(".characters .character");
-  if (!cards.length) return;
-
-  const cardObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-in");
-        cardObserver.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.32 }
-  );
-  cards.forEach((card) => cardObserver.observe(card));
 }
 
 if (page) {
@@ -525,6 +1054,9 @@ if (page) {
   bindBackToTop();
   bindServes();
   bindForm();
+  bindFlavours();
+  bindBuyWhatsApp();
+  bindWhatsAppHandoff();
   bindGallery();
   bindReel();
   bindBegan();

@@ -212,3 +212,183 @@ export function subscriptionState(value) {
   }
   return { ok: true, email: value.trim(), reason: "saved" };
 }
+
+/** WhatsApp business line (E.164 without +). */
+export const BRIGHTSIDE_WHATSAPP_NUMBER = "2349026276388";
+
+/** Copy for the pre-redirect WhatsApp handoff dialog. */
+export const WHATSAPP_CONFIRM_COPY = {
+  title: "Send your order on WhatsApp?",
+  lead:
+    "You're about to open WhatsApp with your cart summary so our team can confirm availability, delivery or pickup, and payment. Nothing leaves this site until you tap continue.",
+  continueLabel: "Continue to WhatsApp",
+  cancelLabel: "Keep editing order",
+};
+
+export const FLAVOUR_QTY_MIN = 1;
+export const FLAVOUR_QTY_MAX = 99;
+
+/**
+ * @param {number} amountNaira
+ * @returns {string}
+ */
+export function formatNaira(amountNaira) {
+  const amount = Number(amountNaira);
+  if (!Number.isFinite(amount) || amount < 0) return "₦0.00";
+  return `₦${amount.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+/**
+ * @param {number} unitNaira
+ * @param {number} quantity
+ * @returns {number}
+ */
+export function flavourLineTotal(unitNaira, quantity) {
+  const unit = Number(unitNaira);
+  const qty = clampFlavourQuantity(quantity);
+  if (!Number.isFinite(unit) || unit < 0) return 0;
+  return unit * qty;
+}
+
+/**
+ * @param {number} quantity
+ * @returns {number}
+ */
+export function clampFlavourQuantity(quantity) {
+  const qty = Number.isFinite(quantity) ? Math.floor(quantity) : FLAVOUR_QTY_MIN;
+  return Math.min(FLAVOUR_QTY_MAX, Math.max(FLAVOUR_QTY_MIN, qty));
+}
+
+/**
+ * @param {{ productName?: string, unitPriceNaira?: number, quantity?: number }} [order]
+ * @returns {string}
+ */
+export function buildWhatsAppOrderUrl(order = {}) {
+  const productName = typeof order.productName === "string" ? order.productName.trim() : "";
+  const unitNaira = Number(order.unitPriceNaira);
+  const quantity = clampFlavourQuantity(order.quantity);
+  const totalNaira = flavourLineTotal(unitNaira, quantity);
+
+  const lines = ["Hello Brightside,", "", "I'd like to place an order:", ""];
+
+  if (productName) {
+    lines.push(`Product: ${productName}`);
+    if (Number.isFinite(unitNaira) && unitNaira >= 0) {
+      lines.push(`Unit price: ${formatNaira(unitNaira)}`);
+    }
+    lines.push(`Quantity: ${quantity}`);
+    if (totalNaira > 0) lines.push(`Subtotal: ${formatNaira(totalNaira)}`);
+    lines.push("Range: Brightside Sweet & Strong canned cocktail");
+  } else {
+    lines.push("I'm interested in Brightside canned cocktails.");
+    lines.push("Please share what's available and delivery options.");
+  }
+
+  lines.push("", "Please confirm availability, total, and delivery or pickup.", "", "Thank you.");
+
+  return `https://wa.me/${BRIGHTSIDE_WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
+
+export const BRIGHTSIDE_CART_KEY = "brightside-order-cart";
+
+/**
+ * @param {unknown} raw
+ * @returns {{ flavourId: string, productName: string, unitPriceNaira: number, quantity: number } | null}
+ */
+export function normalizeCartLine(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const flavourId = typeof raw.flavourId === "string" ? raw.flavourId.trim() : "";
+  const productName = typeof raw.productName === "string" ? raw.productName.trim() : "";
+  const unitPriceNaira = Number(raw.unitPriceNaira);
+  const quantity = clampFlavourQuantity(raw.quantity);
+  if (!flavourId || !productName || !Number.isFinite(unitPriceNaira) || unitPriceNaira < 0) return null;
+  return { flavourId, productName, unitPriceNaira, quantity };
+}
+
+/**
+ * @param {string | null | undefined} stored
+ */
+export function parseStoredCart(stored) {
+  if (typeof stored !== "string" || stored.trim() === "") return [];
+  try {
+    const parsed = JSON.parse(stored);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map(normalizeCartLine).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * @param {Array<{ flavourId: string, productName: string, unitPriceNaira: number, quantity: number }>} cart
+ */
+export function addCartLine(cart, line) {
+  const normalized = normalizeCartLine(line);
+  if (!normalized) return cart;
+  const next = cart.map((item) => ({ ...item }));
+  const index = next.findIndex((item) => item.flavourId === normalized.flavourId);
+  if (index >= 0) {
+    next[index].quantity = clampFlavourQuantity(next[index].quantity + normalized.quantity);
+  } else {
+    next.push(normalized);
+  }
+  return next;
+}
+
+/**
+ * @param {Array<{ flavourId: string, productName: string, unitPriceNaira: number, quantity: number }>} cart
+ */
+export function setCartLineQuantity(cart, flavourId, quantity) {
+  const id = typeof flavourId === "string" ? flavourId.trim() : "";
+  if (!id) return cart;
+  const next = cart.map((item) => ({ ...item }));
+  const index = next.findIndex((item) => item.flavourId === id);
+  if (index < 0) return next;
+  if (!Number.isFinite(quantity) || quantity < 1) {
+    next.splice(index, 1);
+    return next;
+  }
+  next[index].quantity = clampFlavourQuantity(quantity);
+  return next;
+}
+
+export function cartItemCount(cart) {
+  return cart.reduce((sum, line) => sum + line.quantity, 0);
+}
+
+export function cartGrandTotal(cart) {
+  return cart.reduce((sum, line) => sum + flavourLineTotal(line.unitPriceNaira, line.quantity), 0);
+}
+
+export function cartQuantityFor(cart, flavourId) {
+  const id = typeof flavourId === "string" ? flavourId.trim() : "";
+  const line = cart.find((item) => item.flavourId === id);
+  return line ? line.quantity : 0;
+}
+
+/**
+ * @param {Array<{ flavourId: string, productName: string, unitPriceNaira: number, quantity: number }>} cart
+ */
+export function buildWhatsAppCartUrl(cart) {
+  if (!Array.isArray(cart) || cart.length === 0) {
+    return buildWhatsAppOrderUrl();
+  }
+
+  const lines = ["Hello Brightside,", "", "I'd like to place an order:", "", "Items:"];
+  cart.forEach((line, index) => {
+    const subtotal = flavourLineTotal(line.unitPriceNaira, line.quantity);
+    lines.push(`${index + 1}. ${line.productName}`);
+    lines.push(`   ${line.quantity} × ${formatNaira(line.unitPriceNaira)} = ${formatNaira(subtotal)}`);
+  });
+  lines.push(
+    "",
+    `Order total: ${formatNaira(cartGrandTotal(cart))}`,
+    "Range: Brightside Sweet & Strong canned cocktails",
+    "",
+    "Please confirm availability, delivery or pickup, and payment.",
+    "",
+    "Thank you."
+  );
+
+  return `https://wa.me/${BRIGHTSIDE_WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+}

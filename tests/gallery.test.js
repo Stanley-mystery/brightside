@@ -30,15 +30,16 @@ test("when the page moves past the characters, then the gallery is next", () => 
 
 test("when the gallery renders, then all people-holding-brand photos are present", () => {
   const section = galleryMarkup();
-  const sources = [...section.matchAll(/data-gallery-thumb[^>]*>[\s\S]*?<img src="(assets\/images\/people-holding-brand\/[^"]+)"/g)].map((match) => match[1]);
+  const sources = [...section.matchAll(/data-gallery-item[^>]*data-src="(assets\/images\/people-holding-brand\/[^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(sources, GALLERY_PHOTOS);
   for (const source of sources) {
     const diskPath = decodeURIComponent(source.replace(/^assets\//, "../assets/"));
     assert.equal(existsSync(new URL(diskPath, import.meta.url)), true, source);
   }
-  assert.equal(section.match(/class="gallery-thumbnail[^"]*"[^>]*data-gallery-thumb/g).length, 7);
+  assert.equal(section.match(/class="gallery-dot[^"]*"[^>]*data-gallery-item/g).length, 7);
+  assert.doesNotMatch(section, /gallery-thumbnails|data-gallery-thumb/);
   assert.match(section, /<h2 id="gallery-title">/);
-  assert.match(section, /class="gallery-slider"/);
+  assert.match(section, /class="gallery-viewport"/);
   assert.match(section, /class="gallery-slide-image" data-gallery-image/);
   assert.doesNotMatch(section, /assets\/hero-/);
 });
@@ -46,9 +47,9 @@ test("when the gallery renders, then all people-holding-brand photos are present
 test("when the gallery is styled, then one photo fills a responsive slider", () => {
   const section = galleryMarkup();
   assert.match(section, /role="region" aria-roledescription="carousel"/);
-  assert.match(css, /\.gallery-slider\s*\{[^}]*height:\s*clamp\(/s);
-  assert.match(css, /\.gallery-slide-image\s*\{[^}]*object-fit:\s*contain/s);
-  assert.match(css, /@media \(max-width:\s*600px\)[\s\S]*\.gallery-slider/);
+  assert.match(css, /\.gallery-slide\s*\{[^}]*height:\s*clamp\(/s);
+  assert.match(css, /\.gallery-slide-image\s*\{[^}]*object-fit:\s*cover/s);
+  assert.match(css, /@media \(max-width:\s*600px\)[\s\S]*\.gallery-slide/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
 });
 
@@ -58,7 +59,7 @@ test("when the gallery loads, then the slider starts automatically and its contr
   assert.match(section, /data-gallery-next aria-label="Next photo"/);
   assert.match(section, /data-gallery-play aria-pressed="false"/);
   assert.match(section, /data-gallery-progress/);
-  assert.match(section, /data-gallery-thumb/);
+  assert.match(section, /data-gallery-item/);
   assert.match(html, /aria-live="polite"/);
   assert.match(main, /function bindGallery\(\)/);
   assert.match(main, /showPhoto\(activeIndex \+ 1\)/);
@@ -71,7 +72,7 @@ test("when the gallery loads, then the slider starts automatically and its contr
 
 test("when the slider advances, then it respects reduced-motion preferences", () => {
   assert.match(css, /@keyframes gallery-image-fade/);
-  assert.match(css, /\.gallery-thumbnail\.is-active/);
+  assert.match(css, /\.gallery-dot\.is-active/);
   assert.match(main, /reduceMotion\.matches/);
   assert.match(main, /showPhoto\(activeIndex \+ \(delta < 0 \? 1 : -1\)\)/);
 });

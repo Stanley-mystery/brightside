@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { existsSync, readFileSync } from "node:fs";
+import { BRIGHTSIDE_WHATSAPP_NUMBER, buildWhatsAppOrderUrl } from "../js/logic.js";
 
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/styles.css", import.meta.url), "utf8");
+const main = readFileSync(new URL("../js/main.js", import.meta.url), "utf8");
 const TIKTOK_HREF = "https://www.tiktok.com/@brightside.co";
-const WHATSAPP_HREF = "https://wa.me/?text=Hi%20Brightside%2C%20I%27d%20like%20to%20buy%20a%20carrier.";
+const WHATSAPP_HREF = buildWhatsAppOrderUrl();
 const INSTAGRAM_HREF = "https://www.instagram.com/brightside.co/";
 
 function buyMarkup() {
@@ -48,7 +50,11 @@ test("when how to buy renders, then the delivery photo sits left of the message 
   assert.match(section, /class="buy-message">Send us a message/);
   assert.match(section, /class="buy-social" aria-label="Send us a message"/);
   assert.match(section, new RegExp(`class="buy-social-link buy-social-tiktok" href="${TIKTOK_HREF.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
-  assert.match(section, new RegExp(`class="buy-social-link buy-social-whatsapp" href="${WHATSAPP_HREF.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+  assert.match(section, /data-buy-whatsapp/);
+  assert.match(html, /data-whatsapp-confirm/);
+  assert.match(main, /bindWhatsAppHandoff/);
+  assert.match(main, /WHATSAPP_CONFIRM_COPY/);
+  assert.match(section, new RegExp(`wa\\.me/${BRIGHTSIDE_WHATSAPP_NUMBER}`));
   assert.match(section, new RegExp(`class="buy-social-link buy-social-instagram" href="${INSTAGRAM_HREF.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
   assert.match(section, /aria-label="TikTok"/);
   assert.match(section, /aria-label="WhatsApp"/);
@@ -63,7 +69,9 @@ test("when how to buy renders, then the delivery photo sits left of the message 
 test("when a social link is blank, unfinished, or not https, then it is not used", () => {
   const section = buyMarkup();
   const hrefs = [...section.matchAll(/class="buy-social-link[^"]*" href="([^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(hrefs, [TIKTOK_HREF, WHATSAPP_HREF, INSTAGRAM_HREF]);
+  assert.equal(hrefs[0], TIKTOK_HREF);
+  assert.match(hrefs[1], new RegExp(`^https://wa\\.me/${BRIGHTSIDE_WHATSAPP_NUMBER}`));
+  assert.equal(hrefs[2], INSTAGRAM_HREF);
   hrefs.forEach((href) => {
     assert.equal(href.startsWith("https://"), true);
     assert.equal(href.includes("javascript:"), false);
