@@ -67,6 +67,15 @@ test("when the list form has a real email, then it is trimmed and saved", () => 
   assert.match(FORM_MESSAGES.saved, /Saved on this device/);
 });
 
+const SITE_DESCRIPTION =
+  "Brightside makes sweet, strong canned cocktails—Mango Margarita, Long Island, Pornstar Martini, and Brightside Special. Pour cold, find stockists, and order online.";
+
+test("when search or social crawlers read the page, then the description matches the current range", () => {
+  assert.match(html, new RegExp(`name="description" content="${SITE_DESCRIPTION}"`));
+  assert.match(html, new RegExp(`property="og:description" content="${SITE_DESCRIPTION}"`));
+  assert.match(html, new RegExp(`name="twitter:description" content="${SITE_DESCRIPTION}"`));
+});
+
 test("when the page link is shared, then the preview image is the brand-can photo", () => {
   const previewImage =
     "assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(2).jpeg";
