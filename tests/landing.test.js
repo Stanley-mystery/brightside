@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import {
   FORM_MESSAGES,
   isValidEmail,
@@ -65,4 +65,21 @@ test("when the list form has a real email, then it is trimmed and saved", () => 
     reason: "saved",
   });
   assert.match(FORM_MESSAGES.saved, /Saved on this device/);
+});
+
+test("when the page link is shared, then the preview image is the brand-can photo", () => {
+  const previewImage =
+    "assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(2).jpeg";
+  assert.match(html, new RegExp(`property="og:image" content="${previewImage.replace(/[()]/g, "\\$&")}"`));
+  assert.match(html, new RegExp(`name="twitter:image" content="${previewImage.replace(/[()]/g, "\\$&")}"`));
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.equal(
+    existsSync(
+      new URL(
+        "../assets/images/brand-can/WhatsApp Image 2026-10-30 at 08.48.08 (2).jpeg",
+        import.meta.url,
+      ),
+    ),
+    true,
+  );
 });
