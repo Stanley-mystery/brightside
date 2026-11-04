@@ -30,13 +30,13 @@ test("when the hero renders, then the right-hand image is a slideshow of Brights
 
 test("when the hero renders, then the banner copy and try button are in the left panel", () => {
   const hero = heroMarkup();
-  assert.match(hero, /Skip the shaker\.<br>Keep the Brightside\./);
-  assert.match(hero, /class="hero-line">Pour it cold</);
+  assert.match(hero, /class="hero-kicker">Sweet &amp; strong\.<br>In a can\./);
+  assert.match(hero, /class="hero-line">Pour cold</);
   assert.match(hero, /class="hero-line">Pass the can</);
-  assert.match(hero, /class="hero-line">Cheers\./);
+  assert.match(hero, /class="hero-line">Cheers</);
   assert.doesNotMatch(hero, /For the ones<br>who want it all\./);
   assert.doesNotMatch(hero, /A margarita/);
-  assert.match(hero, /class="hero-cta" href="#buy">Try Brightside/);
+  assert.match(hero, /class="hero-cta" href="#can">Try Brightside/);
   assert.match(hero, /class="hero-cheers"/);
   assert.match(hero, /class="hero-ornament hero-lime"/);
   assert.match(hero, /class="hero-ornament hero-mango"/);
