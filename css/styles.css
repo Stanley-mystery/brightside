@@ -356,7 +356,7 @@ a {
   margin: clamp(0.4rem, 10cqi, 3.25rem) 0 0.85rem;
   color: var(--hero-ink);
   font-family: var(--sans);
-  font-size: clamp(1.65rem, 14.6cqi, 7.75rem);
+  font-size: clamp(1.25rem, 11cqi, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.06em;
   line-height: 0.86;
@@ -433,7 +433,7 @@ html:not(.js) .hero-photo {
 /* Locked lines have to shrink before a narrow column clips them. */
 @container hero (max-width: 15rem) {
   .hero h1 {
-    font-size: 1.45rem;
+    font-size: 1.2rem;
     letter-spacing: -0.05em;
   }
 

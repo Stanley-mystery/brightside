@@ -79,7 +79,7 @@ test("when the page opens, then the cheers clink and the hero marks draw in", ()
 
 test("when the hero column gets narrower, then the left headline scales and can wrap", () => {
   assert.match(css, /\.hero-panel\s*\{[^}]*container:\s*hero\s*\/\s*inline-size/s);
-  assert.match(css, /\.hero h1\s*\{[^}]*font-size:\s*clamp\(\s*1\.65rem,\s*14\.6cqi,\s*7\.75rem\s*\)/s);
+  assert.match(css, /\.hero h1\s*\{[^}]*font-size:\s*clamp\(\s*1\.25rem,\s*11cqi,\s*5\.5rem\s*\)/s);
   assert.match(css, /\.hero-line\s*\{[^}]*display:\s*block/s);
   assert.match(css, /\.hero-line\s*\{[^}]*white-space:\s*nowrap/s);
   assert.match(css, /@container\s+hero\s*\(max-width:\s*20rem\)/);
