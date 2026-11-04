@@ -6,9 +6,9 @@ import { BRIGHTSIDE_WHATSAPP_NUMBER, buildWhatsAppOrderUrl } from "../js/logic.j
 const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const css = readFileSync(new URL("../css/styles.css", import.meta.url), "utf8");
 const main = readFileSync(new URL("../js/main.js", import.meta.url), "utf8");
-const TIKTOK_HREF = "https://www.tiktok.com/@brightside.co";
+const TIKTOK_HREF = "https://www.tiktok.com/@brightside.corp";
 const WHATSAPP_HREF = buildWhatsAppOrderUrl();
-const INSTAGRAM_HREF = "https://www.instagram.com/brightside.co/";
+const INSTAGRAM_HREF = "https://www.instagram.com/brightside.corp/";
 
 function buyMarkup() {
   const start = html.indexOf('<section class="section buy" id="buy"');

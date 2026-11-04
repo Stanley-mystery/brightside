@@ -39,11 +39,11 @@ test("when the founder section renders, then it introduces Lila and her Instagra
   assert.match(section, /alt="Lila, founder of Brightside, smiling and holding a pink can with both hands\."/);
   assert.match(section, /<figcaption>Lila<\/figcaption>/);
   assert.match(section, /<section class="founder" id="founder"[^>]*data-reveal/);
-  assert.match(section, /class="founder-social" href="https:\/\/www\.instagram\.com\/brightside\.co\/"/);
+  assert.match(section, /class="founder-social" href="https:\/\/www\.instagram\.com\/brightside\.corp\/"/);
   assert.match(section, /target="_blank"/);
   assert.match(section, /rel="noopener noreferrer"/);
   assert.match(section, /Founder's Instagram/);
-  assert.match(section, /<strong>@brightside\.co<\/strong>/);
+  assert.match(section, /<strong>@brightside\.corp<\/strong>/);
   assert.match(html, /href="#founder">The founder/);
   assert.doesNotMatch(section, /Goldilocks/i);
 });
