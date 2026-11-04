@@ -1,480 +1,1245 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="is-allowed">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Brightside is a canned Mango Margarita. Sweet and strong, packed in a pink carrier.">
-  <meta name="theme-color" content="#fff7f1">
-  <title>Brightside — Sweet &amp; Strong</title>
-  <link rel="icon" href="assets/brightside-logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/brightside-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,520&family=Lobster&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <script>
-    document.documentElement.classList.add("js");
-  </script>
-</head>
-<body>
-  <svg class="sprite" aria-hidden="true">
-    <symbol id="mark" viewBox="0 0 180 100">
-      <path fill="currentColor" d="M24 13.2 26.4 19.4 33 20.1 28 24.4 29.7 30.6 24 27.4 18.3 30.6 20 24.4 15 20.1 21.6 19.4Z"/>
-      <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M62 60c-8-12-20-24-34-32"/>
-        <path d="M28 28c2.4 1.2 3.4 3.4 2.2 5.2"/>
-        <circle cx="74" cy="50" r="12"/>
-        <path d="M63 47c2-16 24-18 28-3"/>
-        <path d="M66 54c2.2 2.4 6.4 2.6 9 0"/>
-        <path d="M84 58c12 7 26 11 40 7"/>
-        <path d="M112 66c8 9 18 9 28 3"/>
-        <path d="M124 64c18-10 36-7 48 4"/>
-        <path d="M128 74c16 3 32 1 46 8"/>
-        <path d="M96 64c7 9 16 9 23 3"/>
-      </g>
-    </symbol>
-    <symbol id="leaf" viewBox="0 0 64 108">
-      <path fill="currentColor" fill-rule="evenodd" d="M32 4c14 20 28 40 26 62-2 22-14 36-26 38C20 102 6 88 4 66 2 44 18 24 32 4zm.6 24c-1.6 16-3 36-1.4 50 .7 6 2.8 8 3.8 7 1.8-1.8 2.4-5.4 1.2-15-1-14-2.2-28-3.6-42z"/>
-    </symbol>
-    <symbol id="lime" viewBox="0 0 64 64">
-      <path fill="currentColor" d="M6 58A52 52 0 0 1 58 6v52H6z"/>
-    </symbol>
-    <symbol id="wedge" viewBox="0 0 64 40">
-      <path fill="currentColor" d="M4 36A28 28 0 0 1 60 36H4z"/>
-    </symbol>
-    <symbol id="spark" viewBox="0 0 36 36">
-      <path fill="currentColor" d="M18 2.2 19.6 14.2 32 18l-12.4 3.8L18 33.8 16.4 21.8 4 18l12.4-3.8z"/>
-    </symbol>
-    <symbol id="pip" viewBox="0 0 8 8">
-      <circle cx="4" cy="4" r="4" fill="currentColor"/>
-    </symbol>
-    <symbol id="mango" viewBox="0 0 64 64">
-      <path fill="currentColor" d="M24 18c-12 8-16 26-8 38 8 12 26 14 38 4 10-8 12-24 4-34-6-8-16-12-24-10-4 0-8 1-10 2z"/>
-      <path fill="currentColor" d="M36 16c6-10 16-12 20-7-8 1-14 5-18 11-1-1-2-3-2-4z"/>
-    </symbol>
-    <symbol id="orange" viewBox="0 0 64 64">
-      <circle cx="32" cy="36" r="20" fill="currentColor"/>
-      <path fill="currentColor" d="M30 18c2-10 12-14 18-10-8 1-14 6-16 12-1-1-2-1-2-2z"/>
-    </symbol>
-    <symbol id="lemon" viewBox="0 0 64 64">
-      <ellipse cx="32" cy="36" rx="13" ry="22" transform="rotate(-22 32 36)" fill="currentColor"/>
-      <path fill="currentColor" d="M28 16c2-8 10-10 14-7-6 1-10 4-12 9-1-1-2-1-2-2z"/>
-    </symbol>
-    <symbol id="cherry" viewBox="0 0 64 64">
-      <path fill="currentColor" d="M26 30c6-14 18-18 24-12-8 1-16 6-20 14-2-1-3-1-4-2z"/>
-      <circle cx="22" cy="44" r="12" fill="currentColor"/>
-      <circle cx="42" cy="42" r="11" fill="currentColor"/>
-    </symbol>
-    <symbol id="strawberry" viewBox="0 0 64 64">
-      <path fill="currentColor" d="M32 22c12 7 18 18 16 28-2 8-9 12-16 12s-14-4-16-12c-2-10 4-21 16-28z"/>
-      <path fill="currentColor" d="M22 24c1-9 8-14 10-14s8 5 10 14c-6-3-14-3-20 0z"/>
-    </symbol>
-    <symbol id="pineapple" viewBox="0 0 64 80">
-      <ellipse cx="32" cy="50" rx="16" ry="22" fill="currentColor"/>
-      <path fill="currentColor" d="M32 30c-1-12 1-20 2-26 1 8 2 16-2 26zM18 36c-8-8-6-16-3-22 6 4 10 12 3 22zM46 36c8-8 6-16 3-22-6 4-10 12-3 22z"/>
-    </symbol>
-    <symbol id="grapefruit" viewBox="0 0 64 64">
-      <path fill="currentColor" d="M6 36a26 26 0 0 1 52 0c0 5-3 8-8 8H14c-5 0-8-3-8-8z"/>
-    </symbol>
-  </svg>
-
-  <div id="page">
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="nav" id="nav">
-      <a class="logo" href="#top">
-        <img class="logo-image" src="assets/brightside-logo.png" width="855" height="346" alt="Brightside">
-      </a>
-      <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="links" aria-label="Open menu">
-        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path class="menu-icon-open" d="M3 6h18M3 12h18M3 18h18"/>
-          <path class="menu-icon-close" d="m6 6 12 12M18 6 6 18"/>
-        </svg>
-      </button>
-      <nav class="links" id="links" aria-label="Primary">
-        <a href="#can">The can</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#places">Find us</a>
-        <a href="#reel">The reel</a>
-        <a href="#began">Our story</a>
-        <a class="links-cta btn" href="#buy">Buy</a>
-      </nav>
-      <a class="btn nav-cta" href="#buy">Buy</a>
-    </header>
-
-    <main id="main" tabindex="-1">
-      <section class="hero" id="top">
-        <div class="hero-split">
-          <div class="hero-panel">
-            <div class="hero-copy">
-              <p class="hero-kicker">Skip the shaker.</p>
-              <h1>
-                <span class="hero-line">Sip the moment</span>
-                <span class="hero-line">Stay Bright.</span>
-              </h1>
-              <a class="hero-cta" href="#can">Try Brightside</a>
-            </div>
-            <svg class="hero-ornament hero-lime" viewBox="0 0 86 90" fill="none" aria-hidden="true">
-              <circle cx="40" cy="52" r="23" stroke="currentColor" stroke-width="1.7"/>
-              <circle cx="40" cy="52" r="7.5" stroke="currentColor" stroke-width="1.7"/>
-              <path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"/>
-              <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M62 24c3 3.2 4.2 6.2 3.2 9"/>
-            </svg>
-            <svg class="hero-ornament hero-star" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-              <path stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/>
-              <path stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"/>
-            </svg>
-            <svg class="hero-ornament hero-mango" viewBox="0 0 84 100" fill="none" aria-hidden="true">
-              <path stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M44 24c1-8 7-13 12-15"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"/>
-              <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M57 13c4 2.2 7 2.4 10.5.4"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"/>
-              <path stroke="currentColor" stroke-width="1.45" stroke-linecap="round" d="M30 50c7 2 15 10 17 22"/>
-              <ellipse cx="46" cy="62" rx="6.5" ry="11" transform="rotate(-18 46 62)" stroke="currentColor" stroke-width="1.55"/>
-            </svg>
-            <svg class="hero-cheers" viewBox="0 0 128 108" fill="none" aria-hidden="true">
-              <g class="hero-glass hero-glass-left" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <g transform="rotate(-16 34 52)">
-                  <path d="M8 22h40L28 54 8 22Z"/>
-                  <path d="M18 22c3.2 6 7.2 6 10.2 0"/>
-                  <path d="M28 54v24"/>
-                  <path d="M16 78h24"/>
-                </g>
-              </g>
-              <g class="hero-glass hero-glass-right" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <g transform="rotate(14 92 50)">
-                  <path d="M92 14c12 14 18 24 18 38 0 14-8 22-18 22s-18-8-18-22c0-14 6-24 18-38Z"/>
-                  <path d="M82 32c5 3.4 8 3.4 13 0"/>
-                  <path d="M92 74v16"/>
-                  <path d="M78 90h28"/>
-                </g>
-              </g>
-              <g class="hero-clink" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m64 8 1.3 5.4 5.5 1.4-5.5 1.4L64 21.6l-1.3-5.4-5.5-1.4 5.5-1.4L64 8z"/>
-                <path d="M50 18h5.5M73 16.5h5"/>
-                <path d="M54 12.5 56.2 15M74.5 12l-2 2.6"/>
-              </g>
-            </svg>
-          </div>
-          <figure class="hero-photo" aria-label="Brightside canned cocktails">
-            <img class="hero-slide is-active" src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.09.jpeg" alt="A Brightside cocktail can nestled in ice." fetchpriority="high" data-hero-slide>
-            <img class="hero-slide" src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(1).jpeg" alt="Brightside cocktail cans chilled together in ice." loading="lazy" aria-hidden="true" data-hero-slide>
-            <img class="hero-slide" src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(2).jpeg" alt="Friends reaching for Brightside cans in an ice-filled cooler." loading="lazy" aria-hidden="true" data-hero-slide>
-            <img class="hero-slide" src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.09%20(2).jpeg" alt="A chilled Brightside Long Island cocktail can." loading="lazy" aria-hidden="true" data-hero-slide>
-          </figure>
-        </div>
-      </section>
-
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <ul>
-            <li>Sweet &amp; strong</li>
-            <li>Mango Margarita</li>
-            <li>Drink it cold</li>
-            <li>Pass the carrier</li>
-            <li>Real cocktail</li>
-            <li>The bright side</li>
-          </ul>
-          <ul>
-            <li>Sweet &amp; strong</li>
-            <li>Mango Margarita</li>
-            <li>Drink it cold</li>
-            <li>Pass the carrier</li>
-            <li>Real cocktail</li>
-            <li>The bright side</li>
-          </ul>
-        </div>
-      </div>
-
-      <section class="characters" id="can" aria-labelledby="can-title" data-reveal>
-        <div class="characters-intro">
-          <svg class="character-ornament character-lime character-lime-intro" viewBox="0 0 86 90" fill="none" aria-hidden="true">
-            <circle cx="40" cy="52" r="23" stroke="currentColor" stroke-width="1.7"/>
-            <circle cx="40" cy="52" r="7.5" stroke="currentColor" stroke-width="1.7"/>
-            <path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"/>
-            <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"/>
-            <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M62 24c3 3.2 4.2 6.2 3.2 9"/>
-          </svg>
-          <h2 id="can-title">Meet the main<br>pour.</h2>
-          <svg class="character-ornament character-mango character-mango-intro" viewBox="0 0 84 100" fill="none" aria-hidden="true">
-            <path stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M44 24c1-8 7-13 12-15"/>
-            <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"/>
-            <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M57 13c4 2.2 7 2.4 10.5.4"/>
-            <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"/>
-            <path stroke="currentColor" stroke-width="1.45" stroke-linecap="round" d="M30 50c7 2 15 10 17 22"/>
-            <ellipse cx="46" cy="62" rx="6.5" ry="11" transform="rotate(-18 46 62)" stroke="currentColor" stroke-width="1.55"/>
-          </svg>
-        </div>
-        <div
-          class="flavours-show"
-          data-flavours-carousel
-          data-active-flavour="mango-margarita"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Brightside cocktail flavours"
-          tabindex="0"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Brightside is a canned Mango Margarita. Sweet and strong, packed in a pink carrier."
+    />
+    <meta name="theme-color" content="#fff7f1" />
+    <title>Brightside — Sweet &amp; Strong</title>
+    <link rel="icon" href="assets/brightside-logo.png" type="image/png" />
+    <link
+      rel="apple-touch-icon"
+      href="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(2).jpeg"
+      type="image/jpeg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,560;1,9..144,520&family=Lobster&family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="mark" viewBox="0 0 180 100">
+        <path
+          fill="currentColor"
+          d="M24 13.2 26.4 19.4 33 20.1 28 24.4 29.7 30.6 24 27.4 18.3 30.6 20 24.4 15 20.1 21.6 19.4Z"
+        />
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-          <div class="flavours-shell">
-            <div class="flavours-visual">
-              <div class="flavours-slider">
-                <button class="flavours-control flavours-previous" type="button" data-flavours-previous aria-label="Previous flavour">
-                  <span aria-hidden="true">&lsaquo;</span>
+          <path d="M62 60c-8-12-20-24-34-32" />
+          <path d="M28 28c2.4 1.2 3.4 3.4 2.2 5.2" />
+          <circle cx="74" cy="50" r="12" />
+          <path d="M63 47c2-16 24-18 28-3" />
+          <path d="M66 54c2.2 2.4 6.4 2.6 9 0" />
+          <path d="M84 58c12 7 26 11 40 7" />
+          <path d="M112 66c8 9 18 9 28 3" />
+          <path d="M124 64c18-10 36-7 48 4" />
+          <path d="M128 74c16 3 32 1 46 8" />
+          <path d="M96 64c7 9 16 9 23 3" />
+        </g>
+      </symbol>
+      <symbol id="leaf" viewBox="0 0 64 108">
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M32 4c14 20 28 40 26 62-2 22-14 36-26 38C20 102 6 88 4 66 2 44 18 24 32 4zm.6 24c-1.6 16-3 36-1.4 50 .7 6 2.8 8 3.8 7 1.8-1.8 2.4-5.4 1.2-15-1-14-2.2-28-3.6-42z"
+        />
+      </symbol>
+      <symbol id="lime" viewBox="0 0 64 64">
+        <path fill="currentColor" d="M6 58A52 52 0 0 1 58 6v52H6z" />
+      </symbol>
+      <symbol id="wedge" viewBox="0 0 64 40">
+        <path fill="currentColor" d="M4 36A28 28 0 0 1 60 36H4z" />
+      </symbol>
+      <symbol id="spark" viewBox="0 0 36 36">
+        <path
+          fill="currentColor"
+          d="M18 2.2 19.6 14.2 32 18l-12.4 3.8L18 33.8 16.4 21.8 4 18l12.4-3.8z"
+        />
+      </symbol>
+      <symbol id="pip" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="4" fill="currentColor" />
+      </symbol>
+      <symbol id="mango" viewBox="0 0 64 64">
+        <path
+          fill="currentColor"
+          d="M24 18c-12 8-16 26-8 38 8 12 26 14 38 4 10-8 12-24 4-34-6-8-16-12-24-10-4 0-8 1-10 2z"
+        />
+        <path
+          fill="currentColor"
+          d="M36 16c6-10 16-12 20-7-8 1-14 5-18 11-1-1-2-3-2-4z"
+        />
+      </symbol>
+      <symbol id="orange" viewBox="0 0 64 64">
+        <circle cx="32" cy="36" r="20" fill="currentColor" />
+        <path
+          fill="currentColor"
+          d="M30 18c2-10 12-14 18-10-8 1-14 6-16 12-1-1-2-1-2-2z"
+        />
+      </symbol>
+      <symbol id="lemon" viewBox="0 0 64 64">
+        <ellipse
+          cx="32"
+          cy="36"
+          rx="13"
+          ry="22"
+          transform="rotate(-22 32 36)"
+          fill="currentColor"
+        />
+        <path
+          fill="currentColor"
+          d="M28 16c2-8 10-10 14-7-6 1-10 4-12 9-1-1-2-1-2-2z"
+        />
+      </symbol>
+      <symbol id="cherry" viewBox="0 0 64 64">
+        <path
+          fill="currentColor"
+          d="M26 30c6-14 18-18 24-12-8 1-16 6-20 14-2-1-3-1-4-2z"
+        />
+        <circle cx="22" cy="44" r="12" fill="currentColor" />
+        <circle cx="42" cy="42" r="11" fill="currentColor" />
+      </symbol>
+      <symbol id="strawberry" viewBox="0 0 64 64">
+        <path
+          fill="currentColor"
+          d="M32 22c12 7 18 18 16 28-2 8-9 12-16 12s-14-4-16-12c-2-10 4-21 16-28z"
+        />
+        <path
+          fill="currentColor"
+          d="M22 24c1-9 8-14 10-14s8 5 10 14c-6-3-14-3-20 0z"
+        />
+      </symbol>
+      <symbol id="pineapple" viewBox="0 0 64 80">
+        <ellipse cx="32" cy="50" rx="16" ry="22" fill="currentColor" />
+        <path
+          fill="currentColor"
+          d="M32 30c-1-12 1-20 2-26 1 8 2 16-2 26zM18 36c-8-8-6-16-3-22 6 4 10 12 3 22zM46 36c8-8 6-16 3-22-6 4-10 12-3 22z"
+        />
+      </symbol>
+      <symbol id="grapefruit" viewBox="0 0 64 64">
+        <path
+          fill="currentColor"
+          d="M6 36a26 26 0 0 1 52 0c0 5-3 8-8 8H14c-5 0-8-3-8-8z"
+        />
+      </symbol>
+    </svg>
+
+    <div id="page">
+      <a class="skip" href="#main">Skip to content</a>
+      <header class="nav" id="nav">
+        <a class="logo" href="#top">
+          <img
+            class="logo-image"
+            src="assets/brightside-logo.png"
+            width="855"
+            height="346"
+            alt="Brightside"
+          />
+        </a>
+        <button
+          class="menu-button"
+          id="menu-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="links"
+          aria-label="Open menu"
+        >
+          <svg
+            class="menu-icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="menu-icon-open" d="M3 6h18M3 12h18M3 18h18" />
+            <path class="menu-icon-close" d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+        <nav class="links" id="links" aria-label="Primary">
+          <a href="#can">The can</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#places">Find us</a>
+          <a href="#reel">The reel</a>
+          <a href="#began">Our story</a>
+          <a class="links-cta btn" href="#buy">Buy</a>
+        </nav>
+        <a class="btn nav-cta" href="#buy">Buy</a>
+      </header>
+
+      <main id="main" tabindex="-1">
+        <section class="hero" id="top">
+          <div class="hero-split">
+            <div class="hero-panel">
+              <div class="hero-copy">
+                <p class="hero-kicker">Skip the shaker.</p>
+                <h1>
+                  <span class="hero-line">Sip the moment</span>
+                  <span class="hero-line">Stay Bright.</span>
+                </h1>
+                <a class="hero-cta" href="#can">Try Brightside</a>
+              </div>
+              <svg
+                class="hero-ornament hero-lime"
+                viewBox="0 0 86 90"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="40"
+                  cy="52"
+                  r="23"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <circle
+                  cx="40"
+                  cy="52"
+                  r="7.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  d="M62 24c3 3.2 4.2 6.2 3.2 9"
+                />
+              </svg>
+              <svg
+                class="hero-ornament hero-star"
+                viewBox="0 0 36 36"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                  d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linejoin="round"
+                  d="m28 5 .55 3.7L32.2 9.2 28.55 9.8 28 13.5l-.55-3.7L23.8 9.2 27.45 8.6 28 5z"
+                />
+              </svg>
+              <svg
+                class="hero-ornament hero-mango"
+                viewBox="0 0 84 100"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  d="M44 24c1-8 7-13 12-15"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  d="M57 13c4 2.2 7 2.4 10.5.4"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.45"
+                  stroke-linecap="round"
+                  d="M30 50c7 2 15 10 17 22"
+                />
+                <ellipse
+                  cx="46"
+                  cy="62"
+                  rx="6.5"
+                  ry="11"
+                  transform="rotate(-18 46 62)"
+                  stroke="currentColor"
+                  stroke-width="1.55"
+                />
+              </svg>
+              <svg
+                class="hero-cheers"
+                viewBox="0 0 128 108"
+                fill="none"
+                aria-hidden="true"
+              >
+                <g
+                  class="hero-glass hero-glass-left"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <g transform="rotate(-16 34 52)">
+                    <path d="M8 22h40L28 54 8 22Z" />
+                    <path d="M18 22c3.2 6 7.2 6 10.2 0" />
+                    <path d="M28 54v24" />
+                    <path d="M16 78h24" />
+                  </g>
+                </g>
+                <g
+                  class="hero-glass hero-glass-right"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <g transform="rotate(14 92 50)">
+                    <path
+                      d="M92 14c12 14 18 24 18 38 0 14-8 22-18 22s-18-8-18-22c0-14 6-24 18-38Z"
+                    />
+                    <path d="M82 32c5 3.4 8 3.4 13 0" />
+                    <path d="M92 74v16" />
+                    <path d="M78 90h28" />
+                  </g>
+                </g>
+                <g
+                  class="hero-clink"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m64 8 1.3 5.4 5.5 1.4-5.5 1.4L64 21.6l-1.3-5.4-5.5-1.4 5.5-1.4L64 8z"
+                  />
+                  <path d="M50 18h5.5M73 16.5h5" />
+                  <path d="M54 12.5 56.2 15M74.5 12l-2 2.6" />
+                </g>
+              </svg>
+            </div>
+            <figure class="hero-photo" aria-label="Brightside canned cocktails">
+              <img
+                class="hero-slide is-active"
+                src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.09.jpeg"
+                alt="A Brightside cocktail can nestled in ice."
+                fetchpriority="high"
+                data-hero-slide
+              />
+              <img
+                class="hero-slide"
+                src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(1).jpeg"
+                alt="Brightside cocktail cans chilled together in ice."
+                loading="lazy"
+                aria-hidden="true"
+                data-hero-slide
+              />
+              <img
+                class="hero-slide"
+                src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.08%20(2).jpeg"
+                alt="Friends reaching for Brightside cans in an ice-filled cooler."
+                loading="lazy"
+                aria-hidden="true"
+                data-hero-slide
+              />
+              <img
+                class="hero-slide"
+                src="assets/images/brand-can/WhatsApp%20Image%202026-10-30%20at%2008.48.09%20(2).jpeg"
+                alt="A chilled Brightside Long Island cocktail can."
+                loading="lazy"
+                aria-hidden="true"
+                data-hero-slide
+              />
+            </figure>
+          </div>
+        </section>
+
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <ul>
+              <li>Sweet &amp; strong</li>
+              <li>Mango Margarita</li>
+              <li>Drink it cold</li>
+              <li>Pass the carrier</li>
+              <li>Real cocktail</li>
+              <li>The bright side</li>
+            </ul>
+            <ul>
+              <li>Sweet &amp; strong</li>
+              <li>Mango Margarita</li>
+              <li>Drink it cold</li>
+              <li>Pass the carrier</li>
+              <li>Real cocktail</li>
+              <li>The bright side</li>
+            </ul>
+          </div>
+        </div>
+
+        <section
+          class="characters"
+          id="can"
+          aria-labelledby="can-title"
+          data-reveal
+        >
+          <div class="characters-intro">
+            <svg
+              class="character-ornament character-lime character-lime-intro"
+              viewBox="0 0 86 90"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="40"
+                cy="52"
+                r="23"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <circle
+                cx="40"
+                cy="52"
+                r="7.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                d="M62 24c3 3.2 4.2 6.2 3.2 9"
+              />
+            </svg>
+            <h2 id="can-title">Meet the main<br />pour.</h2>
+            <svg
+              class="character-ornament character-mango character-mango-intro"
+              viewBox="0 0 84 100"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                d="M44 24c1-8 7-13 12-15"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+                d="M57 13c4 2.2 7 2.4 10.5.4"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+                d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"
+              />
+              <path
+                stroke="currentColor"
+                stroke-width="1.45"
+                stroke-linecap="round"
+                d="M30 50c7 2 15 10 17 22"
+              />
+              <ellipse
+                cx="46"
+                cy="62"
+                rx="6.5"
+                ry="11"
+                transform="rotate(-18 46 62)"
+                stroke="currentColor"
+                stroke-width="1.55"
+              />
+            </svg>
+          </div>
+          <div
+            class="flavours-show"
+            data-flavours-carousel
+            data-active-flavour="mango-margarita"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Brightside cocktail flavours"
+            tabindex="0"
+          >
+            <div class="flavours-shell">
+              <div class="flavours-visual">
+                <div class="flavours-slider">
+                  <button
+                    class="flavours-control flavours-previous"
+                    type="button"
+                    data-flavours-previous
+                    aria-label="Previous flavour"
+                  >
+                    <span aria-hidden="true">&lsaquo;</span>
+                  </button>
+                  <div class="flavours-stage" data-flavours-stage>
+                    <figure
+                      class="flavours-slide is-active"
+                      data-flavours-slide
+                      data-flavour-id="mango-margarita"
+                      data-title="Mango Margarita"
+                      data-price="₦8,000.00"
+                      data-unit-naira="8000"
+                      data-contains="Tequila, Mango Juice, Fresh Lime Juice, &amp; Simple Syrup."
+                      data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label="1 of 4"
+                    >
+                      <button
+                        class="flavours-zoom"
+                        type="button"
+                        data-flavours-zoom
+                        aria-label="View Mango Margarita label full size"
+                      >
+                        <img
+                          src="assets/images/flavours/mango-margarita.jpeg"
+                          width="800"
+                          height="1200"
+                          alt=""
+                          fetchpriority="high"
+                        />
+                      </button>
+                    </figure>
+                    <figure
+                      class="flavours-slide"
+                      data-flavours-slide
+                      data-flavour-id="long-island"
+                      data-title="Long Island"
+                      data-price="₦7,500.00"
+                      data-unit-naira="7500"
+                      data-contains="Rum, Gin, Vodka, Tequila, Simple Syrup &amp; Cola."
+                      data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label="2 of 4"
+                      aria-hidden="true"
+                    >
+                      <button
+                        class="flavours-zoom"
+                        type="button"
+                        data-flavours-zoom
+                        aria-label="View Long Island label full size"
+                      >
+                        <img
+                          src="assets/images/flavours/long-island.jpeg"
+                          width="800"
+                          height="1200"
+                          alt=""
+                          loading="lazy"
+                        />
+                      </button>
+                    </figure>
+                    <figure
+                      class="flavours-slide"
+                      data-flavours-slide
+                      data-flavour-id="brightside-special"
+                      data-title="Brightside Special"
+                      data-price="₦7,500.00"
+                      data-unit-naira="7500"
+                      data-contains="Vodka, Cranberry Extract &amp; Simple Syrup."
+                      data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label="3 of 4"
+                      aria-hidden="true"
+                    >
+                      <button
+                        class="flavours-zoom"
+                        type="button"
+                        data-flavours-zoom
+                        aria-label="View Brightside Special label full size"
+                      >
+                        <img
+                          src="assets/images/flavours/bright-side-special.jpeg"
+                          width="800"
+                          height="1200"
+                          alt=""
+                          loading="lazy"
+                        />
+                      </button>
+                    </figure>
+                    <figure
+                      class="flavours-slide"
+                      data-flavours-slide
+                      data-flavour-id="pornstar-martini"
+                      data-title="Pornstar Martini"
+                      data-price="₦8,000.00"
+                      data-unit-naira="8000"
+                      data-contains="Vanilla Flavoured Vodka, Passion Fruit &amp; Simple Syrup."
+                      data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label="4 of 4"
+                      aria-hidden="true"
+                    >
+                      <button
+                        class="flavours-zoom"
+                        type="button"
+                        data-flavours-zoom
+                        aria-label="View Pornstar Martini label full size"
+                      >
+                        <img
+                          src="assets/images/flavours/pornstar-martini.jpeg"
+                          width="800"
+                          height="1200"
+                          alt=""
+                          loading="lazy"
+                        />
+                      </button>
+                    </figure>
+                  </div>
+                  <button
+                    class="flavours-control flavours-next"
+                    type="button"
+                    data-flavours-next
+                    aria-label="Next flavour"
+                  >
+                    <span aria-hidden="true">&rsaquo;</span>
+                  </button>
+                  <p
+                    class="flavours-counter"
+                    data-flavours-counter
+                    aria-live="polite"
+                  >
+                    <span data-flavours-current>01</span> <span>/ 04</span>
+                  </p>
+                </div>
+                <div
+                  class="flavours-thumbs"
+                  role="tablist"
+                  aria-label="Choose a flavour"
+                >
+                  <button
+                    class="flavours-thumb is-active"
+                    type="button"
+                    role="tab"
+                    data-flavours-thumb
+                    aria-selected="true"
+                    aria-label="Mango Margarita"
+                  >
+                    <img
+                      src="assets/images/flavours/mango-margarita.jpeg"
+                      alt=""
+                      loading="lazy"
+                    />
+                    <span>Mango Margarita</span>
+                  </button>
+                  <button
+                    class="flavours-thumb"
+                    type="button"
+                    role="tab"
+                    data-flavours-thumb
+                    aria-selected="false"
+                    aria-label="Long Island"
+                  >
+                    <img
+                      src="assets/images/flavours/long-island.jpeg"
+                      alt=""
+                      loading="lazy"
+                    />
+                    <span>Long Island</span>
+                  </button>
+                  <button
+                    class="flavours-thumb"
+                    type="button"
+                    role="tab"
+                    data-flavours-thumb
+                    aria-selected="false"
+                    aria-label="Brightside Special"
+                  >
+                    <img
+                      src="assets/images/flavours/bright-side-special.jpeg"
+                      alt=""
+                      loading="lazy"
+                    />
+                    <span>Brightside Special</span>
+                  </button>
+                  <button
+                    class="flavours-thumb"
+                    type="button"
+                    role="tab"
+                    data-flavours-thumb
+                    aria-selected="false"
+                    aria-label="Pornstar Martini"
+                  >
+                    <img
+                      src="assets/images/flavours/pornstar-martini.jpeg"
+                      alt=""
+                      loading="lazy"
+                    />
+                    <span>Pornstar Martini</span>
+                  </button>
+                </div>
+              </div>
+              <article
+                class="flavours-detail"
+                data-flavours-detail
+                aria-live="polite"
+              >
+                <p class="flavours-kicker">Brightside · Sweet &amp; Strong</p>
+                <p class="flavours-menu-label">Cocktail menu</p>
+                <h3 class="flavours-name" data-flavours-title>
+                  Mango Margarita
+                </h3>
+                <div class="flavours-qty" data-flavours-qty>
+                  <span class="flavours-qty-label" id="flavours-qty-label"
+                    >Quantity</span
+                  >
+                  <div
+                    class="flavours-qty-control"
+                    role="group"
+                    aria-labelledby="flavours-qty-label"
+                  >
+                    <button
+                      class="flavours-qty-btn"
+                      type="button"
+                      data-flavours-qty-decrease
+                      aria-label="Decrease quantity"
+                    >
+                      &minus;
+                    </button>
+                    <input
+                      class="flavours-qty-input"
+                      type="number"
+                      data-flavours-qty-input
+                      min="1"
+                      max="99"
+                      value="1"
+                      inputmode="numeric"
+                      aria-label="Quantity"
+                    />
+                    <button
+                      class="flavours-qty-btn"
+                      type="button"
+                      data-flavours-qty-increase
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <p class="flavours-price">
+                  <span class="flavours-price-label">Total</span>
+                  <span data-flavours-price>₦8,000.00</span>
+                </p>
+                <p
+                  class="flavours-price-breakdown"
+                  data-flavours-price-breakdown
+                >
+                  1 &times; ₦8,000.00 each
+                </p>
+                <p class="flavours-fresh"><span>Drink me within 48hrs</span></p>
+                <dl class="flavours-facts">
+                  <div class="flavours-fact-row">
+                    <dt>Contains</dt>
+                    <dd data-flavours-contains>
+                      Tequila, Mango Juice, Fresh Lime Juice, &amp; Simple
+                      Syrup.
+                    </dd>
+                  </div>
+                  <div class="flavours-fact-row">
+                    <dt>Fun fact</dt>
+                    <dd data-flavours-fact>
+                      This drink increases the chance of you sending that text
+                      but it doesn't matter cause, you're having a good time.
+                    </dd>
+                  </div>
+                </dl>
+                <p class="flavours-producer">
+                  Produced by:<br />Brightside.corp
+                </p>
+                <button
+                  class="btn flavours-cta"
+                  type="button"
+                  data-flavours-add
+                >
+                  Add to order
                 </button>
-                <div class="flavours-stage" data-flavours-stage>
-                  <figure
-                    class="flavours-slide is-active"
-                    data-flavours-slide
-                    data-flavour-id="mango-margarita"
-                    data-title="Mango Margarita"
-                    data-price="₦8,000.00"
-                    data-unit-naira="8000"
-                    data-contains="Tequila, Mango Juice, Fresh Lime Juice, &amp; Simple Syrup."
-                    data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label="1 of 4"
-                  >
-                    <button class="flavours-zoom" type="button" data-flavours-zoom aria-label="View Mango Margarita label full size">
-                      <img src="assets/images/flavours/mango-margarita.jpeg" width="800" height="1200" alt="" fetchpriority="high">
-                    </button>
-                  </figure>
-                  <figure
-                    class="flavours-slide"
-                    data-flavours-slide
-                    data-flavour-id="long-island"
-                    data-title="Long Island"
-                    data-price="₦7,500.00"
-                    data-unit-naira="7500"
-                    data-contains="Rum, Gin, Vodka, Tequila, Simple Syrup &amp; Cola."
-                    data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label="2 of 4"
-                    aria-hidden="true"
-                  >
-                    <button class="flavours-zoom" type="button" data-flavours-zoom aria-label="View Long Island label full size">
-                      <img src="assets/images/flavours/long-island.jpeg" width="800" height="1200" alt="" loading="lazy">
-                    </button>
-                  </figure>
-                  <figure
-                    class="flavours-slide"
-                    data-flavours-slide
+                <p class="flavours-in-cart" data-flavours-in-cart hidden></p>
+              </article>
+            </div>
+            <div class="flavours-playback-row">
+              <div
+                class="flavours-progress"
+                role="progressbar"
+                aria-label="Flavour slideshow progress"
+                aria-valuemin="1"
+                aria-valuemax="4"
+                aria-valuenow="1"
+                data-flavours-progress
+              >
+                <span data-flavours-progress-fill></span>
+              </div>
+            </div>
+            <div class="flavours-menu">
+              <table
+                class="flavours-menu-table"
+                aria-labelledby="flavours-menu-caption"
+              >
+                <caption class="sr-only" id="flavours-menu-caption">
+                  Brightside cocktail menu prices
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Cocktail</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="flavours-menu-row"
+                    data-flavours-menu-row
                     data-flavour-id="brightside-special"
-                    data-title="Brightside Special"
-                    data-price="₦7,500.00"
-                    data-unit-naira="7500"
-                    data-contains="Vodka, Cranberry Extract &amp; Simple Syrup."
-                    data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label="3 of 4"
-                    aria-hidden="true"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Select Brightside Special"
                   >
-                    <button class="flavours-zoom" type="button" data-flavours-zoom aria-label="View Brightside Special label full size">
-                      <img src="assets/images/flavours/bright-side-special.jpeg" width="800" height="1200" alt="" loading="lazy">
-                    </button>
-                  </figure>
-                  <figure
-                    class="flavours-slide"
-                    data-flavours-slide
+                    <th scope="row">Brightside Special</th>
+                    <td>₦7,500.00</td>
+                  </tr>
+                  <tr
+                    class="flavours-menu-row"
+                    data-flavours-menu-row
+                    data-flavour-id="long-island"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Select Long Island"
+                  >
+                    <th scope="row">Long Island</th>
+                    <td>₦7,500.00</td>
+                  </tr>
+                  <tr
+                    class="flavours-menu-row"
+                    data-flavours-menu-row
                     data-flavour-id="pornstar-martini"
-                    data-title="Pornstar Martini"
-                    data-price="₦8,000.00"
-                    data-unit-naira="8000"
-                    data-contains="Vanilla Flavoured Vodka, Passion Fruit &amp; Simple Syrup."
-                    data-fact="This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time."
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label="4 of 4"
-                    aria-hidden="true"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Select Pornstar Martini"
                   >
-                    <button class="flavours-zoom" type="button" data-flavours-zoom aria-label="View Pornstar Martini label full size">
-                      <img src="assets/images/flavours/pornstar-martini.jpeg" width="800" height="1200" alt="" loading="lazy">
-                    </button>
-                  </figure>
-                </div>
-                <button class="flavours-control flavours-next" type="button" data-flavours-next aria-label="Next flavour">
-                  <span aria-hidden="true">&rsaquo;</span>
-                </button>
-                <p class="flavours-counter" data-flavours-counter aria-live="polite"><span data-flavours-current>01</span> <span>/ 04</span></p>
-              </div>
-              <div class="flavours-thumbs" role="tablist" aria-label="Choose a flavour">
-                <button class="flavours-thumb is-active" type="button" role="tab" data-flavours-thumb aria-selected="true" aria-label="Mango Margarita">
-                  <img src="assets/images/flavours/mango-margarita.jpeg" alt="" loading="lazy">
-                  <span>Mango Margarita</span>
-                </button>
-                <button class="flavours-thumb" type="button" role="tab" data-flavours-thumb aria-selected="false" aria-label="Long Island">
-                  <img src="assets/images/flavours/long-island.jpeg" alt="" loading="lazy">
-                  <span>Long Island</span>
-                </button>
-                <button class="flavours-thumb" type="button" role="tab" data-flavours-thumb aria-selected="false" aria-label="Brightside Special">
-                  <img src="assets/images/flavours/bright-side-special.jpeg" alt="" loading="lazy">
-                  <span>Brightside Special</span>
-                </button>
-                <button class="flavours-thumb" type="button" role="tab" data-flavours-thumb aria-selected="false" aria-label="Pornstar Martini">
-                  <img src="assets/images/flavours/pornstar-martini.jpeg" alt="" loading="lazy">
-                  <span>Pornstar Martini</span>
+                    <th scope="row">Pornstar Martini</th>
+                    <td>₦8,000.00</td>
+                  </tr>
+                  <tr
+                    class="flavours-menu-row is-active"
+                    data-flavours-menu-row
+                    data-flavour-id="mango-margarita"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Select Mango Margarita"
+                    aria-current="true"
+                  >
+                    <th scope="row">Mango Margarita</th>
+                    <td>₦8,000.00</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="flavours-menu-actions">
+                <button
+                  class="btn flavours-menu-cta"
+                  type="button"
+                  data-flavours-add
+                  aria-label="Add selected cocktail to your order"
+                >
+                  Add to order
                 </button>
               </div>
             </div>
-            <article class="flavours-detail" data-flavours-detail aria-live="polite">
-              <p class="flavours-kicker">Brightside · Sweet &amp; Strong</p>
-              <p class="flavours-menu-label">Cocktail menu</p>
-              <h3 class="flavours-name" data-flavours-title>Mango Margarita</h3>
-              <div class="flavours-qty" data-flavours-qty>
-                <span class="flavours-qty-label" id="flavours-qty-label">Quantity</span>
-                <div class="flavours-qty-control" role="group" aria-labelledby="flavours-qty-label">
-                  <button class="flavours-qty-btn" type="button" data-flavours-qty-decrease aria-label="Decrease quantity">&minus;</button>
-                  <input class="flavours-qty-input" type="number" data-flavours-qty-input min="1" max="99" value="1" inputmode="numeric" aria-label="Quantity">
-                  <button class="flavours-qty-btn" type="button" data-flavours-qty-increase aria-label="Increase quantity">+</button>
-                </div>
-              </div>
-              <p class="flavours-price"><span class="flavours-price-label">Total</span> <span data-flavours-price>₦8,000.00</span></p>
-              <p class="flavours-price-breakdown" data-flavours-price-breakdown>1 &times; ₦8,000.00 each</p>
-              <p class="flavours-fresh"><span>Drink me within 48hrs</span></p>
-              <dl class="flavours-facts">
-                <div class="flavours-fact-row">
-                  <dt>Contains</dt>
-                  <dd data-flavours-contains>Tequila, Mango Juice, Fresh Lime Juice, &amp; Simple Syrup.</dd>
-                </div>
-                <div class="flavours-fact-row">
-                  <dt>Fun fact</dt>
-                  <dd data-flavours-fact>This drink increases the chance of you sending that text but it doesn't matter cause, you're having a good time.</dd>
-                </div>
-              </dl>
-              <p class="flavours-producer">Produced by:<br>Brightside.corp</p>
-              <button class="btn flavours-cta" type="button" data-flavours-add>Add to order</button>
-              <p class="flavours-in-cart" data-flavours-in-cart hidden></p>
-            </article>
+            <dialog
+              class="flavours-lightbox"
+              data-flavours-lightbox
+              aria-labelledby="flavours-lightbox-caption"
+            >
+              <button
+                class="flavours-lightbox-close"
+                type="button"
+                data-flavours-lightbox-close
+                aria-label="Close enlarged view"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <figure class="flavours-lightbox-figure">
+                <img
+                  class="flavours-lightbox-image"
+                  data-flavours-lightbox-image
+                  width="800"
+                  height="1200"
+                  alt=""
+                />
+                <figcaption
+                  class="flavours-lightbox-caption"
+                  id="flavours-lightbox-caption"
+                  data-flavours-lightbox-caption
+                ></figcaption>
+              </figure>
+            </dialog>
           </div>
-          <div class="flavours-playback-row">
-            <div class="flavours-progress" role="progressbar" aria-label="Flavour slideshow progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" data-flavours-progress>
-              <span data-flavours-progress-fill></span>
-            </div>
-          </div>
-          <div class="flavours-menu">
-            <table class="flavours-menu-table" aria-labelledby="flavours-menu-caption">
-              <caption class="sr-only" id="flavours-menu-caption">Brightside cocktail menu prices</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Cocktail</th>
-                  <th scope="col">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="flavours-menu-row" data-flavours-menu-row data-flavour-id="brightside-special" tabindex="0" role="button" aria-label="Select Brightside Special">
-                  <th scope="row">Brightside Special</th>
-                  <td>₦7,500.00</td>
-                </tr>
-                <tr class="flavours-menu-row" data-flavours-menu-row data-flavour-id="long-island" tabindex="0" role="button" aria-label="Select Long Island">
-                  <th scope="row">Long Island</th>
-                  <td>₦7,500.00</td>
-                </tr>
-                <tr class="flavours-menu-row" data-flavours-menu-row data-flavour-id="pornstar-martini" tabindex="0" role="button" aria-label="Select Pornstar Martini">
-                  <th scope="row">Pornstar Martini</th>
-                  <td>₦8,000.00</td>
-                </tr>
-                <tr class="flavours-menu-row is-active" data-flavours-menu-row data-flavour-id="mango-margarita" tabindex="0" role="button" aria-label="Select Mango Margarita" aria-current="true">
-                  <th scope="row">Mango Margarita</th>
-                  <td>₦8,000.00</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="flavours-menu-actions">
-              <button class="btn flavours-menu-cta" type="button" data-flavours-add aria-label="Add selected cocktail to your order">Add to order</button>
-            </div>
-          </div>
-          <dialog class="flavours-lightbox" data-flavours-lightbox aria-labelledby="flavours-lightbox-caption">
-            <button class="flavours-lightbox-close" type="button" data-flavours-lightbox-close aria-label="Close enlarged view">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <figure class="flavours-lightbox-figure">
-              <img class="flavours-lightbox-image" data-flavours-lightbox-image width="800" height="1200" alt="">
-              <figcaption class="flavours-lightbox-caption" id="flavours-lightbox-caption" data-flavours-lightbox-caption></figcaption>
-            </figure>
-          </dialog>
-        </div>
-      </section>
+        </section>
 
-      <section class="gallery" id="gallery" aria-labelledby="gallery-title" data-reveal>
-        <header class="gallery-head">
-          <p class="gallery-kicker">Good times, in good company</p>
-          <h2 id="gallery-title">The Brightside<br><em>looks good on you.</em></h2>
-          <p class="gallery-lead">A little sunshine, a cold can, and your kind of people.</p>
-        </header>
-        <div class="gallery-carousel" data-gallery-carousel role="region" aria-roledescription="carousel" aria-label="Brightside photo gallery" tabindex="0">
-          <div class="gallery-viewport">
-            <div class="gallery-progress" role="progressbar" aria-label="Slideshow progress" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" data-gallery-progress>
-              <span></span>
+        <section
+          class="gallery"
+          id="gallery"
+          aria-labelledby="gallery-title"
+          data-reveal
+        >
+          <header class="gallery-head">
+            <p class="gallery-kicker">Good times, in good company</p>
+            <h2 id="gallery-title">
+              The Brightside<br /><em>looks good on you.</em>
+            </h2>
+            <p class="gallery-lead">
+              A little sunshine, a cold can, and your kind of people.
+            </p>
+          </header>
+          <div
+            class="gallery-carousel"
+            data-gallery-carousel
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Brightside photo gallery"
+            tabindex="0"
+          >
+            <div class="gallery-viewport">
+              <div
+                class="gallery-progress"
+                role="progressbar"
+                aria-label="Slideshow progress"
+                aria-valuemin="1"
+                aria-valuemax="7"
+                aria-valuenow="1"
+                data-gallery-progress
+              >
+                <span></span>
+              </div>
+              <button
+                class="gallery-control gallery-previous"
+                type="button"
+                data-gallery-previous
+                aria-label="Previous photo"
+              >
+                <span aria-hidden="true">&lsaquo;</span>
+              </button>
+              <figure
+                class="gallery-slide"
+                role="group"
+                aria-roledescription="slide"
+                aria-label="1 of 7"
+                data-gallery-slide
+              >
+                <img
+                  class="gallery-slide-image"
+                  data-gallery-image
+                  src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(1).jpeg"
+                  alt="A woman smiling with a Brightside can on a ride."
+                  fetchpriority="high"
+                />
+                <figcaption class="gallery-slide-caption">
+                  <p
+                    class="gallery-caption"
+                    data-gallery-caption
+                    aria-live="polite"
+                  >
+                    On the way
+                  </p>
+                  <p
+                    class="gallery-counter"
+                    data-gallery-counter
+                    aria-live="polite"
+                  >
+                    <span data-gallery-current>01</span> <span>/ 07</span>
+                  </p>
+                </figcaption>
+              </figure>
+              <button
+                class="gallery-control gallery-next"
+                type="button"
+                data-gallery-next
+                aria-label="Next photo"
+              >
+                <span aria-hidden="true">&rsaquo;</span>
+              </button>
             </div>
-            <button class="gallery-control gallery-previous" type="button" data-gallery-previous aria-label="Previous photo">
-              <span aria-hidden="true">&lsaquo;</span>
-            </button>
-            <figure class="gallery-slide" role="group" aria-roledescription="slide" aria-label="1 of 7" data-gallery-slide>
-              <img class="gallery-slide-image" data-gallery-image src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(1).jpeg" alt="A woman smiling with a Brightside can on a ride." fetchpriority="high">
-              <figcaption class="gallery-slide-caption">
-                <p class="gallery-caption" data-gallery-caption aria-live="polite">On the way</p>
-                <p class="gallery-counter" data-gallery-counter aria-live="polite"><span data-gallery-current>01</span> <span>/ 07</span></p>
-              </figcaption>
-            </figure>
-            <button class="gallery-control gallery-next" type="button" data-gallery-next aria-label="Next photo">
-              <span aria-hidden="true">&rsaquo;</span>
-            </button>
-          </div>
-          <div class="gallery-foot">
-            <div class="gallery-dots" role="group" aria-label="Choose a photo">
-              <button class="gallery-dot is-active" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(1).jpeg" data-caption="On the way" data-alt="A woman smiling with a Brightside can on a ride." aria-label="Photo 1: On the way" aria-current="true"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(2).jpeg" data-caption="All together" data-alt="Friends share a Brightside moment on the ride." aria-label="Photo 2: All together"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(3).jpeg" data-caption="Take a moment" data-alt="A woman enjoys a Brightside cocktail from a can." aria-label="Photo 3: Take a moment"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(4).jpeg" data-caption="Cheers to that" data-alt="A woman raises a Brightside can for a toast." aria-label="Photo 4: Cheers to that"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(5).jpeg" data-caption="The good stuff" data-alt="A woman laughs with her Brightside can in hand." aria-label="Photo 5: The good stuff"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(6).jpeg" data-caption="Made for sharing" data-alt="A woman shares a Brightside moment with her friends." aria-label="Photo 6: Made for sharing"></button>
-              <button class="gallery-dot" type="button" data-gallery-item data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37.jpeg" data-caption="Keep it bright" data-alt="A woman holds a Brightside can while enjoying the ride." aria-label="Photo 7: Keep it bright"></button>
+            <div class="gallery-foot">
+              <div
+                class="gallery-dots"
+                role="group"
+                aria-label="Choose a photo"
+              >
+                <button
+                  class="gallery-dot is-active"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(1).jpeg"
+                  data-caption="On the way"
+                  data-alt="A woman smiling with a Brightside can on a ride."
+                  aria-label="Photo 1: On the way"
+                  aria-current="true"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(2).jpeg"
+                  data-caption="All together"
+                  data-alt="Friends share a Brightside moment on the ride."
+                  aria-label="Photo 2: All together"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(3).jpeg"
+                  data-caption="Take a moment"
+                  data-alt="A woman enjoys a Brightside cocktail from a can."
+                  aria-label="Photo 3: Take a moment"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(4).jpeg"
+                  data-caption="Cheers to that"
+                  data-alt="A woman raises a Brightside can for a toast."
+                  aria-label="Photo 4: Cheers to that"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(5).jpeg"
+                  data-caption="The good stuff"
+                  data-alt="A woman laughs with her Brightside can in hand."
+                  aria-label="Photo 5: The good stuff"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37%20(6).jpeg"
+                  data-caption="Made for sharing"
+                  data-alt="A woman shares a Brightside moment with her friends."
+                  aria-label="Photo 6: Made for sharing"
+                ></button>
+                <button
+                  class="gallery-dot"
+                  type="button"
+                  data-gallery-item
+                  data-src="assets/images/people-holding-brand/WhatsApp%20Image%202026-10-30%20at%2009.37.37.jpeg"
+                  data-caption="Keep it bright"
+                  data-alt="A woman holds a Brightside can while enjoying the ride."
+                  aria-label="Photo 7: Keep it bright"
+                ></button>
+              </div>
+              <button
+                class="gallery-play"
+                type="button"
+                data-gallery-play
+                aria-pressed="false"
+                aria-label="Play slideshow"
+              >
+                Play
+              </button>
             </div>
-            <button class="gallery-play" type="button" data-gallery-play aria-pressed="false" aria-label="Play slideshow">Play</button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="reel" id="reel" aria-labelledby="reel-title">
-        <div class="reel-head" data-reveal>
-          <h2 id="reel-title">Enjoy<br><em>The Brightside.</em></h2>
-        </div>
-        <figure class="reel-stage">
-          <div class="reel-ornaments" aria-hidden="true">
-            <svg class="reel-ornament reel-ornament-left reel-ornament-lime" viewBox="0 0 86 90" fill="none">
-              <circle cx="40" cy="52" r="23" stroke="currentColor" stroke-width="1.7"/>
-              <circle cx="40" cy="52" r="7.5" stroke="currentColor" stroke-width="1.7"/>
-              <path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"/>
-              <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M62 24c3 3.2 4.2 6.2 3.2 9"/>
-            </svg>
-            <svg class="reel-ornament reel-ornament-left reel-ornament-star" viewBox="0 0 36 36" fill="none">
-              <path stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/>
-            </svg>
-            <svg class="reel-ornament reel-ornament-left reel-ornament-wedge" viewBox="0 0 72 72">
-              <path fill="currentColor" d="M10 62C12 34 32 12 64 8 56 32 38 54 10 62z"/>
-              <path fill="#ffb07a" d="M22 56c2-16 14-32 34-38-6 14-18 28-34 38z"/>
-            </svg>
-            <svg class="reel-ornament reel-ornament-right reel-ornament-mango" viewBox="0 0 84 100" fill="none">
-              <path stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M44 24c1-8 7-13 12-15"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"/>
-              <path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="M57 13c4 2.2 7 2.4 10.5.4"/>
-              <path stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"/>
-              <path stroke="currentColor" stroke-width="1.45" stroke-linecap="round" d="M30 50c7 2 15 10 17 22"/>
-              <ellipse cx="46" cy="62" rx="6.5" ry="11" transform="rotate(-18 46 62)" stroke="currentColor" stroke-width="1.55"/>
-            </svg>
-            <svg class="reel-ornament reel-ornament-right reel-ornament-spark" viewBox="0 0 36 36">
-              <path fill="currentColor" d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"/>
-            </svg>
-            <svg class="reel-ornament reel-ornament-right reel-ornament-chili" viewBox="0 0 48 86">
-              <path fill="currentColor" d="M20 18c-9 3-14 14-11 28 3 14 8 24 12 34 6-10 13-22 10-36-2-11-5-22-11-26z"/>
-              <path fill="#2f7d46" d="M22 16c-1-9-8-13-14-9 6 1 10 7 9 13 2-1 4-3 5-4z"/>
-            </svg>
+        <section class="reel" id="reel" aria-labelledby="reel-title">
+          <div class="reel-head" data-reveal>
+            <h2 id="reel-title">Enjoy<br /><em>The Brightside.</em></h2>
           </div>
-          <div class="phone is-paused">
-              <span class="phone-side phone-side-left" aria-hidden="true"></span>
-              <span class="phone-side phone-side-right" aria-hidden="true"></span>
+          <figure class="reel-stage">
+            <div class="reel-ornaments" aria-hidden="true">
+              <svg
+                class="reel-ornament reel-ornament-left reel-ornament-lime"
+                viewBox="0 0 86 90"
+                fill="none"
+              >
+                <circle
+                  cx="40"
+                  cy="52"
+                  r="23"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <circle
+                  cx="40"
+                  cy="52"
+                  r="7.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  d="M40 29.5v15M40 59.5V75M17.5 52h15M47.5 52H63M23.8 35.8l10.6 10.6M45.6 57.6l10.6 10.6M56.2 35.8 45.6 46.4M34.4 57.6 23.8 68.2"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  d="M56 28c7-9 18-11 22-8-3 8-9 13-18 15-2-2-3.5-5-4-7z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  d="M62 24c3 3.2 4.2 6.2 3.2 9"
+                />
+              </svg>
+              <svg
+                class="reel-ornament reel-ornament-left reel-ornament-star"
+                viewBox="0 0 36 36"
+                fill="none"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                  d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"
+                />
+              </svg>
+              <svg
+                class="reel-ornament reel-ornament-left reel-ornament-wedge"
+                viewBox="0 0 72 72"
+              >
+                <path
+                  fill="currentColor"
+                  d="M10 62C12 34 32 12 64 8 56 32 38 54 10 62z"
+                />
+                <path
+                  fill="#ffb07a"
+                  d="M22 56c2-16 14-32 34-38-6 14-18 28-34 38z"
+                />
+              </svg>
+              <svg
+                class="reel-ornament reel-ornament-right reel-ornament-mango"
+                viewBox="0 0 84 100"
+                fill="none"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  d="M44 24c1-8 7-13 12-15"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  d="M52 14c8-8 18-7 21-1-7 2-14 6-18 11"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.3"
+                  stroke-linecap="round"
+                  d="M57 13c4 2.2 7 2.4 10.5.4"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                  d="M46 24C28 27 14 42 15 62c1 22 16 34 34 32 18-2 30-16 28-36-2-20-14-36-31-34z"
+                />
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.45"
+                  stroke-linecap="round"
+                  d="M30 50c7 2 15 10 17 22"
+                />
+                <ellipse
+                  cx="46"
+                  cy="62"
+                  rx="6.5"
+                  ry="11"
+                  transform="rotate(-18 46 62)"
+                  stroke="currentColor"
+                  stroke-width="1.55"
+                />
+              </svg>
+              <svg
+                class="reel-ornament reel-ornament-right reel-ornament-spark"
+                viewBox="0 0 36 36"
+              >
+                <path
+                  fill="currentColor"
+                  d="M18 2.2 19.5 14.4 32 18l-12.5 3.6L18 33.8 16.5 21.6 4 18l12.5-3.6L18 2.2z"
+                />
+              </svg>
+              <svg
+                class="reel-ornament reel-ornament-right reel-ornament-chili"
+                viewBox="0 0 48 86"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20 18c-9 3-14 14-11 28 3 14 8 24 12 34 6-10 13-22 10-36-2-11-5-22-11-26z"
+                />
+                <path
+                  fill="#2f7d46"
+                  d="M22 16c-1-9-8-13-14-9 6 1 10 7 9 13 2-1 4-3 5-4z"
+                />
+              </svg>
+            </div>
+            <div class="phone is-paused">
+              <span
+                class="phone-side phone-side-left"
+                aria-hidden="true"
+              ></span>
+              <span
+                class="phone-side phone-side-right"
+                aria-hidden="true"
+              ></span>
               <div class="phone-bezel">
                 <div class="phone-screen">
                   <div class="phone-bar" aria-hidden="true">
@@ -492,149 +1257,332 @@
                     preload="metadata"
                     aria-labelledby="reel-caption"
                   >
-                    <source src="assets/margarita-serve.mp4" type="video/mp4">
+                    <source src="assets/margarita-serve.mp4" type="video/mp4" />
                   </video>
-                  <div class="phone-watch" aria-hidden="true"><span></span></div>
-                  <button class="reel-control" id="reel-control" type="button" aria-controls="reel-video" aria-pressed="false" aria-label="Play the reel">
-                    <svg class="reel-icon reel-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.2v14H7zm6.8 0H17v14h-3.2z"/></svg>
-                    <svg class="reel-icon reel-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.2v13.6L19 12z"/></svg>
+                  <div class="phone-watch" aria-hidden="true">
+                    <span></span>
+                  </div>
+                  <button
+                    class="reel-control"
+                    id="reel-control"
+                    type="button"
+                    aria-controls="reel-video"
+                    aria-pressed="false"
+                    aria-label="Play the reel"
+                  >
+                    <svg
+                      class="reel-icon reel-icon-pause"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M7 5h3.2v14H7zm6.8 0H17v14h-3.2z"
+                      />
+                    </svg>
+                    <svg
+                      class="reel-icon reel-icon-play"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path fill="currentColor" d="M8 5.2v13.6L19 12z" />
+                    </svg>
                     <span class="reel-control-label">Play</span>
                   </button>
                 </div>
               </div>
             </div>
-            <svg class="reel-hand" viewBox="0 0 220 280" fill="none" aria-hidden="true">
-              <g fill="#ffe3cf" stroke="#24161c" stroke-width="2.5" stroke-linejoin="round">
-                <rect x="96" y="148" width="58" height="112" rx="29"/>
-                <rect x="68" y="112" width="116" height="74" rx="34"/>
-                <rect x="72" y="18" width="32" height="118" rx="16"/>
-                <rect x="108" y="52" width="28" height="82" rx="14"/>
-                <rect x="138" y="66" width="26" height="70" rx="13"/>
-                <rect x="166" y="86" width="24" height="54" rx="12"/>
-                <rect x="22" y="128" width="62" height="28" rx="14" transform="rotate(-34 53 142)"/>
+            <svg
+              class="reel-hand"
+              viewBox="0 0 220 280"
+              fill="none"
+              aria-hidden="true"
+            >
+              <g
+                fill="#ffe3cf"
+                stroke="#24161c"
+                stroke-width="2.5"
+                stroke-linejoin="round"
+              >
+                <rect x="96" y="148" width="58" height="112" rx="29" />
+                <rect x="68" y="112" width="116" height="74" rx="34" />
+                <rect x="72" y="18" width="32" height="118" rx="16" />
+                <rect x="108" y="52" width="28" height="82" rx="14" />
+                <rect x="138" y="66" width="26" height="70" rx="13" />
+                <rect x="166" y="86" width="24" height="54" rx="12" />
+                <rect
+                  x="22"
+                  y="128"
+                  width="62"
+                  height="28"
+                  rx="14"
+                  transform="rotate(-34 53 142)"
+                />
               </g>
-              <rect x="79" y="26" width="18" height="22" rx="9" fill="#fff7f1" stroke="#24161c" stroke-width="1.8"/>
-              <path stroke="#c73e78" stroke-width="3.2" stroke-linecap="round" d="M76 84h24"/>
+              <rect
+                x="79"
+                y="26"
+                width="18"
+                height="22"
+                rx="9"
+                fill="#fff7f1"
+                stroke="#24161c"
+                stroke-width="1.8"
+              />
+              <path
+                stroke="#c73e78"
+                stroke-width="3.2"
+                stroke-linecap="round"
+                d="M76 84h24"
+              />
             </svg>
-            <figcaption class="reel-caption" id="reel-caption">Friends try Brightside straight from the can.</figcaption>
+            <figcaption class="reel-caption" id="reel-caption">
+              Friends try Brightside straight from the can.
+            </figcaption>
           </figure>
           <a class="btn reel-cta" href="#buy" data-reveal>Try Brightside</a>
-      </section>
+        </section>
 
+        <section class="section buy" id="buy" aria-labelledby="buy-title">
+          <div class="wrap buy-layout">
+            <figure class="buy-photo" data-reveal>
+              <img
+                src="assets/Brightside Parcel Delivery at the Door.png"
+                width="1374"
+                height="1145"
+                alt="A Brightside carrier handed over at the door."
+                loading="lazy"
+              />
+            </figure>
+            <div class="buy-copy" data-reveal>
+              <p class="eyebrow">How to buy</p>
 
-      <section class="section buy" id="buy" aria-labelledby="buy-title">
-        <div class="wrap buy-layout">
-          <figure class="buy-photo" data-reveal>
-            <img src="assets/Brightside Parcel Delivery at the Door.png" width="1374" height="1145" alt="A Brightside carrier handed over at the door." loading="lazy">
-          </figure>
-          <div class="buy-copy" data-reveal>
-            <p class="eyebrow">How to buy</p>
-       
-            <p class="buy-message">Slide into our DMs and we’ll bring the Brightside right to your door.</p>
-            <div class="buy-badges" aria-label="Brightside ordering options">
-              <span>Cold delivery</span>
-              <span>Easy pickup</span>
-              <span>Fresh vibes</span>
+              <p class="buy-message">
+                Slide into our DMs and we’ll bring the Brightside right to your
+                door.
+              </p>
+              <div class="buy-badges" aria-label="Brightside ordering options">
+                <span>Cold delivery</span>
+                <span>Easy pickup</span>
+                <span>Fresh vibes</span>
+              </div>
+              <nav class="buy-social" aria-label="Send us a message">
+                <a
+                  class="buy-social-link buy-social-tiktok"
+                  href="https://www.tiktok.com/@brightside.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M14.2 3h2.2c.2 1.5 1.1 2.8 2.4 3.7 1 .7 2.1 1.1 3.2 1.2v2.3c-1.5 0-2.9-.4-4.2-1.1v7.2c0 3.5-2.8 6.4-6.4 6.4S5 19.8 5 16.3s2.8-6.4 6.4-6.4c.3 0 .7 0 1 .1v2.4c-.3-.1-.7-.2-1-.2-2.3 0-4.1 1.9-4.1 4.1s1.8 4.1 4.1 4.1 4.1-1.8 4.1-4.1V3Z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  class="buy-social-link buy-social-whatsapp"
+                  href="https://wa.me/2349026276388"
+                  data-buy-whatsapp
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M12 3.1a8.4 8.4 0 0 0-7.2 12.6L3.4 21l5.4-1.4A8.4 8.4 0 1 0 12 3.1Zm4.6 11.9c-.2.5-1 1-1.4 1-.4.1-.8.2-2.6-.6-2.2-.9-3.6-3.2-3.7-3.3-.1-.2-1-1.4-1-2.7s.7-1.9.9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.8.7 1.9.1.2.1.3 0 .5l-.4.5c-.1.1-.2.3-.1.5.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1.2-.2.6-.7.8-1 .2-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.5.3.1.2 0 .8-.2 1.2Z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  class="buy-social-link buy-social-instagram"
+                  href="https://www.instagram.com/brightside.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M8.2 4h7.6A4.2 4.2 0 0 1 20 8.2v7.6A4.2 4.2 0 0 1 15.8 20H8.2A4.2 4.2 0 0 1 4 15.8V8.2A4.2 4.2 0 0 1 8.2 4Zm0 1.7A2.5 2.5 0 0 0 5.7 8.2v7.6a2.5 2.5 0 0 0 2.5 2.5h7.6a2.5 2.5 0 0 0 2.5-2.5V8.2a2.5 2.5 0 0 0-2.5-2.5H8.2ZM12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0 1.7A1.9 1.9 0 1 0 13.9 12 1.9 1.9 0 0 0 12 10.1Zm4.55-2.85a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"
+                    />
+                  </svg>
+                </a>
+              </nav>
             </div>
-            <nav class="buy-social" aria-label="Send us a message">
-              <a class="buy-social-link buy-social-tiktok" href="https://www.tiktok.com/@brightside.co" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M14.2 3h2.2c.2 1.5 1.1 2.8 2.4 3.7 1 .7 2.1 1.1 3.2 1.2v2.3c-1.5 0-2.9-.4-4.2-1.1v7.2c0 3.5-2.8 6.4-6.4 6.4S5 19.8 5 16.3s2.8-6.4 6.4-6.4c.3 0 .7 0 1 .1v2.4c-.3-.1-.7-.2-1-.2-2.3 0-4.1 1.9-4.1 4.1s1.8 4.1 4.1 4.1 4.1-1.8 4.1-4.1V3Z"/>
-                </svg>
-              </a>
-              <a class="buy-social-link buy-social-whatsapp" href="https://wa.me/2349026276388" data-buy-whatsapp target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M12 3.1a8.4 8.4 0 0 0-7.2 12.6L3.4 21l5.4-1.4A8.4 8.4 0 1 0 12 3.1Zm4.6 11.9c-.2.5-1 1-1.4 1-.4.1-.8.2-2.6-.6-2.2-.9-3.6-3.2-3.7-3.3-.1-.2-1-1.4-1-2.7s.7-1.9.9-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.8.7 1.9.1.2.1.3 0 .5l-.4.5c-.1.1-.2.3-.1.5.1.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1.2-.2.6-.7.8-1 .2-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.5.3.1.2 0 .8-.2 1.2Z"/>
-                </svg>
-              </a>
-              <a class="buy-social-link buy-social-instagram" href="https://www.instagram.com/brightside.co/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M8.2 4h7.6A4.2 4.2 0 0 1 20 8.2v7.6A4.2 4.2 0 0 1 15.8 20H8.2A4.2 4.2 0 0 1 4 15.8V8.2A4.2 4.2 0 0 1 8.2 4Zm0 1.7A2.5 2.5 0 0 0 5.7 8.2v7.6a2.5 2.5 0 0 0 2.5 2.5h7.6a2.5 2.5 0 0 0 2.5-2.5V8.2a2.5 2.5 0 0 0-2.5-2.5H8.2ZM12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0 1.7A1.9 1.9 0 1 0 13.9 12 1.9 1.9 0 0 0 12 10.1Zm4.55-2.85a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"/>
-                </svg>
-              </a>
-            </nav>
+          </div>
+        </section>
+      </main>
+
+      <div class="order-float" data-order-float hidden>
+        <button
+          class="order-float-trigger"
+          type="button"
+          data-order-float-open
+          aria-expanded="false"
+          aria-controls="order-sheet"
+          aria-label="Review your order"
+        >
+          <span
+            class="order-float-badge"
+            data-order-float-count
+            aria-hidden="true"
+            >0</span
+          >
+          <span class="order-float-copy">
+            <span class="order-float-title">Your order</span>
+            <span class="order-float-meta" data-order-float-meta>0 items</span>
+          </span>
+          <span class="order-float-total" data-order-float-total>₦0.00</span>
+        </button>
+      </div>
+      <dialog
+        class="order-sheet"
+        id="order-sheet"
+        data-order-sheet
+        aria-labelledby="order-sheet-title"
+      >
+        <div class="order-sheet-head">
+          <h2 class="order-sheet-title" id="order-sheet-title">
+            Your Brightside order
+          </h2>
+          <button
+            class="order-sheet-close"
+            type="button"
+            data-order-sheet-close
+            aria-label="Close order summary"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <p class="order-sheet-lead">
+          Mix flavours, adjust quantities, then send the full order on WhatsApp.
+        </p>
+        <ul class="order-sheet-lines" data-order-lines></ul>
+        <p class="order-sheet-empty" data-order-empty hidden>
+          Your order is empty. Add cocktails from the menu above.
+        </p>
+        <footer class="order-sheet-foot">
+          <p class="order-sheet-total-row">
+            <span>Total</span> <strong data-order-grand-total>₦0.00</strong>
+          </p>
+          <a
+            class="btn order-sheet-checkout"
+            href="https://wa.me/2349026276388"
+            data-order-checkout
+            target="_blank"
+            rel="noopener noreferrer"
+            >Order on WhatsApp</a
+          >
+          <button class="order-sheet-clear" type="button" data-order-clear>
+            Clear order
+          </button>
+        </footer>
+      </dialog>
+
+      <dialog
+        class="whatsapp-confirm"
+        data-whatsapp-confirm
+        aria-labelledby="whatsapp-confirm-title"
+      >
+        <div class="whatsapp-confirm-head">
+          <h2 class="whatsapp-confirm-title" id="whatsapp-confirm-title">
+            Send your order on WhatsApp?
+          </h2>
+          <button
+            class="whatsapp-confirm-close"
+            type="button"
+            data-whatsapp-confirm-cancel
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <p class="whatsapp-confirm-lead" data-whatsapp-confirm-lead>
+          You're about to open WhatsApp with your cart summary so our team can
+          confirm availability, delivery or pickup, and payment. Nothing leaves
+          this site until you tap continue.
+        </p>
+        <footer class="whatsapp-confirm-foot">
+          <button
+            class="btn whatsapp-confirm-go"
+            type="button"
+            data-whatsapp-confirm-go
+          >
+            Continue to WhatsApp
+          </button>
+          <button
+            class="whatsapp-confirm-stay"
+            type="button"
+            data-whatsapp-confirm-cancel
+          >
+            Keep editing order
+          </button>
+        </footer>
+      </dialog>
+
+      <footer class="footer">
+        <div class="wrap footer-grid">
+          <nav class="footer-column" aria-label="Our story">
+            <h2>Our story</h2>
+            <a href="#began">How it began</a>
+            <a href="#places">Find us</a>
+          </nav>
+          <nav class="footer-column" aria-label="Products">
+            <h2>Products</h2>
+            <a href="#can">All flavours</a>
+            <a href="#buy">The carrier</a>
+          </nav>
+          <nav class="footer-column" aria-label="Follow us">
+            <h2>Follow us</h2>
+            <a
+              href="https://www.tiktok.com/@brightside.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              >TikTok</a
+            >
+            <a
+              href="https://www.instagram.com/brightside.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Instagram</a
+            >
+          </nav>
+          <div class="footer-column footer-contact">
+            <h2>Come say hi</h2>
+            <a
+              href="https://www.instagram.com/brightside.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Message us on Instagram</a
+            >
           </div>
         </div>
-      </section>
-
-    </main>
-
-    <div class="order-float" data-order-float hidden>
-      <button class="order-float-trigger" type="button" data-order-float-open aria-expanded="false" aria-controls="order-sheet" aria-label="Review your order">
-        <span class="order-float-badge" data-order-float-count aria-hidden="true">0</span>
-        <span class="order-float-copy">
-          <span class="order-float-title">Your order</span>
-          <span class="order-float-meta" data-order-float-meta>0 items</span>
-        </span>
-        <span class="order-float-total" data-order-float-total>₦0.00</span>
-      </button>
+        <img
+          class="footer-word"
+          src="assets/brightside-logo.png"
+          width="855"
+          height="346"
+          alt="Brightside"
+        />
+        <p class="legal">© 2026 Brightside. 21+. Please drink responsibly.</p>
+      </footer>
+      <a
+        class="back-to-top"
+        id="back-to-top"
+        href="#top"
+        aria-label="Back to top"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 19V5m-6 6 6-6 6 6" />
+        </svg>
+      </a>
     </div>
-    <dialog class="order-sheet" id="order-sheet" data-order-sheet aria-labelledby="order-sheet-title">
-      <div class="order-sheet-head">
-        <h2 class="order-sheet-title" id="order-sheet-title">Your Brightside order</h2>
-        <button class="order-sheet-close" type="button" data-order-sheet-close aria-label="Close order summary">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <p class="order-sheet-lead">Mix flavours, adjust quantities, then send the full order on WhatsApp.</p>
-      <ul class="order-sheet-lines" data-order-lines></ul>
-      <p class="order-sheet-empty" data-order-empty hidden>Your order is empty. Add cocktails from the menu above.</p>
-      <footer class="order-sheet-foot">
-        <p class="order-sheet-total-row"><span>Total</span> <strong data-order-grand-total>₦0.00</strong></p>
-        <a class="btn order-sheet-checkout" href="https://wa.me/2349026276388" data-order-checkout target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
-        <button class="order-sheet-clear" type="button" data-order-clear>Clear order</button>
-      </footer>
-    </dialog>
 
-    <dialog class="whatsapp-confirm" data-whatsapp-confirm aria-labelledby="whatsapp-confirm-title">
-      <div class="whatsapp-confirm-head">
-        <h2 class="whatsapp-confirm-title" id="whatsapp-confirm-title">Send your order on WhatsApp?</h2>
-        <button class="whatsapp-confirm-close" type="button" data-whatsapp-confirm-cancel aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <p class="whatsapp-confirm-lead" data-whatsapp-confirm-lead>
-        You're about to open WhatsApp with your cart summary so our team can confirm availability, delivery or pickup, and payment. Nothing leaves this site until you tap continue.
-      </p>
-      <footer class="whatsapp-confirm-foot">
-        <button class="btn whatsapp-confirm-go" type="button" data-whatsapp-confirm-go>Continue to WhatsApp</button>
-        <button class="whatsapp-confirm-stay" type="button" data-whatsapp-confirm-cancel>Keep editing order</button>
-      </footer>
-    </dialog>
-
-    <footer class="footer">
-      <div class="wrap footer-grid">
-        <nav class="footer-column" aria-label="Our story">
-          <h2>Our story</h2>
-          <a href="#began">How it began</a>
-          <a href="#places">Find us</a>
-        </nav>
-        <nav class="footer-column" aria-label="Products">
-          <h2>Products</h2>
-          <a href="#can">All flavours</a>
-          <a href="#buy">The carrier</a>
-        </nav>
-        <nav class="footer-column" aria-label="Follow us">
-          <h2>Follow us</h2>
-          <a href="https://www.tiktok.com/@brightside.co" target="_blank" rel="noopener noreferrer">TikTok</a>
-          <a href="https://www.instagram.com/brightside.co/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        </nav>
-        <div class="footer-column footer-contact">
-          <h2>Come say hi</h2>
-          <a href="https://www.instagram.com/brightside.co/" target="_blank" rel="noopener noreferrer">Message us on Instagram</a>
-        </div>
-   
-      </div>
-      <img class="footer-word" src="assets/brightside-logo.png" width="855" height="346" alt="Brightside">
-      <p class="legal">© 2026 Brightside. 21+. Please drink responsibly.</p>
-    </footer>
-    <a class="back-to-top" id="back-to-top" href="#top" aria-label="Back to top" aria-hidden="true" tabindex="-1">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M12 19V5m-6 6 6-6 6 6"/>
-      </svg>
-    </a>
-  </div>
-
-  <script type="module" src="js/main.js"></script>
-</body>
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>
